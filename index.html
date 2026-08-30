@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Steel City Gameday — Put Your Crew Inside the Game</title>
-  <meta name="description" content="A private, live game-day experience for your crew. Make picks, react together, and turn every Sunday into a season-long race.">
+  <title>Steel City Gameday | Put Your Crew Inside the Game</title>
+  <meta name="description" content="A private game-day room for your crew. Talk, make live picks, keep the receipts, and play through an 18-week season.">
   <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#090a0c">
+  <meta name="theme-color" content="#08090b">
   <link rel="canonical" href="https://steelcitygameday.com/">
 
-  <meta property="og:title" content="Steel City Gameday — Put Your Crew Inside the Game">
-  <meta property="og:description" content="More immersive than a group text. Make picks, react live, and give your crew a season worth remembering.">
+  <meta property="og:title" content="Steel City Gameday | Put Your Crew Inside the Game">
+  <meta property="og:description" content="The group text handles the talk. Steel City Gameday turns it into a live game for your crew.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://steelcitygameday.com/">
   <meta property="og:image" content="https://steelcitygameday.com/assets/og-v2.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Steel City Gameday — put your crew inside the game">
+  <meta property="og:image:alt" content="Steel City Gameday with a private Crew room and live Flash Pick">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Steel City Gameday — Put Your Crew Inside the Game">
-  <meta name="twitter:description" content="More immersive than a group text. Make picks, react live, and give your crew a season worth remembering.">
+  <meta name="twitter:title" content="Steel City Gameday | Put Your Crew Inside the Game">
+  <meta name="twitter:description" content="The group text handles the talk. Steel City Gameday turns it into a live game for your crew.">
   <meta name="twitter:image" content="https://steelcitygameday.com/assets/og-v2.png">
 
   <link rel="icon" href="assets/icon.png" type="image/png">
@@ -27,42 +27,45 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --black: #090a0c;
-      --black-soft: #101216;
-      --panel: #15171c;
-      --white: #f7f3eb;
-      --muted: #aaa9a7;
-      --quiet: #77797f;
+      --ink: #08090b;
+      --ink-soft: #111216;
+      --panel: #18191e;
+      --paper: #f4efe6;
+      --paper-muted: #615f5c;
+      --white: #fffaf1;
+      --muted: #b3b1ad;
+      --quiet: #77787d;
       --gold: #ffb612;
-      --gold-light: #ffd05b;
-      --line: rgba(255, 255, 255, .11);
-      --gold-line: rgba(255, 182, 18, .38);
+      --gold-light: #ffd261;
+      --line: rgba(255, 255, 255, .12);
+      --dark-line: rgba(8, 9, 11, .18);
       --display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
       --body: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --max: 1180px;
-      --gutter: clamp(20px, 5vw, 64px);
-      --section: clamp(78px, 10vw, 136px);
+      --max: 1240px;
+      --gutter: clamp(22px, 4.5vw, 64px);
+      --section: clamp(84px, 10vw, 144px);
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; background: var(--black); }
+    html { scroll-behavior: smooth; background: var(--ink); }
     body {
       min-width: 320px;
       margin: 0;
       overflow-x: hidden;
-      background: var(--black);
+      background: var(--ink);
       color: var(--white);
       font: 400 16px/1.65 var(--body);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
+
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; height: auto; }
-    h1, h2, h3, p, figure, ul { margin: 0; }
-    ul { padding: 0; list-style: none; }
-    ::selection { background: var(--gold); color: var(--black); }
+    h1, h2, h3, p, figure { margin: 0; }
+    ::selection { background: var(--gold); color: var(--ink); }
     :focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
 
     .skip-link {
@@ -73,7 +76,7 @@
       border-radius: 8px;
       padding: 10px 14px;
       background: var(--gold);
-      color: var(--black);
+      color: var(--ink);
       font-weight: 800;
       transform: translateY(-160%);
     }
@@ -83,7 +86,7 @@
       font-family: var(--display);
       font-weight: 900;
       letter-spacing: -.035em;
-      line-height: .9;
+      line-height: .88;
       text-transform: uppercase;
     }
     .eyebrow {
@@ -91,42 +94,39 @@
       font-size: 11px;
       font-weight: 800;
       letter-spacing: .16em;
-      line-height: 1.3;
+      line-height: 1.35;
       text-transform: uppercase;
     }
+
     .button {
       display: inline-flex;
       min-height: 54px;
       align-items: center;
       justify-content: center;
+      gap: 12px;
       border: 1px solid transparent;
-      border-radius: 10px;
-      padding-inline: 22px;
+      border-radius: 8px;
+      padding-inline: 23px;
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: .065em;
+      letter-spacing: .055em;
       text-transform: uppercase;
       transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
     }
     .button:hover { transform: translateY(-2px); }
-    .button-primary { background: var(--gold); color: var(--black); }
+    .button-primary { background: var(--gold); color: var(--ink); }
     .button-primary:hover { background: var(--gold-light); }
-    .button-secondary { border-color: var(--line); color: var(--white); }
-    .button-secondary:hover { border-color: var(--gold-line); color: var(--gold); }
+    .button-quiet { border-color: var(--line); color: var(--white); }
+    .button-quiet:hover { border-color: rgba(255, 182, 18, .55); color: var(--gold); }
 
     /* Header */
     .site-header {
       position: relative;
-      z-index: 10;
+      z-index: 20;
       border-bottom: 1px solid var(--line);
-      background: var(--black);
+      background: rgba(8, 9, 11, .96);
     }
-    .nav {
-      display: flex;
-      min-height: 76px;
-      align-items: center;
-      gap: 28px;
-    }
+    .nav { display: flex; min-height: 72px; align-items: center; gap: 28px; }
     .brand { display: inline-flex; min-height: 44px; align-items: center; gap: 12px; }
     .brand-icon { width: 38px; height: 38px; border-radius: 9px; }
     .brand-name {
@@ -135,203 +135,324 @@
       text-transform: uppercase;
     }
     .brand-name span { color: var(--gold); }
-    .nav-links { display: flex; align-items: center; gap: 28px; margin-left: auto; }
-    .nav-links a { min-height: 44px; display: inline-flex; align-items: center; color: var(--muted); font-size: 12px; font-weight: 700; }
-    .nav-links a:hover { color: var(--white); }
+    .nav-link {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .nav-link:hover { color: var(--white); }
     .nav-cta {
       display: inline-flex;
       min-height: 42px;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--gold-line);
+      border: 1px solid rgba(255, 182, 18, .45);
       border-radius: 999px;
       padding-inline: 17px;
       color: var(--gold);
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: .09em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
-    .nav-cta:hover { background: var(--gold); color: var(--black); }
+    .nav-cta:hover { background: var(--gold); color: var(--ink); }
 
     /* Hero */
-    .hero { padding-block: clamp(66px, 9vw, 116px); }
+    .hero { overflow: hidden; }
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.04fr) minmax(300px, .76fr);
-      align-items: center;
-      gap: clamp(54px, 9vw, 120px);
+      min-height: min(790px, calc(100svh - 73px));
+      grid-template-columns: minmax(0, .92fr) minmax(440px, 1.08fr);
+      align-items: stretch;
     }
-    .hero h1 { max-width: 720px; margin-top: 24px; font-size: clamp(72px, 8.2vw, 116px); }
-    .hero-lede { max-width: 650px; margin-top: 28px; color: #c3c1bc; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.6; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-    .hero-note { margin-top: 22px; color: var(--quiet); font-size: 12px; font-weight: 600; }
-    .hero-media {
+    .hero-copy {
       position: relative;
-      display: grid;
-      min-height: 640px;
-      place-items: center;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background: linear-gradient(150deg, #1b1d22, #0e0f12 68%);
+      z-index: 2;
+      display: flex;
+      max-width: 650px;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: 76px;
+      padding-right: clamp(36px, 6vw, 92px);
     }
-    .hero-media::before {
+    .hero h1 { margin-top: 24px; font-size: clamp(78px, 7.5vw, 116px); }
+    .hero h1 span { display: block; }
+    .hero h1 .gold { color: var(--gold); }
+    .hero-lede {
+      max-width: 585px;
+      margin-top: 30px;
+      color: #c9c6c0;
+      font-size: clamp(17px, 1.45vw, 20px);
+      line-height: 1.6;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .hero-note { margin-top: 20px; color: var(--quiet); font-size: 11px; font-weight: 600; }
+
+    .hero-art {
+      position: relative;
+      min-height: 700px;
+      overflow: hidden;
+      clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
+      background:
+        radial-gradient(circle at 73% 38%, rgba(255, 182, 18, .24), transparent 34%),
+        linear-gradient(145deg, #202126 0%, #101115 52%, #060709 100%);
+      isolation: isolate;
+    }
+    .hero-art::before {
       position: absolute;
-      top: -22%;
-      right: -35%;
-      width: 90%;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: rgba(255, 182, 18, .11);
-      filter: blur(2px);
+      inset: -20% -30% -20% 10%;
+      z-index: -1;
+      background:
+        linear-gradient(121deg, transparent 45%, rgba(255, 182, 18, .26) 45.2%, rgba(255, 182, 18, .26) 45.5%, transparent 45.7%),
+        linear-gradient(121deg, transparent 56%, rgba(255, 182, 18, .12) 56.2%, rgba(255, 182, 18, .12) 56.5%, transparent 56.7%),
+        repeating-linear-gradient(165deg, rgba(255, 255, 255, .018) 0 1px, transparent 1px 7px);
       content: "";
     }
-    .phone {
-      position: relative;
-      width: min(72%, 310px);
-      overflow: hidden;
-      border: 8px solid #282a30;
-      border-radius: 48px;
-      background: #111216;
-      box-shadow: 0 34px 68px rgba(0, 0, 0, .48);
+    .hero-art::after {
+      position: absolute;
+      right: 7%;
+      bottom: 7%;
+      width: 48%;
+      height: 8px;
+      background: repeating-linear-gradient(90deg, var(--gold) 0 34px, transparent 34px 52px);
+      content: "";
+      opacity: .65;
+      transform: skewX(-28deg);
     }
-    .phone img { width: 100%; }
-    .hero-caption { position: absolute; right: 24px; bottom: 20px; color: var(--quiet); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-
-    /* Difference */
-    .difference { border-block: 1px solid var(--line); background: var(--black-soft); }
-    .difference-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-    .difference-item { min-height: 168px; padding: 35px 30px 36px 0; }
-    .difference-item + .difference-item { border-left: 1px solid var(--line); padding-left: 30px; }
-    .difference-item span { color: var(--gold); font: 800 12px/1 var(--display); letter-spacing: .12em; }
-    .difference-item h2 { margin-top: 18px; font: 800 27px/1 var(--display); text-transform: uppercase; }
-    .difference-item p { max-width: 330px; margin-top: 10px; color: var(--muted); font-size: 13px; line-height: 1.55; }
-
-    /* Shared sections */
-    .section { padding-block: var(--section); }
-    .section-heading { max-width: 880px; }
-    .section-heading h2 { margin-top: 21px; font-size: clamp(58px, 7vw, 92px); }
-    .section-heading > p:last-child { max-width: 690px; margin-top: 26px; color: var(--muted); font-size: clamp(17px, 1.6vw, 20px); }
+    .hero-phone {
+      position: absolute;
+      top: 4%;
+      right: clamp(7%, 5vw, 13%);
+      width: min(52%, 370px);
+      overflow: hidden;
+      border: 8px solid #36383e;
+      border-radius: 52px;
+      background: #101115;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, .58), 0 0 0 1px rgba(255, 255, 255, .13);
+      transform: rotate(6deg);
+      transform-origin: 50% 90%;
+    }
+    .hero-phone img { width: 100%; }
+    .hero-label {
+      position: absolute;
+      left: 12%;
+      bottom: 9%;
+      max-width: 170px;
+      color: rgba(255, 250, 241, .66);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      line-height: 1.55;
+      text-transform: uppercase;
+    }
+    .hero-label b { display: block; margin-bottom: 6px; color: var(--gold); font-size: 12px; }
 
     /* Experience */
+    .experience {
+      border-top: 1px solid var(--line);
+      padding-block: var(--section);
+      background: var(--paper);
+      color: var(--ink);
+    }
     .experience-grid {
       display: grid;
-      grid-template-columns: minmax(300px, .82fr) minmax(0, 1.18fr);
+      grid-template-columns: minmax(340px, .9fr) minmax(0, 1.1fr);
       align-items: center;
-      gap: clamp(54px, 10vw, 128px);
-      margin-top: clamp(56px, 8vw, 92px);
+      gap: clamp(58px, 9vw, 122px);
     }
     .screen-stage {
+      position: relative;
       display: grid;
-      min-height: 650px;
+      min-height: 680px;
+      overflow: hidden;
       place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 26px;
-      background: var(--black-soft);
+      background: var(--ink-soft);
     }
-    .screen-stage .phone { width: min(73%, 305px); }
-    .experience-list { border-top: 1px solid var(--line); }
-    .experience-item { display: grid; grid-template-columns: 42px 1fr; gap: 20px; border-bottom: 1px solid var(--line); padding-block: 29px; }
-    .experience-item span { color: var(--gold); font: 800 13px/1 var(--display); letter-spacing: .08em; }
-    .experience-item h3 { font: 800 clamp(28px, 3vw, 38px)/1 var(--display); text-transform: uppercase; }
-    .experience-item p { max-width: 550px; margin-top: 10px; color: var(--muted); font-size: 14px; }
+    .screen-stage::after {
+      position: absolute;
+      right: -8%;
+      bottom: 8%;
+      width: 58%;
+      height: 9px;
+      background: repeating-linear-gradient(90deg, var(--gold) 0 36px, transparent 36px 55px);
+      content: "";
+      opacity: .75;
+      transform: skewX(-28deg);
+    }
+    .stage-phone {
+      position: relative;
+      z-index: 1;
+      width: min(69%, 310px);
+      overflow: hidden;
+      border: 8px solid #34363b;
+      border-radius: 48px;
+      background: #101115;
+      box-shadow: 0 34px 70px rgba(0, 0, 0, .42);
+    }
+    .experience-copy .eyebrow { color: #976400; }
+    .experience h2 { max-width: 670px; margin-top: 22px; font-size: clamp(64px, 7vw, 96px); }
+    .experience-lede {
+      max-width: 620px;
+      margin-top: 28px;
+      color: var(--paper-muted);
+      font-size: clamp(17px, 1.5vw, 20px);
+      line-height: 1.65;
+    }
+    .experience-points { margin-top: 42px; border-top: 1px solid var(--dark-line); }
+    .experience-point {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 18px;
+      border-bottom: 1px solid var(--dark-line);
+      padding-block: 25px;
+    }
+    .experience-point > span { color: #9a6700; font: 800 13px/1 var(--display); letter-spacing: .08em; }
+    .experience-point h3 { font: 800 clamp(28px, 3vw, 38px)/1 var(--display); text-transform: uppercase; }
+    .experience-point p { max-width: 520px; margin-top: 9px; color: var(--paper-muted); font-size: 14px; }
 
     /* Season */
-    .season { background: var(--white); color: var(--black); }
+    .season { padding-block: var(--section); background: var(--ink); }
     .season-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(300px, .72fr);
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, .82fr);
       align-items: center;
-      gap: clamp(54px, 10vw, 128px);
+      gap: clamp(58px, 9vw, 122px);
     }
-    .season .eyebrow { color: #9b6700; }
-    .season h2 { max-width: 720px; margin-top: 21px; font-size: clamp(62px, 7.2vw, 100px); }
-    .season-lede { max-width: 620px; margin-top: 28px; color: #555457; font-size: clamp(17px, 1.6vw, 20px); }
-    .season-stats { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 620px; margin-top: 40px; border-top: 1px solid rgba(9, 10, 12, .2); }
-    .season-stat { padding: 22px 22px 0 0; }
-    .season-stat + .season-stat { border-left: 1px solid rgba(9, 10, 12, .2); padding-left: 22px; }
-    .season-stat b { display: block; font: 900 48px/.9 var(--display); }
-    .season-stat span { display: block; margin-top: 8px; color: #6d6b6b; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-    .season-media {
+    .season h2 { max-width: 700px; margin-top: 22px; font-size: clamp(68px, 7.4vw, 102px); }
+    .season-lede {
+      max-width: 620px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: clamp(17px, 1.5vw, 20px);
+      line-height: 1.65;
+    }
+    .season-stats {
       display: grid;
-      min-height: 660px;
-      place-items: center;
-      border-radius: 26px;
-      background: #111216;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 620px;
+      margin-top: 42px;
+      border-top: 1px solid var(--line);
     }
-    .season-media .phone { width: min(72%, 305px); box-shadow: 0 30px 60px rgba(0, 0, 0, .3); }
+    .season-stat { padding: 23px 18px 0 0; }
+    .season-stat + .season-stat { border-left: 1px solid var(--line); padding-left: 20px; }
+    .season-stat b { display: block; color: var(--gold); font: 900 52px/.88 var(--display); }
+    .season-stat span {
+      display: block;
+      margin-top: 9px;
+      color: var(--quiet);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+    .season-stage {
+      position: relative;
+      display: grid;
+      min-height: 680px;
+      overflow: hidden;
+      place-items: center;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255, 182, 18, .17), transparent 27%),
+        var(--ink-soft);
+    }
+    .season-stage .stage-phone { width: min(69%, 310px); }
 
-    /* Statement and close */
-    .statement { border-bottom: 1px solid var(--line); padding-block: clamp(68px, 8vw, 100px); background: var(--gold); color: var(--black); }
-    .statement-grid { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 64px; }
-    .statement h2 { max-width: 850px; font: 900 clamp(56px, 7vw, 94px)/.9 var(--display); letter-spacing: -.03em; text-transform: uppercase; }
-    .statement p { max-width: 470px; font-size: clamp(17px, 1.7vw, 20px); line-height: 1.55; }
-
-    .closing { padding-block: var(--section); text-align: center; }
-    .closing h2 { max-width: 920px; margin: 22px auto 0; font-size: clamp(62px, 8vw, 108px); }
-    .closing > .wrap > p:not(.eyebrow) { max-width: 630px; margin: 26px auto 0; color: var(--muted); font-size: 18px; }
-    .closing-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 34px; }
+    /* Close */
+    .closing { padding-block: clamp(78px, 9vw, 120px); background: var(--gold); color: var(--ink); }
+    .closing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+      align-items: end;
+      gap: clamp(40px, 8vw, 100px);
+    }
+    .closing h2 { max-width: 780px; font-size: clamp(62px, 7.4vw, 100px); }
+    .closing-copy p { max-width: 520px; font-size: clamp(17px, 1.45vw, 19px); line-height: 1.6; }
+    .closing .button { margin-top: 26px; background: var(--ink); color: var(--white); }
+    .closing .button:hover { background: #24262b; }
 
     /* Footer */
-    footer { border-top: 1px solid var(--line); padding-block: 38px 42px; }
+    footer { border-top: 1px solid var(--line); padding-block: 36px 42px; }
     .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
     .footer-links { display: flex; flex-wrap: wrap; gap: 6px 24px; }
-    .footer-links a { display: inline-flex; min-height: 44px; align-items: center; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .footer-links a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
     .footer-links a:hover { color: var(--white); }
-    .footer-bottom { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-top: 24px; border-top: 1px solid var(--line); padding-top: 22px; }
+    .footer-bottom {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 22px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
     .disclaimer { max-width: 850px; color: var(--quiet); font-size: 10px; line-height: 1.65; }
     .copyright { flex: 0 0 auto; color: var(--quiet); font-size: 10px; }
 
-    @media (max-width: 860px) {
-      .hero-grid, .season-grid { grid-template-columns: 1fr; }
-      .hero-copy { max-width: 720px; }
-      .hero-media { min-height: 650px; }
-      .difference-grid { grid-template-columns: 1fr; }
-      .difference-item { min-height: auto; padding: 28px 0; }
-      .difference-item + .difference-item { border-top: 1px solid var(--line); border-left: 0; padding-left: 0; }
-      .experience-grid { grid-template-columns: 1fr; }
-      .screen-stage { min-height: 640px; }
+    @media (max-width: 960px) {
+      .hero-grid { min-height: 0; grid-template-columns: 1fr; }
+      .hero-copy { max-width: 760px; padding-block: 72px 64px; padding-right: 0; }
+      .hero-art { min-height: 650px; clip-path: none; }
+      .hero-phone { top: 4%; right: 14%; width: min(46%, 340px); }
+      .hero-label { left: 10%; }
+      .experience-grid, .season-grid { grid-template-columns: 1fr; }
+      .experience-copy { order: 1; }
+      .experience .screen-stage { order: 2; }
       .season-copy { order: 1; }
-      .season-media { order: 2; }
-      .statement-grid { grid-template-columns: 1fr; align-items: start; gap: 28px; }
+      .season-stage { order: 2; }
+      .screen-stage, .season-stage { min-height: 650px; }
+      .closing-grid { grid-template-columns: 1fr; align-items: start; }
     }
 
     @media (max-width: 620px) {
       :root { --gutter: 20px; --section: 78px; }
-      .nav { min-height: 66px; }
-      .nav-links { display: none; }
+      .nav { min-height: 66px; gap: 12px; }
+      .nav-link { display: none; }
       .nav-cta { margin-left: auto; padding-inline: 13px; font-size: 9px; }
       .brand-icon { width: 35px; height: 35px; }
-      .brand-name { max-width: 115px; font-size: 17px; }
-      .hero { padding-top: 54px; }
-      .hero-grid { gap: 46px; }
-      .hero h1 { margin-top: 18px; font-size: clamp(63px, 19vw, 83px); }
-      .hero-lede { margin-top: 22px; font-size: 17px; }
+      .brand-name { max-width: 116px; font-size: 17px; }
+
+      .hero-copy { padding-block: 54px 46px; }
+      .hero h1 { margin-top: 18px; font-size: clamp(61px, 18.5vw, 78px); }
+      .hero-lede { margin-top: 23px; font-size: 17px; }
       .hero-actions { flex-direction: column; margin-top: 28px; }
       .hero-actions .button { width: 100%; }
       .hero-note { text-align: center; }
-      .hero-media { min-height: 510px; border-radius: 20px; }
-      .phone { width: min(76%, 270px); border-width: 7px; border-radius: 42px; }
-      .hero-caption { right: 16px; bottom: 14px; font-size: 8px; }
-      .section-heading h2 { font-size: 56px; }
-      .experience-grid { margin-top: 46px; }
-      .screen-stage { min-height: 520px; border-radius: 20px; }
-      .screen-stage .phone { width: min(76%, 270px); }
-      .experience-item { grid-template-columns: 34px 1fr; gap: 12px; padding-block: 24px; }
-      .experience-item h3 { font-size: 29px; }
-      .season h2 { font-size: 61px; }
-      .season-stats { margin-top: 32px; }
-      .season-stat { padding: 18px 10px 0 0; }
+      .hero-art { min-height: 520px; }
+      .hero-phone { top: 5%; right: 8%; width: min(65%, 286px); border-width: 7px; border-radius: 43px; transform: rotate(5deg); }
+      .hero-label { left: 7%; bottom: 9%; max-width: 120px; font-size: 8px; }
+      .hero-label b { font-size: 10px; }
+      .hero-art::after { right: -8%; bottom: 5%; width: 67%; height: 7px; }
+
+      .experience-grid, .season-grid { gap: 46px; }
+      .experience h2, .season h2 { font-size: 58px; }
+      .experience-lede, .season-lede { margin-top: 22px; font-size: 17px; }
+      .experience-points { margin-top: 34px; }
+      .experience-point { grid-template-columns: 32px 1fr; gap: 12px; padding-block: 22px; }
+      .experience-point h3 { font-size: 29px; }
+      .screen-stage, .season-stage { min-height: 520px; }
+      .stage-phone, .season-stage .stage-phone { width: min(68%, 270px); border-width: 7px; border-radius: 42px; }
+
+      .season-stats { margin-top: 34px; }
+      .season-stat { padding: 19px 9px 0 0; }
       .season-stat + .season-stat { padding-left: 10px; }
-      .season-stat b { font-size: 39px; }
+      .season-stat b { font-size: 40px; }
       .season-stat span { font-size: 8px; }
-      .season-media { min-height: 530px; border-radius: 20px; }
-      .season-media .phone { width: min(76%, 270px); }
-      .statement h2 { font-size: 55px; }
-      .closing h2 { font-size: 59px; }
-      .closing-actions { flex-direction: column; }
-      .closing-actions .button { width: 100%; }
+
+      .closing h2 { font-size: 58px; }
+      .closing .button { width: 100%; }
       .footer-top { align-items: flex-start; flex-direction: column; }
       .footer-links { width: 100%; justify-content: space-between; }
       .footer-bottom { display: block; }
@@ -350,15 +471,12 @@
 
   <header class="site-header">
     <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="Steel City Gameday — home">
+      <a class="brand" href="#top" aria-label="Steel City Gameday home">
         <img class="brand-icon" src="assets/icon.png" alt="" width="38" height="38">
         <span class="brand-name">Steel City <span>Gameday</span></span>
       </a>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#experience">The experience</a>
-        <a href="#season">The season</a>
-      </nav>
-      <a class="nav-cta" href="get/">Get launch update</a>
+      <a class="nav-link" href="#experience">How it works</a>
+      <a class="nav-cta" href="get/">Get update</a>
     </div>
   </header>
 
@@ -366,80 +484,54 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">A private game-day experience for your crew</p>
-          <h1 class="display" id="hero-title">Put your crew inside the game.</h1>
-          <p class="hero-lede">Group texts are great for reactions. Steel City Gameday goes further—live picks, one private room, and a season-long race that gives every take a little more weight.</p>
+          <p class="eyebrow">Your group text, built for game day</p>
+          <h1 class="display" id="hero-title">
+            <span>Put your crew</span>
+            <span class="gold">inside the game.</span>
+          </h1>
+          <p class="hero-lede">The group text handles the talk. Steel City Gameday turns it into a live game with picks, points, and receipts that last all season.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="get/">Get the launch update <span aria-hidden="true">→</span></a>
-            <a class="button button-secondary" href="#experience">See the experience</a>
+            <a class="button button-quiet" href="#experience">See how it works</a>
           </div>
-          <p class="hero-note">Coming to iPhone · Fall 2026 · No public feed. No wagering.</p>
+          <p class="hero-note">Coming to iPhone · Fall 2026 · Private Crews · No wagering</p>
         </div>
 
-        <figure class="hero-media">
-          <div class="phone">
-            <img src="assets/room.png" alt="Steel City Gameday private Crew room with live conversation and a Flash Pick" width="620" height="1347" fetchpriority="high">
+        <figure class="hero-art">
+          <div class="hero-phone">
+            <img src="assets/room.png" alt="A private Steel City Gameday Crew room with live conversation and a Flash Pick" width="620" height="1347" fetchpriority="high">
           </div>
-          <figcaption class="hero-caption">Live Crew room</figcaption>
+          <figcaption class="hero-label"><b>Live Crew room</b>Talk, make the call, and watch it lock.</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="difference" aria-label="What makes Steel City Gameday different">
-      <div class="wrap difference-grid">
-        <article class="difference-item">
-          <span>01 / Together</span>
-          <h2>One room for the whole game</h2>
-          <p>Talk, react, and answer live questions without bouncing between apps.</p>
-        </article>
-        <article class="difference-item">
-          <span>02 / In the moment</span>
-          <h2>Calls that count</h2>
-          <p>Picks lock while the moment is still live, so the bragging rights are real.</p>
-        </article>
-        <article class="difference-item">
-          <span>03 / All season</span>
-          <h2>The thread never forgets</h2>
-          <p>Every right call, bad take, and weekly win becomes part of the season.</p>
-        </article>
-      </div>
-    </section>
+    <section class="experience" id="experience" aria-labelledby="experience-title">
+      <div class="wrap experience-grid">
+        <figure class="screen-stage">
+          <div class="stage-phone">
+            <img src="assets/picks.png" alt="Pregame and live picks inside Steel City Gameday" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
 
-    <section class="section" id="experience" aria-labelledby="experience-title">
-      <div class="wrap">
-        <div class="section-heading">
-          <p class="eyebrow">More than messages</p>
-          <h2 class="display" id="experience-title">The game becomes something you do together.</h2>
-          <p>You’re not juggling a group text, a notes app, and someone’s memory of what they “definitely said.” It all happens in one place, while the game is happening.</p>
-        </div>
+        <div class="experience-copy">
+          <p class="eyebrow">Your group text is still invited</p>
+          <h2 class="display" id="experience-title">Give everyone something to play for.</h2>
+          <p class="experience-lede">Keep the jokes, arguments, and fire emojis. When a Flash Pick drops, everyone makes the call before the clock runs out. The score settles it.</p>
 
-        <div class="experience-grid">
-          <figure class="screen-stage">
-            <div class="phone">
-              <img src="assets/picks.png" alt="Live and pregame picks inside Steel City Gameday" width="620" height="1347" loading="lazy">
-            </div>
-          </figure>
-
-          <div class="experience-list">
-            <article class="experience-item">
+          <div class="experience-points">
+            <article class="experience-point">
               <span>01</span>
               <div>
-                <h3>Bring your people</h3>
-                <p>Create an invite-only Crew for the friends and family you already watch with. No strangers. No algorithm.</p>
+                <h3>The call is live</h3>
+                <p>Flash Picks show up while the game is moving. Your answer locks before the moment passes.</p>
               </div>
             </article>
-            <article class="experience-item">
+            <article class="experience-point">
               <span>02</span>
               <div>
-                <h3>Make the call</h3>
-                <p>Pick before kickoff and answer Flash Picks as the game turns. Once it locks, it locks.</p>
-              </div>
-            </article>
-            <article class="experience-item">
-              <span>03</span>
-              <div>
-                <h3>Keep the receipts</h3>
-                <p>The app remembers who nailed it, who missed, and who is still insisting the refs were the problem.</p>
+                <h3>The room keeps score</h3>
+                <p>Every right call adds points. Every miss stays attached to your name. Nobody has to remember who said what.</p>
               </div>
             </article>
           </div>
@@ -447,42 +539,33 @@
       </div>
     </section>
 
-    <section class="section season" id="season" aria-labelledby="season-title">
+    <section class="season" id="season" aria-labelledby="season-title">
       <div class="wrap season-grid">
         <div class="season-copy">
-          <p class="eyebrow">Built for the long game</p>
+          <p class="eyebrow">Built for the full season</p>
           <h2 class="display" id="season-title">One Sunday leads to the next.</h2>
-          <p class="season-lede">Weekly points roll into four quarter races and one season title. The conversation doesn’t disappear under 200 new texts—it becomes the story of your year.</p>
+          <p class="season-lede">A group text gets buried. Your Crew gets a season. Weekly points feed four quarter races, then one champion owns the year.</p>
           <div class="season-stats" aria-label="Season format">
             <div class="season-stat"><b>18</b><span>Weeks</span></div>
-            <div class="season-stat"><b>4</b><span>Quarter crowns</span></div>
+            <div class="season-stat"><b>4</b><span>Quarter winners</span></div>
             <div class="season-stat"><b>1</b><span>Season champ</span></div>
           </div>
         </div>
 
-        <figure class="season-media">
-          <div class="phone">
+        <figure class="season-stage">
+          <div class="stage-phone">
             <img src="assets/season.png" alt="Steel City Gameday season standings and schedule" width="620" height="1347" loading="lazy">
           </div>
         </figure>
       </div>
     </section>
 
-    <section class="statement" aria-labelledby="statement-title">
-      <div class="wrap statement-grid">
-        <h2 id="statement-title">A group text catches the moment. This builds on it.</h2>
-        <p>Every pick, reaction, and win becomes part of your Crew’s season—not another thread everyone stops scrolling by Tuesday.</p>
-      </div>
-    </section>
-
     <section class="closing" aria-labelledby="closing-title">
-      <div class="wrap">
-        <p class="eyebrow">Coming to iPhone · Fall 2026</p>
-        <h2 class="display" id="closing-title">Game day is better when everyone is in it.</h2>
-        <p>Bring the family thread, the college group, or the friends watching from four different time zones.</p>
-        <div class="closing-actions">
-          <a class="button button-primary" href="get/">Get the launch update <span aria-hidden="true">→</span></a>
-          <a class="button button-secondary" href="mailto:brettcpollak@gmail.com?subject=Steel%20City%20Gameday">Ask a question</a>
+      <div class="wrap closing-grid">
+        <h2 class="display" id="closing-title">Bring the group text. We'll keep score.</h2>
+        <div class="closing-copy">
+          <p>Steel City Gameday is coming to iPhone for the 2026 season. Get the launch update and put your Crew in from Week 1.</p>
+          <a class="button" href="get/">Get the launch update <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -491,7 +574,7 @@
   <footer>
     <div class="wrap">
       <div class="footer-top">
-        <a class="brand" href="#top" aria-label="Steel City Gameday — back to top">
+        <a class="brand" href="#top" aria-label="Steel City Gameday back to top">
           <img class="brand-icon" src="assets/icon.png" alt="" width="38" height="38">
           <span class="brand-name">Steel City <span>Gameday</span></span>
         </a>
@@ -503,7 +586,7 @@
         </nav>
       </div>
       <div class="footer-bottom">
-        <p class="disclaimer">Steel City Gameday is an independent, unofficial fan app. It is not affiliated with, endorsed by, sponsored by, or associated with the Pittsburgh Steelers, the National Football League, or any of their affiliates. Predictions are for entertainment within your own Crew—no wagering, entry fees, or prizes of monetary value.</p>
+        <p class="disclaimer">Steel City Gameday is an independent, unofficial fan app. It is not affiliated with, endorsed by, sponsored by, or associated with the Pittsburgh Steelers, the National Football League, or any of their affiliates. Predictions are for entertainment within your own Crew. There is no wagering, entry fee, or prize of monetary value.</p>
         <p class="copyright">© 2026 Steel City Gameday</p>
       </div>
     </div>
