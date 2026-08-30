@@ -28,7 +28,7 @@
   <main class="document">
     <p class="eyebrow">Plain language. No surprises.</p>
     <h1>Privacy Policy</h1>
-    <p class="effective">Steel City Gameday · Effective August 29, 2026</p>
+    <p class="effective">Steel City Gameday · Effective August 30, 2026</p>
 
     <section>
       <h2>Overview</h2>
@@ -38,11 +38,11 @@
     <section>
       <h2>Information we collect</h2>
       <ul>
-        <li><strong>Account information:</strong> Sign in with Apple provides an account-specific identifier and, only if you choose to share it, your name. We securely exchange Apple’s authorization code and retain an encrypted refresh credential so we can revoke access if you delete your account. We do not request your Apple ID password or contacts.</li>
+        <li><strong>Account information:</strong> Sign in with Apple provides an account-specific identifier and, only if you choose to share it, your name. Supabase maintains the authentication account and session used to sign you in. We securely exchange Apple’s authorization code and retain an encrypted refresh credential so we can revoke access if you delete your account. We do not request your Apple ID password or contacts.</li>
         <li><strong>Profile and Crew information:</strong> your display name, avatar color, Crews, memberships, roles, and invite activity.</li>
-        <li><strong>User content:</strong> messages, reactions, reports, report details, predictions, picks, and game results or receipts associated with your account.</li>
+        <li><strong>User content:</strong> messages, reactions, Crew polls and votes, game-day moments, reports and report details, predictions, picks, standings, and game results or receipts associated with your account.</li>
         <li><strong>Purchase history:</strong> Apple processes Season Pass purchases. The app sends Apple’s signed transaction to our server, where we verify and retain the product, transaction identifiers, purchase and revocation dates, and the Steel City Gameday account linked to the entitlement. This lets us enforce access, restore it across devices, and respond to refunds. We do not receive or store your payment card or bank information.</li>
-        <li><strong>Technical information:</strong> our hosting and authentication providers may process IP address, request time, device or browser type, and diagnostic or security logs when you connect. We use this information to operate, secure, and troubleshoot the Service—not for advertising.</li>
+        <li><strong>Technical and diagnostic information:</strong> our hosting and authentication providers may process your account identifier, IP address, request time, request path and status, device or browser type, user agent, authentication events, and error, diagnostic, or security details when you connect. We use this information to operate, secure, and troubleshoot the Service—not for advertising.</li>
         <li><strong>Support communications:</strong> if you email us, we receive your email address and the information you include so we can respond.</li>
       </ul>
     </section>
@@ -63,11 +63,19 @@
     </section>
 
     <section>
+      <h2>On-device storage and widgets</h2>
+      <p>The app stores your Sign in with Apple identifier in the device Keychain and uses device storage for your signed-in session. It also saves local snapshots of schedules, Crews, participation, and standings so the app can load quickly, work through brief connection problems, and supply the Season Race widget.</p>
+      <p>Signing out or completing account deletion clears the main user-specific snapshots and the Season Race widget snapshot from the shared app and widget container. A basic preference showing that you completed the welcome screens may remain on the device until you delete the app. Deleting the app removes its device-local data, but it does not delete your account or server-side information.</p>
+      <p>If you add the Season Race widget, your Crew name, member display names, and points can appear on your Home Screen. Anyone who can view your Home Screen may see that information.</p>
+    </section>
+
+    <section>
       <h2>When we disclose information</h2>
       <p>We disclose information only as needed to operate the Service:</p>
       <ul>
-        <li><strong>Other users:</strong> your display name, avatar color, Crew role, and content are visible to the people in the relevant Crew.</li>
-        <li><strong>Service providers:</strong> Supabase provides authentication, database, realtime, and storage services; Vercel hosts our API; GitHub hosts the public website; and Apple provides sign-in and in-app purchase services. They process information for us under their own terms and privacy commitments.</li>
+        <li><strong>Other users:</strong> your display name, avatar color, Crew role, and content you post to a Crew are visible to the people in that Crew.</li>
+        <li><strong>Service providers:</strong> Supabase provides authentication, database, and realtime services; Vercel hosts our API and operational logs; GitHub Pages hosts the public website; Apple provides sign-in and in-app purchase services; and Google serves fonts on the website and hosts our support inbox. These providers may receive the information needed to perform those services, such as account, connection, transaction, or support information. We require providers that handle personal information for us to protect it consistently with this policy and applicable law.</li>
+        <li><strong>News and other external sites:</strong> when you open a story from The Wire or follow another external link, the destination site receives ordinary connection information, such as your IP address and browser details, and handles it under its own privacy policy.</li>
         <li><strong>Safety and law:</strong> we may preserve or disclose information when reasonably necessary to comply with law, respond to valid legal process, protect a person’s safety, investigate fraud or abuse, or protect our rights and the Service.</li>
         <li><strong>Business transfer:</strong> if the Service is involved in a merger, financing, acquisition, or sale, information may transfer as part of that transaction subject to this policy and applicable law.</li>
       </ul>
@@ -76,15 +84,17 @@
 
     <section>
       <h2>Retention and account deletion</h2>
-      <p>We retain account information, encrypted Sign in with Apple revocation credentials, content, and linked entitlement records while your account is active and as needed to provide and secure the Service. Reports and security records may be retained as needed to investigate abuse, enforce our Terms, and comply with law.</p>
-      <p>You can delete your account in the app at <strong>Settings → Delete account</strong>. In ordinary operation, this revokes the app’s Sign in with Apple access and removes your authentication account, encrypted Apple refresh credential, Crews you own, memberships, messages, reactions, picks, linked entitlement record, and other account-linked contributions from the live Service. Limited information may remain temporarily in provider backups or security logs, or where retention is required for safety, fraud prevention, dispute resolution, or law. Deleting the app does not delete your account. A Season Pass is managed by your Apple Account; deleting your Steel City Gameday account does not cancel or erase Apple’s purchase record.</p>
+      <p>We retain account information, encrypted Sign in with Apple revocation credentials, content, and linked entitlement records while your account is active and as needed to provide and secure the Service. Technical and authentication logs are generally retained for limited periods based on provider configuration and operational needs. Reports and security records may be retained longer when needed to investigate abuse, enforce our Terms, prevent fraud, resolve disputes, or comply with law.</p>
+      <p>You can delete your account in the app at <strong>Settings → Delete account</strong>. In ordinary operation, this revokes the app’s Sign in with Apple access and removes your authentication account, encrypted Apple refresh credential, profile, Crews you own, memberships, messages, reactions, polls and votes, moments, picks, reports you submitted, invitations, blocks, and linked entitlement record from the live Service.</p>
+      <p>To preserve a Crew’s season history, completed-game receipts and game-room result events in a Crew you did not own may remain after deletion. Those historical records may include your internal account identifier, the display name recorded at the time, points, awards, and game results, and remain available only to members of that Crew. Limited information may also remain temporarily in provider backups, authentication logs, or security logs, or where retention is required for safety, fraud prevention, dispute resolution, or law.</p>
+      <p>Deleting the app does not delete your account. A Season Pass is managed by your Apple Account; deleting your Steel City Gameday account does not cancel or erase Apple’s purchase record.</p>
     </section>
 
     <section>
       <h2>Your choices and rights</h2>
       <ul>
         <li>Edit your display name or block and unblock users in Settings.</li>
-        <li>Delete your account and associated content from Settings without contacting us.</li>
+        <li>Delete your account and associated content from Settings without contacting us, subject to the limited historical, backup, security, and legal-retention exceptions described above.</li>
         <li>Contact us to request access, correction, deletion, or a copy of information associated with you. We may need to verify your identity and may retain information where permitted by law.</li>
       </ul>
       <p>Depending on where you live, you may have additional privacy rights and the right to appeal a decision. We will not discriminate against you for exercising a privacy right.</p>
@@ -92,7 +102,7 @@
 
     <section>
       <h2>Children</h2>
-      <p>The Service is not directed to children under 13, and we do not knowingly collect personal information from a child under 13. If you believe a child has provided personal information, contact us so we can investigate and delete it.</p>
+      <p>The Service requires users to be at least 13 and is not directed to children under 13. We do not ask for a birth date or knowingly collect personal information from a child under 13. If we learn that a child under 13 has provided personal information, we will take steps to delete it. If you believe that has happened, please contact us.</p>
     </section>
 
     <section>
