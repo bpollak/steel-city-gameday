@@ -34,7 +34,7 @@
 
     <div class="invite-actions">
       <a class="cta" id="action" href="https://steelcitygameday.com/">Back to home</a>
-      <a class="secondary-action" id="get-app" href="https://steelcitygameday.com/get/" hidden>Get Steel City Gameday</a>
+      <a class="secondary-action" id="get-app" href="https://steelcitygameday.com/" hidden>Get Steel City Gameday</a>
     </div>
     <p class="legal-note">An independent, unofficial fan app. Not affiliated with or endorsed by the Pittsburgh Steelers or the NFL. No wagering.</p>
   </main>
@@ -64,7 +64,7 @@
         if (!appURL) return;
         event.preventDefault();
         fallbackTimer = window.setTimeout(() => {
-          window.location.assign("https://steelcitygameday.com/get/");
+          window.location.assign("https://steelcitygameday.com/");
         }, 1200);
         window.location.assign(appURL);
       });
