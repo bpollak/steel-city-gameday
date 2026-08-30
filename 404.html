@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Steel City Gameday</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#08090b">
+  <link rel="icon" href="/assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/static-page.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Site navigation">
+      <a class="brand" href="/" aria-label="Steel City Gameday home">
+        <img src="/assets/icon.png" alt="" width="34" height="34">
+        <span>Steel City <strong>Gameday</strong></span>
+      </a>
+      <a class="back-link" href="/">Back to home</a>
+    </nav>
+  </header>
+
+  <main class="get-page" aria-live="polite">
+    <p class="eyebrow" id="eyebrow">Steel City Gameday</p>
+    <h1 id="title">That page isn't here.</h1>
+    <p class="lede" id="message">Head back to Steel City Gameday and keep the game-day conversation going.</p>
+    <section class="invite-card" id="game-card" hidden>
+      <h2>Next game</h2>
+      <p id="game"></p>
+    </section>
+
+    <div class="invite-actions">
+      <a class="cta" id="action" href="https://steelcitygameday.com/">Back to home</a>
+      <a class="secondary-action" id="get-app" href="https://steelcitygameday.com/get/" hidden>Get Steel City Gameday</a>
+    </div>
+    <p class="legal-note">An independent, unofficial fan app. Not affiliated with or endorsed by the Pittsburgh Steelers or the NFL. No wagering.</p>
+  </main>
+
+  <footer>© 2026 Steel City Gameday</footer>
+
+  <script>
+    (() => {
+      const match = window.location.pathname.match(/^\/join\/([A-Za-z0-9_-]{16,128})\/?$/);
+      if (!match) return;
+
+      const token = match[1];
+      const eyebrow = document.querySelector("#eyebrow");
+      const title = document.querySelector("#title");
+      const message = document.querySelector("#message");
+      const action = document.querySelector("#action");
+      const getApp = document.querySelector("#get-app");
+
+      let fallbackTimer;
+      const clearFallback = () => window.clearTimeout(fallbackTimer);
+      window.addEventListener("pagehide", clearFallback);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) clearFallback();
+      });
+      action.addEventListener("click", (event) => {
+        const appURL = action.dataset.appUrl;
+        if (!appURL) return;
+        event.preventDefault();
+        fallbackTimer = window.setTimeout(() => {
+          window.location.assign("https://steelcitygameday.com/get/");
+        }, 1200);
+        window.location.assign(appURL);
+      });
+
+      document.title = "Crew invite · Steel City Gameday";
+      eyebrow.textContent = "Private Crew invite";
+      title.textContent = "You're invited.";
+      message.textContent = "Open Steel City Gameday to join this Crew.";
+      action.textContent = "Open in the app";
+      const canonicalInviteURL = new URL("https://steelcitygameday.com/join/");
+      canonicalInviteURL.searchParams.set("token", token);
+      action.href = canonicalInviteURL.toString();
+      action.dataset.appUrl = `steelcity://join/${encodeURIComponent(token)}`;
+      getApp.hidden = false;
+
+      const previewEndpoint = new URL("https://steel-city-gameday.vercel.app/api/v1/invites/preview");
+      previewEndpoint.searchParams.set("token", token);
+      fetch(previewEndpoint, { headers: { Accept: "application/json" } })
+        .then((response) => response.ok ? response.json() : Promise.reject(new Error("invite unavailable")))
+        .then(({ data }) => {
+          if (!data || typeof data.crew_name !== "string") return;
+          title.textContent = `Join ${data.crew_name}`;
+          const count = Number(data.member_count) || 0;
+          message.textContent = count === 1
+            ? "One member is already in this private Crew. Open the app to join them."
+            : `${count} members are already in this private Crew. Open the app to join them.`;
+
+          if (data.next_game && typeof data.next_game.opponent === "string") {
+            const gameCard = document.querySelector("#game-card");
+            const game = document.querySelector("#game");
+            const homeAway = data.next_game.home_away === "home" ? "vs." : "at";
+            const kickoff = new Date(data.next_game.kickoff_at);
+            const when = Number.isNaN(kickoff.getTime())
+              ? "Kickoff time coming soon"
+              : kickoff.toLocaleString("en-US", {
+                  weekday: "short",
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "2-digit",
+                  timeZoneName: "short",
+                });
+            game.textContent = `Week ${data.next_game.week} ${homeAway} ${data.next_game.opponent} · ${when}`;
+            gameCard.hidden = false;
+          }
+        })
+        .catch(() => {
+          message.textContent = "Open the app to accept this invite. If it has expired, ask the Crew owner for a fresh link.";
+        });
+    })();
+  </script>
+</body>
+</html>
