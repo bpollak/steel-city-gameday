@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Steel City Gameday | Put Your Crew Inside the Game</title>
-  <meta name="description" content="A private game-day room for your crew. Talk, make automatic live picks, keep the receipts, and play through an 18-week season.">
+  <title>Steel City Gameday | Level Up Your Group Text</title>
+  <meta name="description" content="Steel City Gameday turns your group texts into live game picks, private game-day rooms, and season-long standings.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#08090b">
   <link rel="canonical" href="https://steelcitygameday.com/">
 
-  <meta property="og:title" content="Steel City Gameday | Put Your Crew Inside the Game">
-  <meta property="og:description" content="The group text handles the talk. Steel City Gameday turns it into a live game for your crew.">
+  <meta property="og:title" content="Steel City Gameday | Level Up Your Group Text">
+  <meta property="og:description" content="Live game picks, private Crew rooms, and receipts that last all season.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://steelcitygameday.com/">
   <meta property="og:image" content="https://steelcitygameday.com/assets/og-v2.png">
@@ -18,8 +18,8 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Steel City Gameday with a private Crew room and live Flash Pick">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Steel City Gameday | Put Your Crew Inside the Game">
-  <meta name="twitter:description" content="The group text handles the talk. Steel City Gameday turns it into a live game for your crew.">
+  <meta name="twitter:title" content="Steel City Gameday | Level Up Your Group Text">
+  <meta name="twitter:description" content="Live game picks, private Crew rooms, and receipts that last all season.">
   <meta name="twitter:image" content="https://steelcitygameday.com/assets/og-v2.png">
 
   <link rel="icon" href="assets/icon.png" type="image/png">
@@ -271,21 +271,53 @@
       mask-image: linear-gradient(90deg, transparent 0%, #000 13%, #000 100%);
     }
 
-    /* Experience */
-    .experience {
+    /* App sections */
+    .feature-section {
       overflow: hidden;
       border-top: 1px solid var(--line);
       padding-block: var(--section);
-      background: var(--paper);
-      color: var(--ink);
     }
-    .experience-grid {
+    .feature-section.light { background: var(--paper); color: var(--ink); }
+    .feature-section.dark { background: var(--ink); color: var(--white); }
+    .feature-grid {
       display: grid;
       grid-template-columns: minmax(340px, .9fr) minmax(0, 1.1fr);
       align-items: center;
       gap: clamp(58px, 9vw, 122px);
     }
-    .screen-stage {
+    .feature-grid.media-right { grid-template-columns: minmax(0, 1.1fr) minmax(340px, .9fr); }
+    .feature-kicker {
+      margin-bottom: 18px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .feature-section h2 { max-width: 720px; font-size: clamp(60px, 6.4vw, 88px); }
+    .feature-lede {
+      max-width: 630px;
+      margin-top: 28px;
+      font-size: clamp(17px, 1.5vw, 20px);
+      line-height: 1.65;
+    }
+    .feature-section.light .feature-lede,
+    .feature-section.light .feature-point p { color: var(--paper-muted); }
+    .feature-section.dark .feature-lede,
+    .feature-section.dark .feature-point p { color: var(--muted); }
+    .feature-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(28px, 4vw, 52px);
+      margin-top: 42px;
+    }
+    .feature-point { border-top: 2px solid currentColor; padding-top: 23px; }
+    .feature-point h3 {
+      font: 800 clamp(26px, 2.6vw, 34px)/1 var(--display);
+      text-transform: uppercase;
+    }
+    .feature-point p { max-width: 520px; margin-top: 11px; font-size: 15px; }
+    .feature-stage {
       position: relative;
       display: grid;
       min-height: 680px;
@@ -293,35 +325,36 @@
       place-items: center;
       isolation: isolate;
     }
-    .screen-stage::before {
+    .feature-stage::before {
       position: absolute;
       top: 50%;
       left: 50%;
       z-index: -1;
-      width: min(105%, 500px);
+      width: min(108%, 510px);
       aspect-ratio: 1;
       border-radius: 50%;
       background:
-        linear-gradient(126deg, #c7c9cb 0%, #72777e 38%, #272a2f 74%, #a2a5a9 100%),
+        linear-gradient(126deg, #d3d5d7 0%, #777c83 36%, #202328 72%, #aeb1b5 100%),
         repeating-linear-gradient(164deg, rgba(255, 255, 255, .09) 0 1px, transparent 1px 7px);
       content: "";
-      opacity: .9;
+      opacity: .86;
       transform: translate(-50%, -50%) rotate(-12deg);
       -webkit-mask-image: radial-gradient(circle, transparent 0 49%, #000 50% 68%, transparent 69%);
       mask-image: radial-gradient(circle, transparent 0 49%, #000 50% 68%, transparent 69%);
     }
-    .screen-stage::after {
+    .feature-stage::after {
       position: absolute;
-      top: 16%;
+      top: 15%;
       left: 12%;
       z-index: -1;
       width: 5px;
-      height: 68%;
+      height: 69%;
       background: var(--gold);
-      box-shadow: 12px 0 0 rgba(8, 9, 11, .16);
+      box-shadow: 12px 0 0 rgba(8, 9, 11, .14);
       content: "";
       transform: rotate(12deg);
     }
+    .media-right .feature-stage::after { right: 12%; left: auto; transform: rotate(-12deg); }
     .stage-phone {
       position: relative;
       z-index: 1;
@@ -336,101 +369,16 @@
         0 0 0 1px #a3a7ad,
         0 0 0 3px rgba(8, 9, 11, .9);
     }
-    .product-tour { display: block; width: 100%; height: auto; background: #090a0c; }
-    .tour-toggle {
-      position: absolute;
-      right: 14px;
-      bottom: 14px;
-      z-index: 2;
-      display: grid;
-      width: 46px;
-      height: 46px;
-      place-items: center;
-      border: 1px solid rgba(255, 182, 18, .72);
-      border-radius: 50%;
-      background: rgba(8, 9, 11, .88);
-      color: var(--gold);
-      cursor: pointer;
-      font: 800 15px/1 var(--body);
-      -webkit-backdrop-filter: blur(8px);
-      backdrop-filter: blur(8px);
-    }
-    .tour-toggle:hover { background: var(--gold); color: var(--ink); }
-    .experience h2 { max-width: 670px; font-size: clamp(64px, 7vw, 96px); }
-    .experience-lede {
-      max-width: 620px;
-      margin-top: 28px;
-      color: var(--paper-muted);
-      font-size: clamp(17px, 1.5vw, 20px);
-      line-height: 1.65;
-    }
-    .experience-points {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(28px, 4vw, 52px);
-      margin-top: 42px;
-    }
-    .experience-point {
-      border-top: 2px solid var(--ink);
-      padding-top: 23px;
-    }
-    .experience-point h3 { font: 800 clamp(28px, 3vw, 38px)/1 var(--display); text-transform: uppercase; }
-    .experience-point p { max-width: 520px; margin-top: 11px; color: var(--paper-muted); font-size: 15px; }
-
-    /* Season */
-    .season { overflow: hidden; padding-block: var(--section); background: var(--ink); }
-    .season-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(340px, .82fr);
+    .stage-phone img { width: 100%; }
+    .feature-stage-dual {
+      display: flex;
+      min-height: 700px;
       align-items: center;
-      gap: clamp(58px, 9vw, 122px);
+      justify-content: center;
     }
-    .season h2 { max-width: 700px; font-size: clamp(68px, 7.4vw, 102px); }
-    .season-lede {
-      max-width: 620px;
-      margin-top: 28px;
-      color: var(--muted);
-      font-size: clamp(17px, 1.5vw, 20px);
-      line-height: 1.65;
-    }
-    .season-stage {
-      position: relative;
-      display: grid;
-      min-height: 680px;
-      overflow: visible;
-      place-items: center;
-      isolation: isolate;
-    }
-    .season-stage::before {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      z-index: -1;
-      width: min(110%, 520px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background:
-        linear-gradient(126deg, #d3d5d7 0%, #777c83 33%, #202328 72%, #aeb1b5 100%),
-        repeating-linear-gradient(164deg, rgba(255, 255, 255, .09) 0 1px, transparent 1px 7px);
-      content: "";
-      opacity: .84;
-      transform: translate(-50%, -50%) rotate(11deg);
-      -webkit-mask-image: radial-gradient(circle, transparent 0 50%, #000 51% 69%, transparent 70%);
-      mask-image: radial-gradient(circle, transparent 0 50%, #000 51% 69%, transparent 70%);
-    }
-    .season-stage::after {
-      position: absolute;
-      top: 14%;
-      right: 13%;
-      z-index: -1;
-      width: 5px;
-      height: 70%;
-      background: var(--gold);
-      box-shadow: -12px 0 0 rgba(255, 255, 255, .08);
-      content: "";
-      transform: rotate(-11deg);
-    }
-    .season-stage .stage-phone { width: min(69%, 310px); }
+    .feature-stage-dual .stage-phone { width: min(53%, 270px); }
+    .feature-stage-dual .stage-phone:first-child { transform: rotate(-4deg) translateY(-16px); }
+    .feature-stage-dual .stage-phone:last-child { z-index: 2; margin-left: -54px; transform: rotate(4deg) translateY(18px); }
 
     /* Close */
     .closing { padding-block: clamp(78px, 9vw, 120px); background: var(--gold); color: var(--ink); }
@@ -478,12 +426,9 @@
         -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, .9), #000 12%, #000 100%);
         mask-image: linear-gradient(180deg, rgba(0, 0, 0, .9), #000 12%, #000 100%);
       }
-      .experience-grid, .season-grid { grid-template-columns: 1fr; }
-      .experience-copy { order: 1; }
-      .experience .screen-stage { order: 2; }
-      .season-copy { order: 1; }
-      .season-stage { order: 2; }
-      .screen-stage, .season-stage { min-height: 650px; }
+      .feature-grid, .feature-grid.media-right { grid-template-columns: 1fr; }
+      .feature-copy { order: 1; }
+      .feature-stage { order: 2; min-height: 650px; }
       .closing-grid { grid-template-columns: 1fr; align-items: start; }
     }
 
@@ -505,14 +450,17 @@
       .hero-art { min-height: 540px; border-top: 1px solid rgba(255, 255, 255, .13); }
       .hero-product-image { inset: -1% -8% -2%; width: 116%; height: 104%; object-position: 50% 5%; }
 
-      .experience-grid, .season-grid { gap: 46px; }
-      .experience h2, .season h2 { font-size: 58px; }
-      .experience-lede, .season-lede { margin-top: 22px; font-size: 17px; }
-      .experience-points { grid-template-columns: 1fr; gap: 28px; margin-top: 34px; }
-      .experience-point { padding-top: 20px; }
-      .experience-point h3 { font-size: 29px; }
-      .screen-stage, .season-stage { min-height: 520px; }
-      .stage-phone, .season-stage .stage-phone { width: min(68%, 270px); border-width: 7px; border-radius: 42px; }
+      .feature-grid, .feature-grid.media-right { gap: 46px; }
+      .feature-section h2 { font-size: 56px; }
+      .feature-lede { margin-top: 22px; font-size: 17px; }
+      .feature-points { grid-template-columns: 1fr; gap: 28px; margin-top: 34px; }
+      .feature-point { padding-top: 20px; }
+      .feature-point h3 { font-size: 29px; }
+      .feature-stage { min-height: 520px; }
+      .stage-phone { width: min(68%, 270px); border-width: 7px; border-radius: 42px; }
+      .feature-stage-dual { min-height: 560px; }
+      .feature-stage-dual .stage-phone { width: min(56%, 240px); }
+      .feature-stage-dual .stage-phone:last-child { margin-left: -46px; }
 
       .closing h2 { font-size: 58px; }
       .closing .button { width: 100%; }
@@ -548,10 +496,10 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <h1 class="display" id="hero-title">
-            <span>Put your crew</span>
-            <span class="gold">inside the game.</span>
+            <span>Level up your</span>
+            <span class="gold">group text during the game.</span>
           </h1>
-          <p class="hero-lede">The group text handles the talk. Steel City Gameday turns it into a live game with picks, points, and receipts that last all season.</p>
+          <p class="hero-lede">Steel City Game Day turns your group texts into live game picks, tallying receipts that last all season.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="get/">Get the launch update <span aria-hidden="true">→</span></a>
             <a class="button button-quiet" href="#experience">See how it works</a>
@@ -569,47 +517,136 @@
       </div>
     </section>
 
-    <section class="experience" id="experience" aria-labelledby="experience-title">
-      <div class="wrap experience-grid">
-        <figure class="screen-stage">
+    <section class="feature-section light" id="experience" aria-labelledby="crews-title">
+      <div class="wrap feature-grid">
+        <figure class="feature-stage">
           <div class="stage-phone">
-            <video class="product-tour" id="product-tour" autoplay muted loop playsinline preload="metadata" poster="assets/crews.png" aria-label="A walkthrough of Crews, Game Day picks, The Wire, and the season race inside Steel City Gameday">
-              <source src="assets/app-tour.mp4" type="video/mp4">
-            </video>
-            <button class="tour-toggle" type="button" aria-controls="product-tour" aria-label="Pause app walkthrough">Ⅱ</button>
+            <img src="assets/crews.png" alt="The Crews tab with the next matchup and a list of private groups" width="620" height="1347" loading="lazy">
           </div>
         </figure>
 
-        <div class="experience-copy">
-          <h2 class="display" id="experience-title">Give everyone something to play for.</h2>
-          <p class="experience-lede">Keep the jokes, arguments, and fire emojis. When an automatic Flash Pick drops, everyone makes the call before the clock runs out. The score settles it.</p>
-
-          <div class="experience-points">
-            <article class="experience-point">
-              <h3>The call is live</h3>
-              <p>Live score, quarter, and clock updates trigger Flash Picks automatically. Your answer locks before the moment passes—no host required.</p>
+        <div class="feature-copy">
+          <p class="feature-kicker">Crews</p>
+          <h2 class="display" id="crews-title">Crews are private groups for the people you watch with.</h2>
+          <p class="feature-lede">Start a Crew for each group text, then share an invite link. The Crews tab shows your groups, who has joined, and the next game.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Private by default</h3>
+              <p>Only people with your invite link can join a Crew.</p>
             </article>
-            <article class="experience-point">
-              <h3>The room keeps score</h3>
-              <p>Every right call adds points. Every miss stays attached to your name. Nobody has to remember who said what.</p>
+            <article class="feature-point">
+              <h3>Separate groups</h3>
+              <p>Keep family, friends, and other watch groups in their own Crew.</p>
             </article>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="season" id="season" aria-labelledby="season-title">
-      <div class="wrap season-grid">
-        <div class="season-copy">
-          <h2 class="display" id="season-title">One Sunday leads to the next.</h2>
-          <p class="season-lede">A group text gets buried. Your Crew gets a season. Weekly points feed four quarter races, then one champion owns the year.</p>
+    <section class="feature-section dark" aria-labelledby="gameday-title">
+      <div class="wrap feature-grid media-right">
+        <div class="feature-copy">
+          <p class="feature-kicker">Game Day</p>
+          <h2 class="display" id="gameday-title">Game Day has picks, a live room, and receipts.</h2>
+          <p class="feature-lede">Each Crew gets a room for the current game. Make pregame picks, answer timed Flash Picks while the game is live, talk with your Crew, and review the final results afterward.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Picks and points</h3>
+              <p>Choose an answer or enter a number before the timer locks. Correct and closest answers earn points.</p>
+            </article>
+            <article class="feature-point">
+              <h3>Room and receipts</h3>
+              <p>Chat during the game, then see every pick, result, and point total when it is over.</p>
+            </article>
+          </div>
         </div>
 
-        <figure class="season-stage">
+        <figure class="feature-stage feature-stage-dual">
           <div class="stage-phone">
-            <img src="assets/season.png" alt="Steel City Gameday season standings and schedule" width="620" height="1347" loading="lazy">
+            <img src="assets/picks.png" alt="The Game Day Picks screen with prediction questions and point values" width="620" height="1347" loading="lazy">
+          </div>
+          <div class="stage-phone">
+            <img src="assets/room.png" alt="The live Game Day Room with Crew messages and a timed Flash Pick" width="620" height="1347" loading="lazy">
           </div>
         </figure>
+      </div>
+    </section>
+
+    <section class="feature-section light" aria-labelledby="wire-title">
+      <div class="wrap feature-grid">
+        <figure class="feature-stage">
+          <div class="stage-phone">
+            <img src="assets/wire.png" alt="The Wire tab with Steelers headlines, publishers, and related coverage" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
+
+        <div class="feature-copy">
+          <p class="feature-kicker">The Wire</p>
+          <h2 class="display" id="wire-title">The Wire collects Steelers headlines in one place.</h2>
+          <p class="feature-lede">See recent headlines with the publisher and time posted. When multiple outlets cover the same story, The Wire groups that coverage together.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Recent coverage</h3>
+              <p>Pull to refresh and scan the latest stories without opening several sites.</p>
+            </article>
+            <article class="feature-point">
+              <h3>Original sources</h3>
+              <p>Tap a headline to read the full story directly from its publisher.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-section dark" id="season" aria-labelledby="season-title">
+      <div class="wrap feature-grid media-right">
+        <div class="feature-copy">
+          <p class="feature-kicker">Season</p>
+          <h2 class="display" id="season-title">Season shows standings, the schedule, and past results.</h2>
+          <p class="feature-lede">Choose a Crew to see its season standings and quarter winners. The full schedule is listed below, and completed games link back to their receipts.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Crew standings</h3>
+              <p>Points from each game add to the quarter races and overall season race.</p>
+            </article>
+            <article class="feature-point">
+              <h3>Schedule and history</h3>
+              <p>Check upcoming games and open completed games to review their results.</p>
+            </article>
+          </div>
+        </div>
+
+        <figure class="feature-stage">
+          <div class="stage-phone">
+            <img src="assets/season.png" alt="The Season tab with Crew standings and the full schedule" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="feature-section light" aria-labelledby="settings-title">
+      <div class="wrap feature-grid">
+        <figure class="feature-stage">
+          <div class="stage-phone">
+            <img src="assets/settings.png" alt="The Settings tab with profile, Season Pass, blocked members, and account links" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
+
+        <div class="feature-copy">
+          <p class="feature-kicker">Settings</p>
+          <h2 class="display" id="settings-title">Settings controls your profile, safety tools, and account.</h2>
+          <p class="feature-lede">Change the display name your Crew sees, manage blocked members, restore a Season Pass purchase, and find privacy, terms, support, sign-out, and account-deletion options.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Profile and purchases</h3>
+              <p>Update your name and check or restore your Season Pass.</p>
+            </article>
+            <article class="feature-point">
+              <h3>Safety and account</h3>
+              <p>Manage blocked members, get help, sign out, or delete your account.</p>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -644,30 +681,5 @@
       </div>
     </div>
   </footer>
-  <script>
-    (() => {
-      const tour = document.getElementById("product-tour");
-      const toggle = document.querySelector(".tour-toggle");
-      if (!tour || !toggle) return;
-
-      const syncToggle = () => {
-        const paused = tour.paused;
-        toggle.textContent = paused ? "▶" : "Ⅱ";
-        toggle.setAttribute("aria-label", paused ? "Play app walkthrough" : "Pause app walkthrough");
-      };
-
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        tour.pause();
-      }
-      toggle.addEventListener("click", () => {
-        if (tour.paused) tour.play();
-        else tour.pause();
-        syncToggle();
-      });
-      tour.addEventListener("play", syncToggle);
-      tour.addEventListener("pause", syncToggle);
-      syncToggle();
-    })();
-  </script>
 </body>
 </html>
