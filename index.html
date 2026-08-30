@@ -13,14 +13,14 @@
   <meta property="og:description" content="Your game-day group chat, built to remember the whole season.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://steelcitygameday.com/">
-  <meta property="og:image" content="https://steelcitygameday.com/assets/og.png">
+  <meta property="og:image" content="https://steelcitygameday.com/assets/hero.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Steel City Gameday — Your Crew. Your Calls. Your Season.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Steel City Gameday — Your Crew. Your Calls. Your Season.">
   <meta name="twitter:description" content="Your game-day group chat, built to remember the whole season.">
-  <meta name="twitter:image" content="https://steelcitygameday.com/assets/og.png">
+  <meta name="twitter:image" content="https://steelcitygameday.com/assets/hero.jpg">
 
   <link rel="icon" href="assets/icon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/icon.png">
@@ -213,182 +213,26 @@
     .site-header { display: none; }
     .hero {
       position: relative;
-      isolation: isolate;
-      height: 100svh;
-      min-height: 590px;
-      max-height: 880px;
+      display: flex;
+      justify-content: center;
       overflow: hidden;
       border-bottom: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 76% 35%, rgba(255, 182, 18, .09), transparent 28%),
-        radial-gradient(circle at 5% -2%, rgba(255,255,255,.075), transparent 28%),
-        linear-gradient(118deg, #111316 0%, #08090b 53%, #0b0d10 100%);
+      background: #07080a;
     }
-    .hero::before {
+    .hero-image {
+      width: min(100%, 1600px);
+      height: auto;
+    }
+    .hero-title-sr {
       position: absolute;
-      z-index: -2;
-      inset: 0;
-      opacity: .22;
-      background-image:
-        repeating-linear-gradient(166deg, transparent 0 3px, rgba(255,255,255,.045) 4px, transparent 5px 10px),
-        repeating-linear-gradient(8deg, transparent 0 38px, rgba(255,255,255,.018) 39px 40px);
-      content: "";
-    }
-    .hero::after {
-      position: absolute;
-      z-index: -1;
-      top: -31%;
-      right: -18%;
-      width: 61%;
-      height: 175%;
-      opacity: .25;
-      background: repeating-linear-gradient(133deg, var(--gold) 0 3px, transparent 3px 47px);
-      content: "";
-      -webkit-mask-image: linear-gradient(to left, #000 15%, transparent 88%);
-      mask-image: linear-gradient(to left, #000 15%, transparent 88%);
-    }
-    .playbook {
-      position: absolute;
-      z-index: -1;
-      bottom: -7px;
-      left: -24px;
-      width: 410px;
-      height: 220px;
-      opacity: .15;
-      transform: rotate(-8deg);
-      pointer-events: none;
-    }
-    .playbook i, .playbook b, .playbook span { position: absolute; display: block; color: var(--gold); font-style: normal; }
-    .playbook i { width: 40px; height: 40px; border: 4px solid currentColor; border-radius: 50%; }
-    .playbook i:nth-child(1) { bottom: 12px; left: 60px; }
-    .playbook i:nth-child(2) { bottom: 0; left: 152px; }
-    .playbook i:nth-child(3) { bottom: 36px; left: 250px; }
-    .playbook b { font: 600 50px/1 var(--display); }
-    .playbook b:nth-child(4) { bottom: 35px; left: 8px; }
-    .playbook b:nth-child(5) { top: 28px; right: 12px; }
-    .playbook span { height: 0; border-top: 4px solid currentColor; transform-origin: left center; }
-    .playbook span:nth-child(6) { width: 150px; bottom: 76px; left: 74px; transform: rotate(-48deg); }
-    .playbook span:nth-child(7) { width: 120px; bottom: 54px; left: 170px; transform: rotate(-25deg); }
-    .playbook span::after { position: absolute; top: -10px; right: -2px; font: 900 24px/1 var(--display); content: "›"; transform: rotate(-8deg); }
-
-    .hero-grid {
-      display: grid;
-      width: min(100%, 1440px);
-      max-width: none;
-      height: 100%;
-      min-height: 0;
-      grid-template-columns: minmax(0, 1.18fr) minmax(390px, .82fr);
-      align-items: center;
-      gap: 0;
-      padding: 0 clamp(32px, 8.6vw, 124px);
-    }
-    .hero-copy { position: relative; z-index: 3; }
-    .hero-lockup {
-      display: flex;
-      align-items: center;
-      gap: clamp(14px, 1.6vw, 22px);
-      white-space: nowrap;
-    }
-    .hero-lockup img {
-      width: clamp(70px, 7.1vw, 92px);
-      height: clamp(70px, 7.1vw, 92px);
-      border-radius: 19%;
-    }
-    .hero-lockup span {
-      color: var(--white);
-      font: 900 clamp(24px, 2.55vw, 36px)/1 var(--display);
-      letter-spacing: .17em;
-      text-transform: uppercase;
-    }
-    .hero h1 {
-      max-width: 650px;
-      margin-top: clamp(20px, 2.15vw, 31px);
-      font-size: clamp(80px, 8.7vw, 124px);
-      line-height: .88;
-      text-wrap: nowrap;
-    }
-    .hero h1 span { display: block; }
-    .hero-lede {
-      max-width: 570px;
-      margin-top: 30px;
-      color: #babcc2;
-      font-size: clamp(17px, 1.6vw, 21px);
-      line-height: 1.6;
-    }
-    .hero-lede strong { color: var(--white); font-weight: 700; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-    .trust-line {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 19px;
-      margin-top: 25px;
-      color: var(--quiet);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .055em;
-      text-transform: uppercase;
-    }
-    .trust-line span { display: inline-flex; align-items: center; gap: 8px; }
-    .trust-line span::before { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); content: ""; }
-
-    .hero-stage { position: relative; align-self: stretch; min-height: 0; }
-    .hero-phone {
-      position: absolute;
-      z-index: 2;
-      top: clamp(12px, 2.1vh, 23px);
-      right: clamp(-56px, -3vw, -18px);
-      width: clamp(365px, 34vw, 430px);
-      border: 2px solid #55585e;
-      border-radius: 62px;
-      padding: 10px;
-      background: linear-gradient(145deg, #45474b, #090a0c 11%, #24262a 54%, #07080a 92%);
-      box-shadow: 0 42px 110px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.12) inset, -20px 12px 70px rgba(255,182,18,.06);
-      transform: rotate(8deg);
-      transform-origin: 50% 54%;
-    }
-    .hero-phone::after {
-      position: absolute;
-      top: 130px;
-      right: -5px;
-      width: 4px;
-      height: 90px;
-      border-radius: 0 4px 4px 0;
-      background: #4d4f53;
-      content: "";
-    }
-    .phone-screen {
+      width: 1px;
+      height: 1px;
       overflow: hidden;
-      aspect-ratio: 620 / 1347;
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 51px;
-      background: #0a0b0e;
-    }
-    .phone-screen img { width: 100%; height: 100%; object-fit: cover; }
-    .float-card {
-      position: absolute;
-      z-index: 4;
-      min-width: 178px;
-      border: 1px solid var(--gold-line);
-      border-radius: 14px;
-      padding: 13px 15px;
-      background: rgba(13, 15, 18, .92);
-      box-shadow: 0 16px 40px rgba(0,0,0,.38);
-      -webkit-backdrop-filter: blur(14px);
-      backdrop-filter: blur(14px);
-    }
-    .float-card small { display: block; color: var(--gold); font-size: 9px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-    .float-card strong { display: block; margin-top: 4px; color: var(--white); font-size: 13px; }
-    .float-card.one { top: 22%; left: -1%; transform: rotate(-3deg); }
-    .float-card.two { right: -2%; bottom: 18%; transform: rotate(3deg); }
-    .float-card.two small { color: var(--green); }
-    .score-bug {
-      position: absolute;
-      z-index: 1;
-      right: 1%;
-      bottom: 5%;
-      color: rgba(255,255,255,.05);
-      font: 900 138px/.8 var(--display);
-      letter-spacing: -.07em;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
 
     .ticker {
@@ -712,11 +556,6 @@
     .motion-ready .reveal.is-visible { opacity: 1; transform: none; }
 
     @media (max-width: 1040px) {
-      .hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr); padding-inline: clamp(32px, 7vw, 72px); }
-      .hero h1 { font-size: clamp(70px, 9.1vw, 94px); }
-      .hero-lockup span { font-size: clamp(22px, 2.5vw, 27px); }
-      .hero-phone { width: clamp(340px, 38vw, 390px); }
-      .float-card.one { left: -4%; }
       .app-explorer { gap: 48px; }
       .device-bay { min-height: 620px; }
       .feature-card h3 { margin-top: 62px; }
@@ -728,16 +567,6 @@
       .site-header .brand-name { font-size: 17px; }
       .nav-links { display: none; }
       .nav-cta { margin-left: auto; }
-      .hero { height: auto; min-height: 100svh; max-height: none; }
-      .hero-grid { height: auto; min-height: 100svh; grid-template-columns: 1fr; padding: 72px 28px 0; }
-      .hero h1 { max-width: 650px; font-size: clamp(68px, 15.8vw, 104px); }
-      .hero-lockup img { width: 68px; height: 68px; }
-      .hero-lockup span { font-size: clamp(21px, 4.8vw, 30px); }
-      .hero-stage { min-height: 680px; margin-top: 24px; }
-      .hero-phone { position: relative; top: 44px; right: auto; width: min(83vw, 365px); margin-inline: auto; transform: rotate(7deg); }
-      .float-card.one { top: 20%; left: 2%; }
-      .float-card.two { right: 0; bottom: 14%; }
-      .score-bug { right: 0; }
       .explore-head { display: block; }
       .app-explorer { grid-template-columns: 1fr; }
       .device-bay { min-height: 650px; }
@@ -758,22 +587,6 @@
       .site-header .brand-name { max-width: 118px; line-height: .84; }
       .brand-icon { width: 36px; height: 36px; flex-basis: 36px; }
       .nav-cta { padding-inline: 13px; font-size: 9px; }
-      .hero-grid { padding: 54px 20px 0; }
-      .hero-lockup { gap: 12px; }
-      .hero-lockup img { width: 58px; height: 58px; }
-      .hero-lockup span { font-size: clamp(17px, 5.4vw, 24px); letter-spacing: .13em; }
-      .hero h1 { margin-top: 26px; font-size: clamp(61px, 18vw, 83px); }
-      .hero-lede { margin-top: 24px; font-size: 17px; }
-      .hero-actions { flex-direction: column; }
-      .hero-actions .button { width: 100%; }
-      .trust-line { display: grid; grid-template-columns: 1fr 1fr; }
-      .hero-stage { min-height: 600px; }
-      .hero-phone { width: min(87vw, 320px); border-radius: 55px; }
-      .phone-screen { border-radius: 45px; }
-      .float-card { min-width: 155px; padding: 11px 12px; }
-      .float-card.one { top: 19%; left: -3%; }
-      .float-card.two { right: -4%; bottom: 10%; }
-      .playbook { width: 320px; }
       .section-title { font-size: 55px; }
       .explore-head .section-lede { margin-top: 22px; }
       .app-explorer { margin-top: 46px; }
@@ -827,31 +640,8 @@
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="playbook" aria-hidden="true">
-        <i></i><i></i><i></i><b>×</b><b>×</b><span></span><span></span>
-      </div>
-
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <div class="hero-lockup" aria-label="Steel City Gameday">
-            <img src="assets/icon.png" alt="" width="92" height="92">
-            <span>Steel City Gameday</span>
-          </div>
-          <h1 class="display" id="hero-title">
-            <span>Your Crew.</span>
-            <span class="gold">Your Calls.</span>
-            <span>Your Season.</span>
-          </h1>
-        </div>
-
-        <div class="hero-stage" aria-label="Steel City Gameday private Crew room on iPhone">
-          <div class="hero-phone">
-            <div class="phone-screen">
-              <img src="assets/room.png" alt="A private Crew chat with game-day messages and a live Flash Pick" width="620" height="1347" fetchpriority="high">
-            </div>
-          </div>
-        </div>
-      </div>
+      <h1 class="hero-title-sr" id="hero-title">Steel City Gameday — Your Crew. Your Calls. Your Season.</h1>
+      <img class="hero-image" src="assets/hero.jpg" alt="Steel City Gameday app showing a private Crew room, live chat, and a Flash Pick on iPhone" width="1200" height="630" fetchpriority="high">
     </section>
 
     <div class="ticker" aria-hidden="true">
