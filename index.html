@@ -206,7 +206,29 @@
       line-height: 1.6;
     }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-    .hero-note { margin-top: 20px; color: var(--quiet); font-size: 11px; font-weight: 600; }
+    .appstore-coming-soon {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 54px;
+      align-items: center;
+      gap: 11px;
+      margin-top: 18px;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 14px;
+      padding: 7px 18px 7px 11px;
+      background: #000;
+      color: var(--white);
+    }
+    .appstore-coming-soon svg { width: 28px; height: 28px; flex: 0 0 auto; fill: currentColor; }
+    .appstore-coming-soon-text { display: flex; flex-direction: column; line-height: 1; }
+    .appstore-coming-soon-text small {
+      color: #c3ccd4;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .appstore-coming-soon-text strong { margin-top: 3px; font-size: 17px; font-weight: 600; }
+    .hero-note { margin-top: 14px; color: var(--quiet); font-size: 11px; font-weight: 600; }
 
     .hero-art {
       position: relative;
@@ -478,6 +500,7 @@
       .hero-lede { margin-top: 23px; font-size: 17px; }
       .hero-actions { flex-direction: column; margin-top: 28px; }
       .hero-actions .button { width: 100%; }
+      .appstore-coming-soon { align-self: center; }
       .hero-note { text-align: center; }
       .hero-art { min-height: 540px; border-top: 1px solid rgba(255, 255, 255, .13); }
       .hero-product-image { inset: -1% -8% -2%; width: 116%; height: 104%; object-position: 50% 5%; }
@@ -533,6 +556,10 @@
             <a class="button button-primary" href="get/">Get the launch update <span aria-hidden="true">→</span></a>
             <a class="button button-quiet" href="#experience">See how it works</a>
           </div>
+          <span class="appstore-coming-soon" role="img" aria-label="Steel City Gameday is coming soon to the App Store">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.031 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"></path></svg>
+            <span class="appstore-coming-soon-text"><small>Coming soon to the</small><strong>App Store</strong></span>
+          </span>
           <p class="hero-note">Coming to iPhone · Fall 2026 · Private Crews · No wagering</p>
         </div>
 
@@ -612,7 +639,7 @@
         </nav>
       </div>
       <div class="footer-bottom">
-        <p class="disclaimer">Steel City Gameday is an independent, unofficial fan app. It is not affiliated with, endorsed by, sponsored by, or associated with the Pittsburgh Steelers, the National Football League, or any of their affiliates. Predictions are for entertainment within your own Crew. There is no wagering, entry fee, or prize of monetary value.</p>
+        <p class="disclaimer">Steel City Gameday is an independent, unofficial fan app. It is not affiliated with, endorsed by, sponsored by, or associated with the Pittsburgh Steelers, the National Football League, or any of their affiliates. Predictions are for entertainment within your own Crew. There is no wagering, entry fee, or prize of monetary value. App Store is a service mark of Apple Inc.</p>
         <p class="copyright">© 2026 Steel City Gameday</p>
       </div>
     </div>
