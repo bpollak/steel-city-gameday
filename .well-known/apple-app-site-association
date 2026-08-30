@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "ZA8AJG27JX.com.brettpollak.steelcitygameday"
+        ],
+        "components": [
+          {
+            "/": "/join/*",
+            "comment": "Open private Crew invite links in Steel City Gameday."
+          }
+        ]
+      }
+    ]
+  }
+}

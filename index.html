@@ -210,35 +210,39 @@
     .nav-cta:hover { background: var(--gold); color: var(--ink); }
 
     /* Hero */
+    .site-header { display: none; }
     .hero {
       position: relative;
       isolation: isolate;
-      min-height: 100svh;
+      height: 100svh;
+      min-height: 590px;
+      max-height: 880px;
       overflow: hidden;
       border-bottom: 1px solid var(--line);
-      padding-top: 72px;
       background:
-        radial-gradient(circle at 79% 37%, rgba(255, 182, 18, .12), transparent 27%),
-        radial-gradient(circle at 4% 0%, rgba(255,255,255,.055), transparent 26%),
-        linear-gradient(119deg, #0c0e11 0%, #07080a 58%, #0c0e11 100%);
+        radial-gradient(circle at 76% 35%, rgba(255, 182, 18, .09), transparent 28%),
+        radial-gradient(circle at 5% -2%, rgba(255,255,255,.075), transparent 28%),
+        linear-gradient(118deg, #111316 0%, #08090b 53%, #0b0d10 100%);
     }
     .hero::before {
       position: absolute;
       z-index: -2;
       inset: 0;
-      opacity: .18;
-      background-image: repeating-linear-gradient(166deg, transparent 0 5px, rgba(255,255,255,.055) 6px, transparent 7px 13px);
+      opacity: .22;
+      background-image:
+        repeating-linear-gradient(166deg, transparent 0 3px, rgba(255,255,255,.045) 4px, transparent 5px 10px),
+        repeating-linear-gradient(8deg, transparent 0 38px, rgba(255,255,255,.018) 39px 40px);
       content: "";
     }
     .hero::after {
       position: absolute;
       z-index: -1;
-      top: -23%;
-      right: -16%;
-      width: 56%;
-      height: 155%;
-      opacity: .22;
-      background: repeating-linear-gradient(133deg, var(--gold) 0 3px, transparent 3px 45px);
+      top: -31%;
+      right: -18%;
+      width: 61%;
+      height: 175%;
+      opacity: .25;
+      background: repeating-linear-gradient(133deg, var(--gold) 0 3px, transparent 3px 47px);
       content: "";
       -webkit-mask-image: linear-gradient(to left, #000 15%, transparent 88%);
       mask-image: linear-gradient(to left, #000 15%, transparent 88%);
@@ -246,11 +250,11 @@
     .playbook {
       position: absolute;
       z-index: -1;
-      bottom: 48px;
-      left: -35px;
+      bottom: -7px;
+      left: -24px;
       width: 410px;
       height: 220px;
-      opacity: .13;
+      opacity: .15;
       transform: rotate(-8deg);
       pointer-events: none;
     }
@@ -269,19 +273,39 @@
 
     .hero-grid {
       display: grid;
-      min-height: calc(100svh - 72px);
-      grid-template-columns: minmax(0, 1.06fr) minmax(370px, .94fr);
+      width: min(100%, 1440px);
+      max-width: none;
+      height: 100%;
+      min-height: 0;
+      grid-template-columns: minmax(0, 1.18fr) minmax(390px, .82fr);
       align-items: center;
-      gap: clamp(20px, 3vw, 48px);
-      padding-top: clamp(52px, 7vw, 94px);
-      padding-bottom: clamp(58px, 8vw, 104px);
+      gap: 0;
+      padding: 0 clamp(32px, 8.6vw, 124px);
     }
     .hero-copy { position: relative; z-index: 3; }
+    .hero-lockup {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 1.6vw, 22px);
+      white-space: nowrap;
+    }
+    .hero-lockup img {
+      width: clamp(70px, 7.1vw, 92px);
+      height: clamp(70px, 7.1vw, 92px);
+      border-radius: 19%;
+    }
+    .hero-lockup span {
+      color: var(--white);
+      font: 900 clamp(24px, 2.55vw, 36px)/1 var(--display);
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
     .hero h1 {
-      max-width: 770px;
-      margin-top: 28px;
-      font-size: clamp(78px, 8vw, 126px);
-      text-wrap: balance;
+      max-width: 650px;
+      margin-top: clamp(20px, 2.15vw, 31px);
+      font-size: clamp(80px, 8.7vw, 124px);
+      line-height: .88;
+      text-wrap: nowrap;
     }
     .hero h1 span { display: block; }
     .hero-lede {
@@ -307,17 +331,19 @@
     .trust-line span { display: inline-flex; align-items: center; gap: 8px; }
     .trust-line span::before { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); content: ""; }
 
-    .hero-stage { position: relative; display: grid; min-height: 700px; place-items: center; }
+    .hero-stage { position: relative; align-self: stretch; min-height: 0; }
     .hero-phone {
-      position: relative;
+      position: absolute;
       z-index: 2;
-      width: min(100%, 398px);
+      top: clamp(12px, 2.1vh, 23px);
+      right: clamp(-56px, -3vw, -18px);
+      width: clamp(365px, 34vw, 430px);
       border: 2px solid #55585e;
       border-radius: 62px;
       padding: 10px;
       background: linear-gradient(145deg, #45474b, #090a0c 11%, #24262a 54%, #07080a 92%);
       box-shadow: 0 42px 110px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.12) inset, -20px 12px 70px rgba(255,182,18,.06);
-      transform: translate(30px, 32px) rotate(9deg);
+      transform: rotate(8deg);
       transform-origin: 50% 54%;
     }
     .hero-phone::after {
@@ -686,10 +712,10 @@
     .motion-ready .reveal.is-visible { opacity: 1; transform: none; }
 
     @media (max-width: 1040px) {
-      .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(340px, .75fr); }
-      .hero h1 { font-size: clamp(72px, 9.1vw, 101px); }
-      .hero-stage { min-height: 645px; }
-      .hero-phone { width: 350px; transform: translate(18px, 28px) rotate(8deg); }
+      .hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr); padding-inline: clamp(32px, 7vw, 72px); }
+      .hero h1 { font-size: clamp(70px, 9.1vw, 94px); }
+      .hero-lockup span { font-size: clamp(22px, 2.5vw, 27px); }
+      .hero-phone { width: clamp(340px, 38vw, 390px); }
       .float-card.one { left: -4%; }
       .app-explorer { gap: 48px; }
       .device-bay { min-height: 620px; }
@@ -702,11 +728,13 @@
       .site-header .brand-name { font-size: 17px; }
       .nav-links { display: none; }
       .nav-cta { margin-left: auto; }
-      .hero { padding-top: 64px; }
-      .hero-grid { min-height: auto; grid-template-columns: 1fr; padding-top: 76px; }
+      .hero { height: auto; min-height: 100svh; max-height: none; }
+      .hero-grid { height: auto; min-height: 100svh; grid-template-columns: 1fr; padding: 72px 28px 0; }
       .hero h1 { max-width: 650px; font-size: clamp(68px, 15.8vw, 104px); }
-      .hero-stage { min-height: 685px; margin-top: 10px; }
-      .hero-phone { width: min(83vw, 365px); transform: translateY(25px) rotate(7deg); }
+      .hero-lockup img { width: 68px; height: 68px; }
+      .hero-lockup span { font-size: clamp(21px, 4.8vw, 30px); }
+      .hero-stage { min-height: 680px; margin-top: 24px; }
+      .hero-phone { position: relative; top: 44px; right: auto; width: min(83vw, 365px); margin-inline: auto; transform: rotate(7deg); }
       .float-card.one { top: 20%; left: 2%; }
       .float-card.two { right: 0; bottom: 14%; }
       .score-bug { right: 0; }
@@ -730,8 +758,11 @@
       .site-header .brand-name { max-width: 118px; line-height: .84; }
       .brand-icon { width: 36px; height: 36px; flex-basis: 36px; }
       .nav-cta { padding-inline: 13px; font-size: 9px; }
-      .hero-grid { padding-top: 62px; padding-bottom: 70px; }
-      .hero h1 { font-size: clamp(61px, 19vw, 83px); }
+      .hero-grid { padding: 54px 20px 0; }
+      .hero-lockup { gap: 12px; }
+      .hero-lockup img { width: 58px; height: 58px; }
+      .hero-lockup span { font-size: clamp(17px, 5.4vw, 24px); letter-spacing: .13em; }
+      .hero h1 { margin-top: 26px; font-size: clamp(61px, 18vw, 83px); }
       .hero-lede { margin-top: 24px; font-size: 17px; }
       .hero-actions { flex-direction: column; }
       .hero-actions .button { width: 100%; }
@@ -802,39 +833,23 @@
 
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">The group chat for game day</p>
+          <div class="hero-lockup" aria-label="Steel City Gameday">
+            <img src="assets/icon.png" alt="" width="92" height="92">
+            <span>Steel City Gameday</span>
+          </div>
           <h1 class="display" id="hero-title">
             <span>Your Crew.</span>
             <span class="gold">Your Calls.</span>
             <span>Your Season.</span>
           </h1>
-          <p class="hero-lede"><strong>The takes finally have a scoreboard.</strong> Make the call before kickoff, talk every snap, and keep the receipts long after the final whistle.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="get/">Get the launch update <span aria-hidden="true">→</span></a>
-            <a class="button button-secondary" href="#app">See it in action</a>
-          </div>
-          <p class="trust-line" aria-label="Product principles">
-            <span>Private crews</span>
-            <span>No strangers</span>
-            <span>No wagering</span>
-          </p>
         </div>
 
         <div class="hero-stage" aria-label="Steel City Gameday private Crew room on iPhone">
-          <div class="float-card one" aria-hidden="true">
-            <small>Flash Pick · Live</small>
-            <strong>Defense scores first?</strong>
-          </div>
           <div class="hero-phone">
             <div class="phone-screen">
               <img src="assets/room.png" alt="A private Crew chat with game-day messages and a live Flash Pick" width="620" height="1347" fetchpriority="high">
             </div>
           </div>
-          <div class="float-card two" aria-hidden="true">
-            <small>Call confirmed</small>
-            <strong>Uncle Mo · +20 pts</strong>
-          </div>
-          <span class="score-bug" aria-hidden="true">24</span>
         </div>
       </div>
     </section>

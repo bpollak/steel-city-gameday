@@ -38,10 +38,10 @@
     <section>
       <h2>Information we collect</h2>
       <ul>
-        <li><strong>Account information:</strong> Sign in with Apple provides an account-specific identifier and, only if you choose to share it, your name. We do not request your Apple ID password or contacts.</li>
+        <li><strong>Account information:</strong> Sign in with Apple provides an account-specific identifier and, only if you choose to share it, your name. We securely exchange Apple’s authorization code and retain an encrypted refresh credential so we can revoke access if you delete your account. We do not request your Apple ID password or contacts.</li>
         <li><strong>Profile and Crew information:</strong> your display name, avatar color, Crews, memberships, roles, and invite activity.</li>
         <li><strong>User content:</strong> messages, reactions, reports, report details, predictions, picks, and game results or receipts associated with your account.</li>
-        <li><strong>Purchase status:</strong> Apple processes Season Pass purchases. The app reads Apple’s signed entitlement on your device so it can unlock access. We do not receive or store your payment card or bank information, and the current version does not send StoreKit transaction history to our server.</li>
+        <li><strong>Purchase history:</strong> Apple processes Season Pass purchases. The app sends Apple’s signed transaction to our server, where we verify and retain the product, transaction identifiers, purchase and revocation dates, and the Steel City Gameday account linked to the entitlement. This lets us enforce access, restore it across devices, and respond to refunds. We do not receive or store your payment card or bank information.</li>
         <li><strong>Technical information:</strong> our hosting and authentication providers may process IP address, request time, device or browser type, and diagnostic or security logs when you connect. We use this information to operate, secure, and troubleshoot the Service—not for advertising.</li>
         <li><strong>Support communications:</strong> if you email us, we receive your email address and the information you include so we can respond.</li>
       </ul>
@@ -76,8 +76,8 @@
 
     <section>
       <h2>Retention and account deletion</h2>
-      <p>We retain account information and content while your account is active and as needed to provide and secure the Service. Reports and security records may be retained as needed to investigate abuse, enforce our Terms, and comply with law.</p>
-      <p>You can delete your account in the app at <strong>Settings → Delete account</strong>. In ordinary operation, this removes your authentication account, Crews you own, memberships, messages, reactions, picks, and other account-linked contributions from the live Service. Limited information may remain temporarily in provider backups or security logs, or where retention is required for safety, fraud prevention, dispute resolution, or law. Deleting the app does not delete your account. A Season Pass is managed by your Apple Account; deleting your Steel City Gameday account does not cancel or erase Apple’s purchase record.</p>
+      <p>We retain account information, encrypted Sign in with Apple revocation credentials, content, and linked entitlement records while your account is active and as needed to provide and secure the Service. Reports and security records may be retained as needed to investigate abuse, enforce our Terms, and comply with law.</p>
+      <p>You can delete your account in the app at <strong>Settings → Delete account</strong>. In ordinary operation, this revokes the app’s Sign in with Apple access and removes your authentication account, encrypted Apple refresh credential, Crews you own, memberships, messages, reactions, picks, linked entitlement record, and other account-linked contributions from the live Service. Limited information may remain temporarily in provider backups or security logs, or where retention is required for safety, fraud prevention, dispute resolution, or law. Deleting the app does not delete your account. A Season Pass is managed by your Apple Account; deleting your Steel City Gameday account does not cancel or erase Apple’s purchase record.</p>
     </section>
 
     <section>

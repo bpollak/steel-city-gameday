@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steel City Gameday — Your group chat, built for game day</title>
+<meta name="description" content="Your Sunday group text, upgraded. A private, invite-only Crew room for Steelers game day: call your shots, fire off live Flash Picks, keep the receipts, and crown a season champion. An unofficial fan app.">
+<meta name="theme-color" content="#0a0a0c">
+<meta property="og:title" content="Steel City Gameday">
+<meta property="og:description" content="Your group chat, built for game day. Private Crews, scored predictions, and a season crown — for people who already text through every snap.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#ffb71c; --gold-2:#ffcf5c; --gold-deep:#c98c07;
+    --ink:#0a0a0c; --ink-2:#0e0e12; --panel:#131318; --panel-2:#181820;
+    --line:rgba(255,255,255,.10); --line-soft:rgba(255,255,255,.06);
+    --gold-line:rgba(255,183,28,.44); --gold-glow:rgba(255,183,28,.14);
+    --text:#f4f4f7; --muted:#a4a4b0; --dim:#6e6e7a;
+    --recv:#26262d; --recv-tx:#dcdce3;      /* old group-text received */
+    --old-me:#2f394f; --old-me-tx:#dde3f1;   /* old group-text "you" */
+    --crew:#1b1b22; --crew-tx:#ececf0;       /* crew received */
+    --max:1200px; --r:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0; background:var(--ink); color:var(--text); overflow-x:hidden;
+    font:400 16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  a{color:inherit; text-decoration:none}
+  h1,h2,h3,p{margin:0}
+  img{max-width:100%}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px}
+
+  /* ---- Broadcast display type ---- */
+  .d{font-family:Anton,"Arial Narrow","Helvetica Neue Condensed",Impact,sans-serif;
+    font-weight:400; text-transform:uppercase; line-height:.9; letter-spacing:.008em}
+  .g{color:var(--gold)}
+  .eyebrow{font:800 12px/1.2 Inter,sans-serif; text-transform:uppercase;
+    letter-spacing:.2em; color:var(--gold)}
+  .num-tab{font-variant-numeric:tabular-nums}
+
+  /* ---- Towel-wave stripes ---- */
+  .towel{height:14px; display:flex; gap:14px; overflow:hidden; transform:skewX(-18deg);
+    padding-left:14px}
+  .towel i{flex:0 0 20px}
+  .towel i:nth-child(3n+1){background:var(--gold)}
+  .towel i:nth-child(3n+2){background:var(--gold-deep)}
+  .towel i:nth-child(3n+3){background:rgba(255,255,255,.26)}
+
+  /* ---- Masthead ---- */
+  header{position:sticky; top:0; z-index:80; border-bottom:1px solid var(--line);
+    background:rgba(10,10,12,.82); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px)}
+  .mast{display:flex; align-items:center; justify-content:space-between; height:64px}
+  .mark{display:flex; align-items:center; gap:11px}
+  .mark img{width:30px; height:30px; border-radius:8px}
+  .mark .wm{font-size:20px; letter-spacing:.03em}
+  nav.top{display:flex; align-items:center; gap:28px}
+  nav.top a{font:800 11.5px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.16em;
+    color:var(--muted); padding:6px 0; border-bottom:2px solid transparent; transition:color .16s,border-color .16s}
+  nav.top a:hover{color:var(--gold); border-color:var(--gold)}
+  .mini-live{display:inline-flex; align-items:center; gap:8px; padding:7px 13px;
+    border:1px solid var(--gold-line); border-radius:999px; background:rgba(255,183,28,.06);
+    font:800 11px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.12em; color:var(--gold)}
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 0 var(--gold-glow)}
+  .dot.live{background:#37d17a}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(55,209,122,.5)}70%{box-shadow:0 0 0 7px rgba(55,209,122,0)}100%{box-shadow:0 0 0 0 rgba(55,209,122,0)}}
+  .dot.live{animation:pulse 2.4s infinite}
+  @media(max-width:880px){nav.top{display:none}}
+
+  /* ---- Bubble kit (the recurring design language) ---- */
+  .thread{display:flex; flex-direction:column; gap:10px}
+  .row{display:flex; gap:9px; align-items:flex-end; max-width:100%}
+  .row.me{flex-direction:row-reverse}
+  .av{flex:0 0 30px; width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
+    font:800 11px/1 Inter,sans-serif; color:#0a0a0c; letter-spacing:.02em}
+  .av.b{background:#8b93a3} .av.k{background:#e06f8b} .av.d{background:#4d90d6}
+  .av.um{background:#4d90d6} .av.fp{background:#c98c07} .av.dave{background:#7f8794}
+  .av.mom{background:#c98c07} .av.j{background:#e06f8b}
+  .stack{max-width:80%; display:flex; flex-direction:column; gap:3px}
+  .row.me .stack{align-items:flex-end}
+  .nm{font:700 11px/1 Inter,sans-serif; color:var(--gold); padding:0 6px}
+  .row.me .nm{color:var(--muted)}
+  .bub{padding:10px 14px; border-radius:18px; font-size:14.5px; line-height:1.42;
+    word-break:break-word; position:relative}
+  /* old group text */
+  .bub.them{background:var(--recv); color:var(--recv-tx); border-bottom-left-radius:6px}
+  .bub.mine{background:var(--old-me); color:var(--old-me-tx); border-bottom-right-radius:6px}
+  /* crew room */
+  .bub.crew{background:var(--crew); color:var(--crew-tx); border-bottom-left-radius:6px}
+  .bub.you{background:rgba(255,183,28,.12); color:#fff; border:1px solid var(--gold-line);
+    border-bottom-right-radius:6px}
+  .meta{font:600 10.5px/1 Inter,sans-serif; color:var(--dim); padding:0 6px; letter-spacing:.02em}
+
+  .typing{display:inline-flex; gap:4px; padding:13px 15px}
+  .typing i{width:7px; height:7px; border-radius:50%; background:#8a8a94; display:block}
+  @keyframes blink{0%,60%,100%{opacity:.25; transform:translateY(0)}30%{opacity:1; transform:translateY(-3px)}}
+  .typing i:nth-child(1){animation:blink 1.3s infinite}
+  .typing i:nth-child(2){animation:blink 1.3s .2s infinite}
+  .typing i:nth-child(3){animation:blink 1.3s .4s infinite}
+
+  .reacts{display:flex; gap:6px; flex-wrap:wrap; padding:2px 4px}
+  .react{display:inline-flex; align-items:center; gap:5px; padding:4px 9px; border-radius:999px;
+    background:#1c1c22; border:1px solid var(--line); font:700 11.5px/1 Inter,sans-serif; color:var(--text);
+    transition:transform .15s ease, border-color .15s ease}
+  .react:hover{transform:translateY(-2px); border-color:var(--gold-line)}
+
+  /* Flash Pick card */
+  .flash{border:1px solid var(--gold-line); border-radius:16px; overflow:hidden; background:#0f0f14;
+    box-shadow:0 14px 40px rgba(0,0,0,.45)}
+  .flash-h{display:flex; align-items:center; justify-content:space-between; padding:9px 13px;
+    background:linear-gradient(90deg,var(--gold),var(--gold-deep)); color:#181206}
+  .flash-h b{font:800 12px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.14em;
+    display:inline-flex; align-items:center; gap:7px}
+  .flash-h .pts{font:800 12px/1 Inter,sans-serif; letter-spacing:.06em}
+  .flash-b{padding:14px 14px 15px}
+  .flash-q{font:700 15px/1.3 Inter,sans-serif; color:var(--text)}
+  .flash-lock{margin-top:7px; font:700 12px/1 Inter,sans-serif; color:#ff6d5a; display:inline-flex; gap:6px; align-items:center}
+  .flash-opts{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px}
+  .opt{padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:#16161c;
+    font:600 13.5px/1 Inter,sans-serif; color:var(--text); text-align:left; transition:border-color .15s,background .15s}
+  .opt:hover{border-color:var(--gold-line); background:#1c1a14}
+
+  /* Receipt card */
+  .receipt{border:1px dashed var(--gold-line); border-radius:14px; background:rgba(255,183,28,.05);
+    padding:13px 15px; display:flex; gap:12px; align-items:flex-start}
+  .receipt .chk{flex:0 0 24px; width:24px; height:24px; border-radius:50%; background:#1f7a45; color:#fff;
+    display:grid; place-items:center; font-size:13px; font-weight:800}
+  .receipt .rt{font:800 10px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.18em; color:var(--gold)}
+  .receipt p{margin:5px 0 0; font-size:13.5px; color:var(--text); line-height:1.4}
+  .receipt .pts{color:var(--gold); font-weight:800}
+
+  /* Phone bezel for screenshots */
+  .phone{width:min(300px,82vw); border:11px solid #1a1a1f; border-radius:44px; background:#000;
+    overflow:hidden; position:relative; box-shadow:0 40px 90px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.05)}
+  .phone::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:38%; height:22px; background:#1a1a1f; border-radius:0 0 15px 15px; z-index:3}
+  .phone img{display:block; width:100%; height:auto}
+
+  /* ---- Hero ---- */
+  .hero{position:relative; overflow:hidden; border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(700px 480px at 78% 8%, rgba(255,183,28,.10), transparent 60%)}
+  .hero-grid{display:grid; grid-template-columns:1.08fr .92fr; gap:20px; align-items:center;
+    padding:64px 0 60px; position:relative}
+  @media(max-width:960px){.hero-grid{grid-template-columns:1fr; gap:44px; padding:44px 0 48px}}
+  .tag-pill{display:inline-flex; align-items:center; gap:9px; padding:8px 14px; border-radius:999px;
+    border:1px solid var(--line); background:var(--panel); font:700 11.5px/1 Inter,sans-serif;
+    text-transform:uppercase; letter-spacing:.13em; color:var(--muted)}
+  .tag-pill .g{color:var(--gold)}
+  .hero h1{margin:24px 0 0; font-size:clamp(50px,8.6vw,116px)}
+  .hero h1 .line{display:block}
+  .hero .sub{margin:24px 0 0; font-size:clamp(16.5px,1.7vw,19.5px); color:var(--muted); max-width:50ch}
+  .hero .sub b{color:var(--text); font-weight:700}
+
+  .pinned{margin:32px 0 0; max-width:520px; border:1px solid var(--gold-line); border-radius:14px;
+    background:#0d0d12; overflow:hidden}
+  .pinned-h{display:flex; align-items:center; gap:8px; padding:9px 14px; border-bottom:1px solid var(--gold-line);
+    background:rgba(255,183,28,.07); font:800 11px/1 Inter,sans-serif; text-transform:uppercase;
+    letter-spacing:.12em; color:var(--gold)}
+  .count{display:grid; grid-template-columns:repeat(4,1fr); text-align:center}
+  .count > div{padding:15px 6px 12px; border-right:1px solid var(--line)}
+  .count > div:last-child{border-right:0}
+  .count b{display:block; font:400 clamp(30px,4.4vw,44px)/1 Anton,Impact,sans-serif;
+    letter-spacing:.02em; font-variant-numeric:tabular-nums; color:var(--text)}
+  .count small{display:block; margin-top:7px; font:800 9.5px/1 Inter,sans-serif;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--dim)}
+  .pinned-f{padding:9px 14px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted)}
+
+  .cta-row{display:flex; gap:12px; margin-top:30px; flex-wrap:wrap}
+  .btn{display:inline-flex; align-items:center; gap:9px; padding:15px 26px; border-radius:12px;
+    font:800 12.5px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.12em;
+    border:1px solid transparent; cursor:pointer; transition:transform .15s,background .15s,color .15s,border-color .15s}
+  .btn-solid{background:var(--gold); color:#161006}
+  .btn-solid:hover{background:#fff; transform:translateY(-2px)}
+  .btn-line{border-color:var(--line); color:var(--text)}
+  .btn-line:hover{border-color:var(--gold); color:var(--gold); transform:translateY(-2px)}
+  .fine{margin-top:14px; font-size:12.5px; color:var(--dim)}
+
+  .hero-stage{position:relative; display:flex; justify-content:center; align-items:center}
+  .float{position:absolute; z-index:5; box-shadow:0 18px 44px rgba(0,0,0,.5)}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  .float{animation:bob 5.5s ease-in-out infinite}
+  .float.f2{animation-delay:1.1s} .float.f3{animation-delay:2.2s}
+  .float.reacts{top:12%; left:-6%; background:#101015; border:1px solid var(--line); border-radius:999px; padding:8px 12px}
+  .float.rc{top:44%; right:-10%; max-width:210px}
+  .float.fp{bottom:8%; left:-8%; display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(90deg,var(--gold),var(--gold-deep)); color:#181206; border-radius:999px;
+    padding:9px 15px; font:800 12px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.08em}
+  @media(max-width:1080px){.float.reacts{left:0} .float.rc{right:0}}
+  @media(max-width:620px){.float{display:none}}
+
+  /* ---- Section chrome ---- */
+  section{position:relative}
+  .sec-pad{padding:clamp(64px,9vw,116px) 0}
+  .sec-head{max-width:64ch}
+  .sec-head h2{margin:14px 0 0; font-size:clamp(34px,5.6vw,74px)}
+  .sec-head p.lede{margin:20px 0 0; font-size:clamp(16px,1.6vw,18.5px); color:var(--muted); max-width:56ch}
+
+  /* ---- The Wedge: two threads ---- */
+  .wedge{border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,var(--ink),#0c0c10)}
+  .versus{display:grid; grid-template-columns:1fr auto 1fr; gap:22px; align-items:stretch; margin-top:46px}
+  @media(max-width:900px){.versus{grid-template-columns:1fr; gap:20px}}
+  .col-head{display:flex; align-items:center; gap:10px; margin-bottom:14px}
+  .col-head h3{font:400 clamp(22px,3vw,30px)/.95 Anton,Impact,sans-serif; text-transform:uppercase; letter-spacing:.01em}
+  .col-head .tagx{font:800 10px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.14em; padding:5px 9px; border-radius:6px}
+  .tagx.bad{color:#b9b9c2; background:#1d1d23; border:1px solid var(--line)}
+  .tagx.good{color:#161006; background:var(--gold)}
+
+  .chatwin{border:1px solid var(--line); border-radius:22px; background:var(--panel); overflow:hidden;
+    display:flex; flex-direction:column; height:100%}
+  .chatwin.old{filter:saturate(.72)}
+  .chatwin.crewwin{border-color:var(--gold-line); box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .win-bar{display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:13px 16px; border-bottom:1px solid var(--line); background:var(--panel-2)}
+  .win-bar .wt{font:700 13.5px/1.2 Inter,sans-serif; color:var(--text)}
+  .win-bar .ws{font:500 11px/1.2 Inter,sans-serif; color:var(--muted); margin-top:3px}
+  .win-bar .badge{display:inline-flex; align-items:center; gap:6px; font:700 10.5px/1 Inter,sans-serif;
+    text-transform:uppercase; letter-spacing:.1em; color:var(--muted)}
+  .win-bar .badge.on{color:#37d17a}
+  .win-body{padding:16px 15px; display:flex; flex-direction:column; gap:11px; position:relative; flex:1}
+  .old .win-body::after{content:""; position:absolute; left:0; right:0; bottom:0; height:120px;
+    background:linear-gradient(180deg,transparent,var(--panel)); pointer-events:none}
+  .win-foot{padding:12px 16px; border-top:1px solid var(--line); display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+  .stamp{font:800 10px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.14em; padding:6px 10px; border-radius:6px}
+  .stamp.dead{color:#83838d; background:#191920}
+  .stamp.win{color:#161006; background:var(--gold)}
+  .locked-tag{display:inline-block; margin-top:5px; font:800 9.5px/1 Inter,sans-serif;
+    text-transform:uppercase; letter-spacing:.12em; color:#37d17a; border:1px solid rgba(55,209,122,.4);
+    border-radius:5px; padding:4px 7px}
+
+  .vs-badge{align-self:center; justify-self:center; width:60px; height:60px; border-radius:50%;
+    border:2px solid var(--gold-line); display:grid; place-items:center; background:#0d0d12;
+    font:400 22px/1 Anton,Impact,sans-serif; color:var(--gold); letter-spacing:.02em}
+  @media(max-width:900px){.vs-badge{width:52px; height:52px; font-size:18px}}
+
+  /* ---- How it works (beats) ---- */
+  .beat{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; padding:56px 0;
+    border-top:1px solid var(--line-soft)}
+  .beat:first-of-type{border-top:0}
+  @media(max-width:900px){.beat{grid-template-columns:1fr; gap:34px; padding:44px 0}}
+  .beat.flip .beat-media{order:2}
+  @media(max-width:900px){.beat.flip .beat-media{order:0}}
+  .beat-media{display:flex; justify-content:center; position:relative}
+  .beat-copy .bn{font:400 clamp(46px,7vw,88px)/.8 Anton,Impact,sans-serif; color:transparent;
+    -webkit-text-stroke:2px var(--gold-line); letter-spacing:-.01em}
+  .beat-copy h3{margin:10px 0 0; font-size:clamp(28px,4vw,50px)}
+  .beat-copy p{margin:16px 0 0; color:var(--muted); font-size:16px; max-width:46ch}
+  .beat-copy ul{list-style:none; padding:0; margin:20px 0 0; display:grid; gap:10px}
+  .beat-copy li{display:flex; gap:11px; font-size:14.5px; color:var(--text); line-height:1.45}
+  .beat-copy li::before{content:""; flex:0 0 7px; height:7px; margin-top:8px; background:var(--gold); border-radius:2px}
+  .motif{width:min(360px,90vw); display:flex; flex-direction:column; gap:12px}
+
+  /* ---- Season ---- */
+  .season{border-top:1px solid var(--line); background:#0c0c10}
+  .qgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:40px}
+  @media(max-width:720px){.qgrid{grid-template-columns:repeat(2,1fr)}}
+  .qcard{border:1px solid var(--line); border-radius:14px; padding:20px 18px; background:var(--panel)}
+  .qcard b{display:block; font:400 30px/1 Anton,Impact,sans-serif; color:var(--gold); letter-spacing:.02em}
+  .qcard small{display:block; margin-top:8px; font:800 10px/1 Inter,sans-serif; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--dim)}
+  .qcard p{margin:12px 0 0; font-size:13px; color:var(--muted); line-height:1.45}
+  .season-split{display:grid; grid-template-columns:1fr auto; gap:56px; align-items:center; margin-top:52px}
+  @media(max-width:960px){.season-split{grid-template-columns:1fr; gap:38px}}
+  .season-copy ul{list-style:none; padding:0; margin:22px 0 0; display:grid; gap:10px}
+  .season-copy li{display:flex; gap:11px; font-size:14.5px; color:var(--text)}
+  .season-copy li::before{content:""; flex:0 0 7px; height:7px; margin-top:8px; background:var(--gold); border-radius:2px}
+  .board{border:1px solid var(--gold-line); border-radius:14px; background:#0d0d12; overflow:hidden; margin-top:26px}
+  .board-h{display:flex; align-items:center; justify-content:space-between; padding:11px 15px;
+    border-bottom:1px solid var(--line); font:800 11px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.14em; color:var(--gold)}
+  .lb{display:flex; align-items:center; gap:12px; padding:11px 15px; border-bottom:1px solid var(--line-soft)}
+  .lb:last-child{border-bottom:0}
+  .lb .rk{width:18px; font:800 14px/1 Inter,sans-serif; color:var(--dim); text-align:center}
+  .lb .nmx{flex:1; font-weight:700; font-size:14.5px; display:flex; align-items:center; gap:8px}
+  .lb .crown{color:var(--gold)}
+  .lb .sc{font:800 15px/1 Inter,sans-serif; color:var(--text); font-variant-numeric:tabular-nums}
+  .lb.lead .sc{color:var(--gold)}
+  .lb .sc span{font-size:11px; color:var(--dim); font-weight:600; margin-left:3px}
+
+  /* ---- Extras ---- */
+  .extras{border-top:1px solid var(--line)}
+  .ex-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:40px}
+  @media(max-width:820px){.ex-grid{grid-template-columns:1fr}}
+  .ex{border:1px solid var(--line); border-radius:16px; padding:26px 24px 28px; background:var(--panel);
+    transition:border-color .18s, transform .18s}
+  .ex:hover{border-color:var(--gold-line); transform:translateY(-3px)}
+  .ex .ix{font:800 11px/1 Inter,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold)}
+  .ex h3{margin:14px 0 9px; font:400 24px/1 Anton,Impact,sans-serif; text-transform:uppercase; letter-spacing:.01em}
+  .ex p{margin:0; color:var(--muted); font-size:14.5px; line-height:1.5}
+
+  /* ---- Closing CTA ---- */
+  .close{border-top:1px solid var(--line); text-align:center; position:relative; overflow:hidden}
+  .close .glow{position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(600px 360px at 50% 0%, rgba(255,183,28,.12), transparent 60%)}
+  .close h2{margin:16px auto 0; font-size:clamp(42px,8vw,110px)}
+  .close p{margin:22px auto 0; color:var(--muted); font-size:17px; max-width:52ch}
+  .close .cta-row{justify-content:center}
+
+  footer{border-top:1px solid var(--line); padding:44px 0 54px}
+  .foot{display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:center}
+  .foot nav{display:flex; gap:24px}
+  .foot nav a{color:var(--muted); font:700 12px/1 Inter,sans-serif; text-transform:uppercase; letter-spacing:.1em}
+  .foot nav a:hover{color:var(--gold)}
+  .disc{margin-top:28px; padding-top:22px; border-top:1px solid var(--line); font-size:12px;
+    line-height:1.75; color:#63636d; max-width:80ch}
+
+  /* ---- Reveal ---- */
+  .rv{opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease}
+  .rv.in{opacity:1; transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .rv{opacity:1; transform:none; transition:none}
+    .typing i,.dot.live,.float{animation:none}
+    .float{position:absolute}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap mast">
+    <a class="mark" href="#top" aria-label="Steel City Gameday — home">
+      <img src="assets/icon.png" alt="">
+      <span class="d wm">Steel City <span class="g">Gameday</span></span>
+    </a>
+    <nav class="top" aria-label="Primary">
+      <a href="#wedge">The Difference</a>
+      <a href="#how">How it works</a>
+      <a href="#season">The Season</a>
+      <a href="#get">Get it</a>
+    </nav>
+    <span class="mini-live" aria-hidden="true"><span class="dot live"></span><span id="mini-cd">Kickoff soon</span></span>
+  </div>
+</header>
+
+<div class="towel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-left">
+        <span class="tag-pill"><span class="g">Unofficial fan app</span> · Pittsburgh · 2026 season</span>
+        <h1 class="d">
+          <span class="line">Your group chat,</span>
+          <span class="line g">built for game day.</span>
+        </h1>
+        <p class="sub">You already spend Sundays firing off hot takes into the group text and the timeline. It's chaos, nobody keeps score, and it's <b>gone by Tuesday.</b> Steel City Gameday is where that thread finally belongs — private to your people, scored, crowned, and remembered all season.</p>
+
+        <div class="pinned" role="group" aria-label="Countdown to Week 1 kickoff">
+          <div class="pinned-h"><span aria-hidden="true">📌</span> Pinned by the Crew · Week 1 kickoff</div>
+          <div class="count num-tab" id="countdown">
+            <div><b id="cd-d">--</b><small>Days</small></div>
+            <div><b id="cd-h">--</b><small>Hrs</small></div>
+            <div><b id="cd-m">--</b><small>Min</small></div>
+            <div><b id="cd-s">--</b><small>Sec</small></div>
+          </div>
+          <div class="pinned-f" id="pinned-when">Sunday, September 13 · 1:00 PM ET · Steelers vs Falcons</div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-solid" href="#get">Coming to the App Store</a>
+          <a class="btn btn-line" href="#wedge">See the difference</a>
+        </div>
+        <p class="fine">Free to start · invite-only Crews · no ads, no tracking, no wagering.</p>
+      </div>
+
+      <div class="hero-stage">
+        <div class="phone">
+          <img src="assets/room.png" width="620" height="1347"
+            alt="A Crew's private game-day room mid-conversation — family members trading messages about wings and predictions — with a live gold Flash Pick card asking how the current drive ends, on a countdown to answer.">
+        </div>
+        <div class="float reacts" aria-hidden="true">
+          <span class="react">🔥 Dad</span> <span class="react">💯 Katie</span>
+        </div>
+        <div class="float rc f2" aria-hidden="true">
+          <div class="receipt">
+            <span class="chk">✓</span>
+            <div><span class="rt">Receipt</span><p>You called it. <span class="pts">+20 pts</span></p></div>
+          </div>
+        </div>
+        <div class="float fp f3" aria-hidden="true"><span>⚡</span> Flash Pick · <span id="hero-flash">0:12</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== THE WEDGE ===================== -->
+  <section class="wedge" id="wedge">
+    <div class="wrap sec-pad">
+      <div class="sec-head rv">
+        <span class="eyebrow">Same Sunday. Two threads.</span>
+        <h2 class="d">One of these<br><span class="g">remembers the season.</span></h2>
+        <p class="lede">Here's the honest before-and-after. Your group text does the arguing. Your Crew room does the arguing, the scoring, the crowning — and it's all still there in January.</p>
+      </div>
+
+      <div class="versus">
+        <!-- OLD WAY -->
+        <div class="rv">
+          <div class="col-head">
+            <h3>The group text</h3>
+            <span class="tagx bad">Sunday</span>
+          </div>
+          <div class="chatwin old">
+            <div class="win-bar">
+              <div>
+                <div class="wt">🏈 Steelers Group Text</div>
+                <div class="ws">17 people · muted by 3 of them</div>
+              </div>
+              <span class="badge">Delivered</span>
+            </div>
+            <div class="win-body">
+              <div class="thread" aria-label="An example group text thread">
+                <div class="row"><span class="av dave" aria-hidden="true">DV</span><div class="stack"><span class="nm">Dave</span><span class="bub them">DEFENSE WINS THIS ONE. book it.</span></div></div>
+                <div class="row me"><div class="stack"><span class="bub mine">27–20 us. screenshot this 📸</span></div></div>
+                <div class="row"><span class="av mom" aria-hidden="true">MA</span><div class="stack"><span class="nm">Ma</span><span class="bub them">who's on wings this year</span></div></div>
+                <div class="row"><span class="av j" aria-hidden="true">JU</span><div class="stack"><span class="nm">Jules</span><span class="bub them">WHO CALLED A PUNT 😂😂😂</span></div></div>
+                <div class="row"><span class="av dave" aria-hidden="true">DV</span><div class="stack"><span class="bub them">anyone else's stream frozen</span></div></div>
+                <div class="row"><span class="av j" aria-hidden="true">JU</span><div class="stack"><span class="bub them typing" aria-label="typing"><i></i><i></i><i></i></span></div></div>
+              </div>
+            </div>
+            <div class="win-foot">
+              <span class="stamp dead">Unscored</span>
+              <span class="stamp dead">No winner</span>
+              <span class="stamp dead">Gone by Tuesday</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vs-badge" aria-hidden="true">VS</div>
+
+        <!-- NEW WAY -->
+        <div class="rv">
+          <div class="col-head">
+            <h3 class="g">Your Crew room</h3>
+            <span class="tagx good">Upgraded</span>
+          </div>
+          <div class="chatwin crewwin">
+            <div class="win-bar">
+              <div>
+                <div class="wt">Pollak Family</div>
+                <div class="ws">Week 1 · PIT vs ATL · everyone locked in</div>
+              </div>
+              <span class="badge on"><span class="dot live" style="width:7px;height:7px"></span> Live</span>
+            </div>
+            <div class="win-body">
+              <div class="thread" aria-label="An example Crew room thread">
+                <div class="row"><span class="av um" aria-hidden="true">UM</span>
+                  <div class="stack"><span class="nm">Uncle Mo</span>
+                    <span class="bub crew">Calling it now — defense scores first<br><span class="locked-tag">Locked · pregame pick</span></span>
+                  </div>
+                </div>
+                <div class="flash" role="group" aria-label="Live Flash Pick">
+                  <div class="flash-h"><b><span aria-hidden="true">⚡</span> Flash Pick</b><span class="pts">20 PTS</span></div>
+                  <div class="flash-b">
+                    <p class="flash-q">2:00 left, Steelers ball — this drive ends in?</p>
+                    <p class="flash-lock"><span aria-hidden="true">⏱</span> Locks in <span id="flash-timer" class="num-tab">0:12</span></p>
+                    <div class="flash-opts">
+                      <button class="opt" type="button">Touchdown</button>
+                      <button class="opt" type="button">Field goal</button>
+                      <button class="opt" type="button">Punt</button>
+                      <button class="opt" type="button">Interception</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="reacts"><span class="react">🔥 Dad</span><span class="react">💯 Katie</span><span class="react">😤 Brett</span></div>
+                <div class="receipt">
+                  <span class="chk" aria-hidden="true">✓</span>
+                  <div><span class="rt">Receipt · final</span><p>Uncle Mo called it. Defense scored first. <span class="pts">+20 pts</span> — and the room won't let him forget it.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="win-foot">
+              <span class="stamp win">Scored</span>
+              <span class="stamp win">Crowned</span>
+              <span class="stamp win">Remembered</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="how sec-pad" id="how">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">The Sunday, start to finish</span>
+        <h2 class="d">Four moves. One thread.</h2>
+        <p class="lede">Everything a game day already is in your group chat — just with a scoreboard bolted on and a memory that lasts past Tuesday.</p>
+      </div>
+
+      <!-- Beat 01 -->
+      <div class="beat rv">
+        <div class="beat-media"><div class="phone"><img src="assets/crews.png" width="620" height="1347" alt="The Crew home screen: a Week 1 matchup card counting down to kickoff, above a list of the fan's private Crews with member avatars and a Start a Crew button."></div></div>
+        <div class="beat-copy">
+          <p class="bn">01</p>
+          <h3 class="d">Get your Crew together</h3>
+          <p>Start a private Crew, drop the invite link into the group text, and pull your people in — the family thread, the college group, the friends scattered across four time zones. Invite-only, no strangers, no feed.</p>
+          <ul>
+            <li>One tap to spin up a Crew and share the link</li>
+            <li>Every Crew gets its own room, every game</li>
+            <li>A next-game countdown so nobody misses kickoff</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Beat 02 -->
+      <div class="beat flip rv">
+        <div class="beat-media"><div class="phone"><img src="assets/picks.png" width="620" height="1347" alt="The pregame picks board: prediction questions with point values, multiple-choice calls, a closest-guess number entry with a Lock it in button, and a progress counter."></div></div>
+        <div class="beat-copy">
+          <p class="bn">02</p>
+          <h3 class="d">Call your shots</h3>
+          <p>Before kickoff, everyone locks in predictions — who wins, how close it is, total points, passing yards. Multiple choice for the big calls, real numbers for the ones worth arguing about. Nobody sees anyone's picks until they lock.</p>
+          <ul>
+            <li>Closest guess in your Crew takes the points</li>
+            <li>Picks stay hidden until they lock at kickoff</li>
+            <li>Fresh questions written every single week</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Beat 03: Flash Pick motif (no screenshot) -->
+      <div class="beat rv">
+        <div class="beat-media">
+          <div class="motif" aria-label="Illustration of a live Flash Pick and Crew reactions">
+            <div class="flash">
+              <div class="flash-h"><b><span aria-hidden="true">⚡</span> Flash Pick</b><span class="pts">20 PTS</span></div>
+              <div class="flash-b">
+                <p class="flash-q">1:41 left, 3rd &amp; goal — what happens?</p>
+                <p class="flash-lock"><span aria-hidden="true">⏱</span> Locks in <span class="num-tab" id="flash-timer-2">0:09</span></p>
+                <div class="flash-opts">
+                  <button class="opt" type="button">Touchdown</button>
+                  <button class="opt" type="button">Field goal</button>
+                  <button class="opt" type="button">Turnover</button>
+                  <button class="opt" type="button">Sack</button>
+                </div>
+              </div>
+            </div>
+            <div class="row"><span class="av k" aria-hidden="true">K</span><div class="stack"><span class="nm">Katie</span><span class="bub crew">TD. easy. locking it 🔒</span></div></div>
+            <div class="reacts"><span class="react">🔥 Dad</span><span class="react">😤 Uncle Mo</span><span class="react">👀 Brett</span></div>
+          </div>
+        </div>
+        <div class="beat-copy">
+          <p class="bn">03</p>
+          <h3 class="d">Watch it together</h3>
+          <p>One private room per game. Messages, one-tap reactions — and Flash Picks that drop mid-drive with a ticking clock. Two minutes left, Steelers ball: does this end in a touchdown, a field goal, a punt, or a pick? Answer against the clock.</p>
+          <ul>
+            <li>Live predictions that land while the drive is still alive</li>
+            <li>Results hit the chat the moment they're official</li>
+            <li>Works on the couch or three states away</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Beat 04: Receipts motif (no screenshot) -->
+      <div class="beat flip rv">
+        <div class="beat-media">
+          <div class="motif" aria-label="Illustration of post-game receipt cards">
+            <div class="receipt">
+              <span class="chk" aria-hidden="true">✓</span>
+              <div><span class="rt">Receipt · Uncle Mo</span><p>"Defense scores first." <span class="pts">+20</span> — the man was right and the room knows.</p></div>
+            </div>
+            <div class="receipt" style="border-style:solid; border-color:var(--line); background:#141419">
+              <span class="chk" aria-hidden="true" style="background:#7a1f2b">✗</span>
+              <div><span class="rt">Receipt · Dave</span><p>"27–20, book it." Final was 24–17. <span style="color:var(--muted); font-weight:800">+0</span>. Booked.</p></div>
+            </div>
+            <div class="board" style="margin-top:2px">
+              <div class="board-h"><span>🏆 This game</span><span style="color:var(--muted)">Final</span></div>
+              <div class="lb lead"><span class="rk">1</span><span class="nmx">Uncle Mo <span class="crown" aria-hidden="true">👑</span></span><span class="sc">40<span>pts</span></span></div>
+              <div class="lb"><span class="rk">2</span><span class="nmx">Katie</span><span class="sc">25<span>pts</span></span></div>
+              <div class="lb"><span class="rk">3</span><span class="nmx">Dave</span><span class="sc">0<span>pts</span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="beat-copy">
+          <p class="bn">04</p>
+          <h3 class="d">Keep the receipts</h3>
+          <p>Your Crew's picks <em>are</em> the receipts — proof of who actually called it. After the whistle every call is revealed side by side, the right ones checked off, the game's winner crowned, and the cards land in the chat your Crew will be quoting all week.</p>
+          <ul>
+            <li>A scoreboard for the game, and one for the season</li>
+            <li>Share cards built to end the argument</li>
+            <li>Past games stay open — a record, not a feed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEASON ===================== -->
+  <section class="season sec-pad" id="season">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">The season game</span>
+        <h2 class="d">Four quarters.<br>Four champions.<br><span class="g">One season crown.</span></h2>
+        <p class="lede">Every game's points roll into a running leaderboard. Like the game itself, the season splits into quarters — each one crowning a champ, all of it building to the title your Crew defends next year.</p>
+      </div>
+
+      <div class="qgrid rv">
+        <div class="qcard"><b>Q1</b><small>Weeks 1–4</small><p>The opener, the division, the early tone-setter.</p></div>
+        <div class="qcard"><b>Q2</b><small>Weeks 5–9</small><p>Grind season. Where the standings actually move.</p></div>
+        <div class="qcard"><b>Q3</b><small>Weeks 10–14</small><p>November football. Everything gets heavier.</p></div>
+        <div class="qcard"><b>Q4</b><small>Weeks 15–18</small><p>The run-in — and the crown that counts.</p></div>
+      </div>
+
+      <div class="season-split">
+        <div class="season-copy rv">
+          <div class="board">
+            <div class="board-h"><span>🏆 Season race · Pollak Family</span><span style="color:var(--muted)">Week 1</span></div>
+            <div class="lb lead"><span class="rk">1</span><span class="nmx"><span class="av b" aria-hidden="true" style="width:22px;height:22px;font-size:9px">B</span> Brett <span class="crown" aria-hidden="true">👑</span></span><span class="sc">25<span>pts</span></span></div>
+            <div class="lb"><span class="rk">2</span><span class="nmx"><span class="av um" aria-hidden="true" style="width:22px;height:22px;font-size:9px">UM</span> Uncle Mo</span><span class="sc">10<span>pts</span></span></div>
+            <div class="lb"><span class="rk">3</span><span class="nmx"><span class="av fp" aria-hidden="true" style="width:22px;height:22px;font-size:9px">FP</span> Fresh Picker</span><span class="sc">0<span>pts</span></span></div>
+            <div class="lb"><span class="rk">4</span><span class="nmx"><span class="av d" aria-hidden="true" style="width:22px;height:22px;font-size:9px">D</span> Dad</span><span class="sc">0<span>pts</span></span></div>
+            <div class="lb"><span class="rk">5</span><span class="nmx"><span class="av k" aria-hidden="true" style="width:22px;height:22px;font-size:9px">K</span> Katie</span><span class="sc">0<span>pts</span></span></div>
+          </div>
+          <ul>
+            <li>Ties share the crown — no manufactured tiebreak</li>
+            <li>Scored inside your Crew, never against strangers</li>
+            <li>A season recap worth screenshotting in January</li>
+          </ul>
+        </div>
+        <div class="rv" style="display:flex;justify-content:center">
+          <div class="phone"><img src="assets/season.png" width="620" height="1347" alt="The season screen: quarter champion cards marking Q1 in play, a Season race leaderboard led by Brett with a crown, a Share the season race button, and the 2026 schedule below."></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXTRAS ===================== -->
+  <section class="extras sec-pad">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">Between the games</span>
+        <h2 class="d">Everything else you'd<br>open five apps for.</h2>
+      </div>
+      <div class="ex-grid">
+        <div class="ex rv">
+          <span class="ix">01 / The Wire</span>
+          <h3>Every headline, once</h3>
+          <p>The beat writers and the fan sites in one stream, the same story grouped together — each outlet's take one tap away, always linking back to the people who wrote it.</p>
+        </div>
+        <div class="ex rv">
+          <span class="ix">02 / The Schedule</span>
+          <h3>All 17, in your zone</h3>
+          <p>Kickoff times in your own time zone, the bye week called out instead of silently skipped, results as they land. Tap any finished game to reopen its receipts.</p>
+        </div>
+        <div class="ex rv">
+          <span class="ix">03 / Widgets</span>
+          <h3>On the home screen</h3>
+          <p>A live countdown to the next kickoff and your Crew's leaderboard, sitting right on your home screen — no app opening required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLOSE ===================== -->
+  <section class="close sec-pad" id="get">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow rv">Sunday, September 13 · 1:00 PM ET</span>
+      <h2 class="d rv">Get your Crew<br><span class="g">together first.</span></h2>
+      <p class="rv">Start a Crew, drop the link in the group text, and make everyone call their shot before Atlanta comes to town. The thread you already have — finally keeping score.</p>
+      <div class="cta-row rv">
+        <a class="btn btn-solid" href="#top">Coming to the App Store</a>
+      </div>
+      <p class="fine rv">Got an invite link from your Crew? Tap it again once the app is installed and you're in.</p>
+    </div>
+  </section>
+</main>
+
+<div class="towel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="mark" href="#top" aria-label="Steel City Gameday — home">
+        <img src="assets/icon.png" alt="">
+        <span class="d wm" style="font-size:18px">Steel City <span class="g">Gameday</span></span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="https://steel-city-gameday.vercel.app/privacy">Privacy</a>
+        <a href="https://steel-city-gameday.vercel.app/terms">Terms</a>
+        <a href="mailto:brettcpollak@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <p class="disc">
+      Steel City Gameday is an independent, unofficial fan app. It is not affiliated with, endorsed by,
+      sponsored by, or associated with the Pittsburgh Steelers, the National Football League, or any of their
+      affiliates. Team and city names are used nominatively, only to describe the games fans are watching. No team
+      logos, uniforms, marks, or player likenesses appear in the app or on this site. All predictions are for
+      entertainment within your own Crew — there is no wagering, there are no entry fees, and there are no prizes
+      of monetary value.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    "use strict";
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---- Live countdown to Week 1 kickoff: Sun Sep 13 2026, 1:00 PM ET (17:00 UTC) ----
+    var KICKOFF = Date.UTC(2026, 8, 13, 17, 0, 0);
+    function pad(n){ return String(n).padStart(2, '0'); }
+    var cd = {
+      d: document.getElementById('cd-d'),
+      h: document.getElementById('cd-h'),
+      m: document.getElementById('cd-m'),
+      s: document.getElementById('cd-s')
+    };
+    var mini = document.getElementById('mini-cd');
+    function tick(){
+      var diff = Math.floor((KICKOFF - Date.now()) / 1000);
+      if (diff <= 0){
+        cd.d.textContent = cd.h.textContent = cd.m.textContent = cd.s.textContent = '00';
+        if (mini) mini.textContent = 'Game day';
+        var pw = document.getElementById('pinned-when');
+        if (pw) pw.textContent = "It's game day. Get in the room.";
+        return;
+      }
+      var days = Math.floor(diff / 86400);
+      var hrs = Math.floor(diff % 86400 / 3600);
+      var mins = Math.floor(diff % 3600 / 60);
+      var secs = diff % 60;
+      cd.d.textContent = pad(days);
+      cd.h.textContent = pad(hrs);
+      cd.m.textContent = pad(mins);
+      cd.s.textContent = pad(secs);
+      if (mini) mini.textContent = 'Kickoff · ' + days + 'd ' + hrs + 'h';
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // ---- Demo Flash Pick tickers (illustrative "live" feel; static if reduced motion) ----
+    function flashLoop(el, start){
+      if (!el) return;
+      if (reduce){ el.textContent = '0:' + pad(start); return; }
+      var t = start;
+      setInterval(function(){
+        t = (t <= 0) ? (start + Math.floor(Math.random() * 6)) : t - 1;
+        el.textContent = '0:' + pad(t);
+      }, 1000);
+    }
+    flashLoop(document.getElementById('flash-timer'), 12);
+    flashLoop(document.getElementById('flash-timer-2'), 9);
+    flashLoop(document.getElementById('hero-flash'), 12);
+
+    // ---- Reveal on scroll ----
+    var items = document.querySelectorAll('.rv');
+    if (reduce || !('IntersectionObserver' in window)){
+      items.forEach(function(e){ e.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -10% 0px' });
+      items.forEach(function(e){ io.observe(e); });
+    }
+  })();
+</script>
+</body>
+</html>

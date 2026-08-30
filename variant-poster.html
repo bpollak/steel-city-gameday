@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steel City Gameday — Your Group Chat, Built for Game Day</title>
+<meta name="description" content="A private, invite-only group-chat and prediction game for Pittsburgh Steelers fans. Talk trash, call the game, keep score all season. Coming to the App Store." />
+<link rel="icon" href="assets/icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&family=Archivo+Black&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0A0A0C;
+    --ink-2:#111116;
+    --ink-3:#17171e;
+    --gold:#FFB71C;
+    --deep-gold:#C98C07;
+    --white:#FFFFFF;
+    --muted:#B7B7C2;
+    --muted-2:#8A8A96;
+    --line:rgba(255,255,255,.10);
+    --line-gold:rgba(255,183,28,.28);
+    --stripe-angle:108deg;
+    --maxw:1240px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--white);
+    font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:clamp(1rem,.95rem + .3vw,1.15rem);
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  h1,h2,h3{margin:0;}
+
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  .display{
+    font-family:"Anton","Archivo Black",Impact,sans-serif;
+    font-weight:400;
+    letter-spacing:.005em;
+    line-height:.86;
+    text-transform:uppercase;
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px);}
+  .gold{color:var(--gold);}
+  .kicker{
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.24em;
+    font-size:clamp(.7rem,.62rem + .3vw,.86rem);
+    color:var(--gold);
+  }
+  .subtle{color:var(--muted);}
+
+  /* ---------- Diagonal stripe motif (the towel wave) ---------- */
+  .stripes{
+    background-image:repeating-linear-gradient(
+      var(--stripe-angle),
+      var(--gold) 0,
+      var(--gold) 20px,
+      transparent 20px,
+      transparent 44px
+    );
+    pointer-events:none;
+  }
+  .stripes--white{
+    background-image:repeating-linear-gradient(
+      var(--stripe-angle),
+      var(--white) 0,
+      var(--white) 12px,
+      var(--gold) 12px,
+      var(--gold) 24px,
+      transparent 24px,
+      transparent 52px
+    );
+  }
+  .stripe-band{
+    height:clamp(14px,2.4vw,26px);
+    width:100%;
+  }
+
+  /* ---------- Top bar ---------- */
+  header.bar{
+    position:sticky;top:0;z-index:60;
+    backdrop-filter:blur(12px);
+    background:linear-gradient(180deg,rgba(10,10,12,.92),rgba(10,10,12,.66));
+    border-bottom:1px solid var(--line);
+  }
+  .bar-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:12px clamp(16px,5vw,64px);
+    max-width:var(--maxw);margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0;}
+  .brand img{width:34px;height:34px;border-radius:9px;box-shadow:0 0 0 1px var(--line-gold);}
+  .brand b{
+    font-family:"Archivo",sans-serif;font-weight:900;
+    text-transform:uppercase;letter-spacing:.10em;
+    font-size:.92rem;white-space:nowrap;
+  }
+  .brand b span{color:var(--gold);}
+  .bar .cta-sm{
+    display:inline-flex;align-items:center;gap:9px;
+    background:var(--gold);color:var(--ink);
+    font-weight:900;text-transform:uppercase;letter-spacing:.06em;
+    font-size:.78rem;text-decoration:none;
+    padding:10px 16px;border-radius:999px;white-space:nowrap;
+    transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s var(--ease);
+  }
+  .bar .cta-sm:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,183,28,.32);background:#ffc844;}
+  .bar .cta-sm svg{width:14px;height:14px;}
+  @media (max-width:560px){ .brand b{font-size:.8rem;letter-spacing:.06em;} }
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;padding:clamp(40px,6vw,84px) 0 clamp(52px,7vw,96px);}
+  .hero-bg-stripe{
+    position:absolute;z-index:0;
+    top:-24%;right:-18%;
+    width:70vw;height:150%;
+    opacity:.16;
+    transform:rotate(-4deg) translate3d(0,var(--px,0),0);
+    -webkit-mask-image:linear-gradient(200deg,#000 0%,transparent 72%);
+    mask-image:linear-gradient(200deg,#000 0%,transparent 72%);
+    will-change:transform;
+  }
+  .hero-glow{
+    position:absolute;z-index:0;
+    top:-30%;left:-10%;
+    width:60vw;height:60vw;max-width:760px;max-height:760px;
+    background:radial-gradient(circle at 30% 30%,rgba(255,183,28,.16),transparent 62%);
+    filter:blur(10px);pointer-events:none;
+  }
+  .hero-grid{
+    position:relative;z-index:2;
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+    gap:clamp(24px,4vw,56px);
+    align-items:center;
+  }
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:clamp(28px,7vw,44px);}
+  }
+
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    margin-bottom:clamp(16px,2.4vw,26px);
+  }
+  .hero-eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);}
+  .hero h1{
+    font-size:clamp(3.3rem,12.5vw,10.5rem);
+    margin:0 0 clamp(18px,2.4vw,28px);
+  }
+  .hero h1 .row{display:block;}
+  .hero h1 .stroke{
+    color:transparent;
+    -webkit-text-stroke:2px var(--gold);
+    text-stroke:2px var(--gold);
+  }
+  .hero-sub{
+    font-size:clamp(1.05rem,1rem + .5vw,1.35rem);
+    color:var(--muted);
+    max-width:44ch;
+    margin:0 0 clamp(26px,3.4vw,36px);
+  }
+  .hero-sub b{color:var(--white);font-weight:700;}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;}
+  .cta{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--gold);color:var(--ink);
+    font-family:"Archivo",sans-serif;font-weight:900;
+    text-transform:uppercase;letter-spacing:.05em;
+    font-size:clamp(.95rem,.9rem + .2vw,1.08rem);
+    text-decoration:none;
+    padding:16px 26px;border-radius:999px;
+    box-shadow:0 10px 30px rgba(255,183,28,.24);
+    transition:transform .22s var(--ease),box-shadow .22s var(--ease),background .22s var(--ease);
+  }
+  .cta:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 16px 44px rgba(255,183,28,.42);background:#ffc844;}
+  .cta:active{transform:translateY(0);}
+  .cta svg{width:20px;height:20px;}
+  .cta-note{font-size:.86rem;color:var(--muted-2);letter-spacing:.02em;}
+
+  /* Countdown */
+  .countdown{
+    margin-top:clamp(28px,3.6vw,40px);
+    border:1px solid var(--line-gold);
+    border-radius:16px;
+    background:linear-gradient(180deg,rgba(255,183,28,.06),rgba(255,255,255,.02));
+    padding:clamp(16px,2.2vw,22px) clamp(18px,2.4vw,26px);
+    max-width:520px;
+  }
+  .countdown-label{
+    display:flex;align-items:center;gap:10px;
+    font-weight:800;text-transform:uppercase;letter-spacing:.16em;
+    font-size:.74rem;color:var(--gold);margin-bottom:14px;
+  }
+  .countdown-label .pulse{
+    width:9px;height:9px;border-radius:50%;background:var(--gold);
+    box-shadow:0 0 0 0 rgba(255,183,28,.6);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,183,28,.55);}
+    70%{box-shadow:0 0 0 12px rgba(255,183,28,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,183,28,0);}
+  }
+  @media (prefers-reduced-motion: reduce){ .countdown-label .pulse{animation:none;} }
+  .cd-cells{display:flex;gap:clamp(8px,1.6vw,18px);align-items:flex-end;}
+  .cd-cell{text-align:center;min-width:0;flex:1;}
+  .cd-num{
+    font-family:"Anton",sans-serif;
+    font-size:clamp(2.1rem,7vw,3.4rem);
+    line-height:.9;
+    color:var(--white);
+    font-variant-numeric:tabular-nums;
+    letter-spacing:.01em;
+  }
+  .cd-unit{
+    display:block;margin-top:6px;
+    font-size:.66rem;font-weight:800;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted-2);
+  }
+  .cd-colon{font-family:"Anton",sans-serif;font-size:clamp(1.6rem,5vw,2.6rem);color:var(--deep-gold);line-height:1.2;padding-bottom:.5rem;}
+
+  /* Phone frame */
+  .hero-phone-wrap{display:flex;justify-content:center;position:relative;}
+  .phone{
+    position:relative;
+    width:min(330px,80vw);
+    aspect-ratio:620/1347;
+    border-radius:44px;
+    padding:11px;
+    background:linear-gradient(160deg,#26262e,#0d0d11 55%,#26262e);
+    box-shadow:
+      0 2px 0 rgba(255,255,255,.06) inset,
+      0 40px 80px -30px rgba(0,0,0,.9),
+      0 0 0 1px rgba(255,183,28,.14);
+    transform:translate3d(0,var(--px,0),0);
+    will-change:transform;
+  }
+  .phone::before{
+    content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:38%;height:22px;background:#0d0d11;border-radius:0 0 16px 16px;z-index:3;
+  }
+  .phone img{width:100%;height:100%;object-fit:cover;border-radius:34px;display:block;background:var(--ink-2);}
+  .phone-tilt{transform:rotate(3deg) translate3d(0,var(--px,0),0);}
+
+  .hero-badge{
+    position:absolute;z-index:4;
+    left:-6%;bottom:9%;
+    background:var(--ink-2);
+    border:1px solid var(--line-gold);
+    border-radius:14px;padding:12px 16px;
+    box-shadow:0 20px 40px -18px rgba(0,0,0,.8);
+    max-width:210px;
+  }
+  .hero-badge .lp{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem;color:var(--gold);margin-bottom:6px;}
+  .hero-badge p{margin:0;font-size:.82rem;color:var(--muted);line-height:1.4;}
+  .hero-badge .lp svg{width:14px;height:14px;}
+  @media (max-width:900px){ .hero-badge{left:auto;right:2%;} }
+  @media (max-width:420px){ .hero-badge{display:none;} }
+
+  /* ---------- Section scaffolding ---------- */
+  section{position:relative;}
+  .band{padding:clamp(64px,9vw,128px) 0;}
+  .sec-head{max-width:62ch;}
+  .sec-title{
+    font-size:clamp(2.4rem,8vw,6.5rem);
+    margin:14px 0 0;
+  }
+  .sec-lead{
+    font-size:clamp(1.05rem,1rem + .4vw,1.3rem);
+    color:var(--muted);max-width:52ch;margin:20px 0 0;
+  }
+
+  /* ---------- Contrast / wedge ---------- */
+  .wedge{background:linear-gradient(180deg,var(--ink),#0c0c10);border-top:1px solid var(--line);}
+  .versus{
+    display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(18px,3vw,40px);
+    align-items:stretch;margin-top:clamp(36px,5vw,60px);
+  }
+  @media (max-width:820px){
+    .versus{grid-template-columns:1fr;gap:20px;}
+    .vs-orb{justify-self:center;}
+  }
+  .col{
+    border-radius:20px;padding:clamp(22px,3vw,34px);
+    border:1px solid var(--line);
+    background:var(--ink-2);
+  }
+  .col.old{opacity:.9;}
+  .col.new{
+    border-color:var(--line-gold);
+    background:
+      radial-gradient(120% 80% at 100% 0%,rgba(255,183,28,.10),transparent 60%),
+      var(--ink-2);
+    box-shadow:0 30px 70px -40px rgba(255,183,28,.4);
+  }
+  .col-tag{
+    display:inline-block;font-weight:900;text-transform:uppercase;
+    letter-spacing:.14em;font-size:.72rem;padding:6px 12px;border-radius:999px;margin-bottom:20px;
+  }
+  .col.old .col-tag{background:rgba(255,255,255,.06);color:var(--muted-2);}
+  .col.new .col-tag{background:var(--gold);color:var(--ink);}
+  .col h3{
+    font-family:"Anton",sans-serif;text-transform:uppercase;
+    font-size:clamp(1.5rem,1.2rem + 1.4vw,2.2rem);line-height:.95;margin-bottom:20px;letter-spacing:.01em;
+  }
+  .col.old h3{color:var(--muted);}
+  .clist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .clist li{display:flex;gap:12px;align-items:flex-start;font-size:1rem;line-height:1.45;}
+  .clist .ic{flex:none;width:22px;height:22px;margin-top:2px;}
+  .col.old .clist li{color:var(--muted-2);}
+  .col.old .clist li s{text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3);}
+  .col.new .clist li{color:var(--white);}
+  .vs-orb{
+    align-self:center;
+    width:clamp(64px,8vw,92px);height:clamp(64px,8vw,92px);border-radius:50%;
+    display:grid;place-items:center;
+    font-family:"Anton",sans-serif;font-size:clamp(1.3rem,2.4vw,1.8rem);
+    color:var(--ink);background:var(--gold);
+    box-shadow:0 0 0 6px rgba(255,183,28,.15),0 14px 30px -10px rgba(255,183,28,.5);
+  }
+
+  /* ---------- Marquee ---------- */
+  .marquee-wrap{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--gold);color:var(--ink);
+    padding:clamp(14px,2vw,20px) 0;overflow:hidden;
+    transform:rotate(-1.4deg) scale(1.04);
+    margin:clamp(30px,6vw,60px) 0;
+  }
+  .marquee{display:flex;width:max-content;animation:scrollx 38s linear infinite;}
+  .marquee.rev{animation-direction:reverse;}
+  .marquee:hover{animation-play-state:paused;}
+  .marquee span{
+    font-family:"Anton",sans-serif;text-transform:uppercase;
+    font-size:clamp(1.3rem,3.4vw,2.4rem);letter-spacing:.02em;
+    padding:0 clamp(16px,2.4vw,30px);white-space:nowrap;
+    display:inline-flex;align-items:center;gap:clamp(16px,2.4vw,30px);
+  }
+  .marquee span::after{content:"";width:12px;height:12px;border-radius:2px;background:var(--ink);transform:rotate(45deg);opacity:.7;}
+  @keyframes scrollx{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){
+    .marquee{animation:none;flex-wrap:wrap;width:100%;}
+    .marquee-wrap{transform:none;}
+  }
+
+  /* ---------- Feature rows ---------- */
+  .feature{
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:clamp(28px,5vw,72px);align-items:center;
+    padding:clamp(48px,7vw,92px) 0;
+    border-top:1px solid var(--line);
+  }
+  .feature.flip .f-media{order:2;}
+  @media (max-width:860px){
+    .feature{grid-template-columns:1fr;gap:clamp(28px,7vw,44px);}
+    .feature.flip .f-media{order:0;}
+  }
+  .f-num{
+    font-family:"Anton",sans-serif;color:transparent;
+    -webkit-text-stroke:1.5px var(--line-gold);
+    font-size:clamp(2.4rem,6vw,4.4rem);line-height:1;display:block;margin-bottom:6px;
+  }
+  .f-title{
+    font-family:"Anton",sans-serif;text-transform:uppercase;
+    font-size:clamp(2rem,1.4rem + 3vw,3.6rem);line-height:.92;margin:6px 0 18px;letter-spacing:.01em;
+  }
+  .f-title em{font-style:normal;color:var(--gold);}
+  .f-body{color:var(--muted);font-size:clamp(1.02rem,1rem + .3vw,1.2rem);max-width:46ch;}
+  .f-body b{color:var(--white);font-weight:700;}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+  .chip{
+    border:1px solid var(--line-gold);border-radius:999px;
+    padding:8px 15px;font-size:.82rem;font-weight:700;letter-spacing:.02em;
+    color:var(--gold);background:rgba(255,183,28,.05);
+  }
+  .f-media{position:relative;display:flex;justify-content:center;}
+  .f-media .stripe-accent{
+    position:absolute;inset:auto;z-index:0;
+    width:64%;height:64%;bottom:-6%;right:2%;
+    opacity:.5;border-radius:20px;
+    transform:translate3d(0,var(--px,0),0);
+    -webkit-mask-image:linear-gradient(120deg,#000,transparent);
+    mask-image:linear-gradient(120deg,#000,transparent);
+    will-change:transform;
+  }
+  .f-media .phone{z-index:2;}
+
+  /* ---------- Flash pick spotlight ---------- */
+  .flash{
+    background:
+      radial-gradient(90% 120% at 80% -10%,rgba(255,183,28,.14),transparent 55%),
+      linear-gradient(180deg,#0c0c10,var(--ink));
+    border-top:1px solid var(--line);
+  }
+  .flash-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(30px,5vw,64px);align-items:center;}
+  @media (max-width:860px){ .flash-grid{grid-template-columns:1fr;} }
+  .flash-card{
+    border-radius:20px;overflow:hidden;
+    border:1px solid var(--line-gold);
+    background:var(--ink-2);
+    box-shadow:0 40px 90px -50px rgba(255,183,28,.6);
+    max-width:460px;width:100%;justify-self:center;
+  }
+  .flash-top{
+    background:linear-gradient(90deg,var(--gold),var(--deep-gold));
+    color:var(--ink);display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;
+  }
+  .flash-top .lbl{display:flex;align-items:center;gap:9px;font-size:.9rem;}
+  .flash-top .lbl svg{width:17px;height:17px;}
+  .flash-top .pts{font-family:"Anton",sans-serif;font-size:1.1rem;letter-spacing:.02em;}
+  .flash-body{padding:22px 22px 24px;}
+  .flash-q{font-weight:800;font-size:1.15rem;line-height:1.35;margin-bottom:8px;}
+  .flash-lock{color:#ff6b5e;font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:7px;margin-bottom:18px;}
+  .flash-lock svg{width:15px;height:15px;}
+  .flash-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .flash-opt{
+    border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+    background:var(--ink-3);font-weight:600;transition:border-color .2s var(--ease),transform .2s var(--ease),background .2s var(--ease);cursor:default;
+  }
+  .flash-opt:hover{border-color:var(--gold);background:rgba(255,183,28,.08);transform:translateY(-2px);}
+  .flash-opt.hot{border-color:var(--gold);background:rgba(255,183,28,.12);}
+
+  /* ---------- Everything-else strip ---------- */
+  .grid-mini{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,26px);
+    margin-top:clamp(34px,5vw,52px);
+  }
+  @media (max-width:760px){ .grid-mini{grid-template-columns:1fr;} }
+  .mini{
+    border:1px solid var(--line);border-radius:16px;padding:clamp(22px,3vw,30px);
+    background:var(--ink-2);transition:border-color .25s var(--ease),transform .25s var(--ease);
+  }
+  .mini:hover{border-color:var(--line-gold);transform:translateY(-4px);}
+  .mini .mi{width:38px;height:38px;color:var(--gold);margin-bottom:16px;}
+  .mini h4{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:1.3rem;letter-spacing:.02em;margin:0 0 10px;}
+  .mini p{margin:0;color:var(--muted);font-size:.98rem;}
+
+  /* ---------- Final CTA ---------- */
+  .finale{position:relative;overflow:hidden;padding:clamp(72px,10vw,150px) 0;text-align:center;border-top:1px solid var(--line);}
+  .finale .fin-stripe{position:absolute;inset:0;z-index:0;opacity:.12;transform:rotate(-3deg) scale(1.3) translate3d(0,var(--px,0),0);will-change:transform;}
+  .finale-inner{position:relative;z-index:2;max-width:20ch;margin:0 auto;}
+  .finale h2{font-size:clamp(3rem,11vw,9rem);margin:0 0 26px;}
+  .finale h2 em{font-style:normal;color:var(--gold);}
+  .finale p{color:var(--muted);max-width:46ch;margin:0 auto 34px;font-size:clamp(1.05rem,1rem + .4vw,1.3rem);}
+  .finale .cta{font-size:clamp(1rem,.95rem + .3vw,1.2rem);padding:18px 32px;}
+
+  /* ---------- Footer ---------- */
+  footer{background:#08080a;border-top:1px solid var(--line);padding:clamp(48px,7vw,80px) 0 40px;}
+  .foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;align-items:flex-start;}
+  .foot-brand{display:flex;align-items:center;gap:12px;}
+  .foot-brand img{width:40px;height:40px;border-radius:11px;box-shadow:0 0 0 1px var(--line-gold);}
+  .foot-brand b{font-family:"Archivo",sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:.1em;font-size:1rem;}
+  .foot-brand b span{color:var(--gold);}
+  .foot-links{display:flex;flex-wrap:wrap;gap:22px;align-items:center;}
+  .foot-links a{
+    text-decoration:none;color:var(--muted);font-weight:700;
+    font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;
+    transition:color .2s var(--ease);
+  }
+  .foot-links a:hover{color:var(--gold);}
+  .disclaimer{
+    margin-top:clamp(32px,5vw,48px);padding-top:26px;border-top:1px solid var(--line);
+    color:var(--muted-2);font-size:.82rem;line-height:1.65;max-width:80ch;
+  }
+  .disclaimer strong{color:var(--muted);font-weight:700;}
+  .copyr{margin-top:22px;color:var(--muted-2);font-size:.8rem;letter-spacing:.02em;}
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal.d1{transition-delay:.08s;}
+  .reveal.d2{transition-delay:.16s;}
+  .reveal.d3{transition-delay:.24s;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<a class="visually-hidden" href="#main">Skip to content</a>
+
+<!-- ============ TOP BAR ============ -->
+<header class="bar">
+  <div class="bar-inner">
+    <a class="brand" href="#top" aria-label="Steel City Gameday home">
+      <img src="assets/icon.png" alt="Steel City Gameday app icon" />
+      <b>Steel City <span>Gameday</span></b>
+    </a>
+    <a class="cta-sm" href="#download">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.9c.1 1-.3 2-.9 2.8-.7.8-1.7 1.4-2.7 1.3-.1-1 .3-2 .9-2.7.7-.8 1.8-1.4 2.7-1.4zM19.6 17c-.5 1.1-.7 1.6-1.3 2.6-.9 1.4-2.1 3.1-3.6 3.1-1.4 0-1.7-.9-3.6-.9-1.8 0-2.2.9-3.5.9-1.6 0-2.7-1.5-3.6-2.9C1.1 16.4.8 12 2.4 9.6c.9-1.3 2.4-2.1 3.9-2.1 1.5 0 2.4.9 3.6.9 1.2 0 1.9-.9 3.6-.9 1.3 0 2.7.7 3.7 2-3.2 1.7-2.7 6.3.4 7.5z"/></svg>
+      App Store
+    </a>
+  </div>
+</header>
+
+<main id="main">
+<a id="top"></a>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-bg-stripe stripes" data-parallax="0.18" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="hero-eyebrow reveal">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="kicker">Private · Invite-only · Steelers fans only</span>
+      </span>
+      <h1 class="display reveal d1">
+        <span class="row">Your group</span>
+        <span class="row">chat, built</span>
+        <span class="row"><span class="gold">for game day</span></span>
+      </h1>
+      <p class="hero-sub reveal d2">
+        The texts fly. The takes land. Nobody keeps score. <b>Steel City Gameday</b> is the private room where your crew talks trash, calls the game live, and finds out — receipts and all — who actually knew ball.
+      </p>
+      <div class="cta-row reveal d3">
+        <a class="cta" href="#download">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.9c.1 1-.3 2-.9 2.8-.7.8-1.7 1.4-2.7 1.3-.1-1 .3-2 .9-2.7.7-.8 1.8-1.4 2.7-1.4zM19.6 17c-.5 1.1-.7 1.6-1.3 2.6-.9 1.4-2.1 3.1-3.6 3.1-1.4 0-1.7-.9-3.6-.9-1.8 0-2.2.9-3.5.9-1.6 0-2.7-1.5-3.6-2.9C1.1 16.4.8 12 2.4 9.6c.9-1.3 2.4-2.1 3.9-2.1 1.5 0 2.4.9 3.6.9 1.2 0 1.9-.9 3.6-.9 1.3 0 2.7.7 3.7 2-3.2 1.7-2.7 6.3.4 7.5z"/></svg>
+          Coming to the App Store
+        </a>
+        <span class="cta-note">Free to join · Bring your crew</span>
+      </div>
+
+      <div class="countdown reveal d3" role="timer" aria-live="off" aria-label="Countdown to Week 1 kickoff">
+        <div class="countdown-label"><span class="pulse" aria-hidden="true"></span> Kickoff — Week 1 · Sun Sep 13, 1:00 PM ET</div>
+        <div class="cd-cells" id="countdown">
+          <div class="cd-cell"><div class="cd-num" id="cd-days">--</div><span class="cd-unit">Days</span></div>
+          <div class="cd-colon" aria-hidden="true">:</div>
+          <div class="cd-cell"><div class="cd-num" id="cd-hours">--</div><span class="cd-unit">Hrs</span></div>
+          <div class="cd-colon" aria-hidden="true">:</div>
+          <div class="cd-cell"><div class="cd-num" id="cd-mins">--</div><span class="cd-unit">Min</span></div>
+          <div class="cd-colon" aria-hidden="true">:</div>
+          <div class="cd-cell"><div class="cd-num" id="cd-secs">--</div><span class="cd-unit">Sec</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-phone-wrap reveal d2">
+      <div class="phone" data-parallax="-0.06">
+        <img src="assets/room.png" width="620" height="1347"
+             alt="The Pollak Family crew's private game-day room: a live chat thread with one-tap reactions and a gold Flash Pick card counting down to lock." />
+      </div>
+      <div class="hero-badge" aria-hidden="true">
+        <div class="lp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          Flash Pick · Live
+        </div>
+        <p>“This drive ends in?” — locks in 12:02. 20 pts on the line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe-band stripes--white" aria-hidden="true"></div>
+
+<!-- ============ THE WEDGE ============ -->
+<section class="band wedge" id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">The whole reason it exists</span>
+      <h2 class="sec-title display">The thread finally<br/>has a home</h2>
+      <p class="sec-lead">You already do this every Sunday — fire off texts, drop takes into the timeline, argue the fourth-down call. Then it all evaporates by Tuesday. Steel City Gameday is that exact energy, kept private, kept score, and remembered all season.</p>
+    </div>
+
+    <div class="versus">
+      <div class="col old reveal">
+        <span class="col-tag">The group text</span>
+        <h3>Loud on Sunday.<br/>Gone by Tuesday.</h3>
+        <ul class="clist">
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#8A8A96" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg><s>Buried under 200 unread by halftime</s></li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#8A8A96" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg><s>Hot takes vanish before kickoff of the next game</s></li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#8A8A96" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg><s>Nobody remembers who actually called it</s></li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#8A8A96" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg><s>No score, no stakes, no bragging rights that last</s></li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#8A8A96" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg><s>Your best take lands in the wrong chat entirely</s></li>
+        </ul>
+      </div>
+
+      <div class="vs-orb reveal d1" aria-hidden="true">VS</div>
+
+      <div class="col new reveal d2">
+        <span class="col-tag">Steel City Gameday</span>
+        <h3>Private room.<br/>Permanent record.</h3>
+        <ul class="clist">
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#FFB71C" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>One private room per game — just your people</li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#FFB71C" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Every call is scored the second the whistle blows</li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#FFB71C" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Receipts prove exactly who called it, forever</li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#FFB71C" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>A season leaderboard and a crown to chase</li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#FFB71C" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Reactions, flash picks, and the whole year remembered</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee" id="marquee">
+    <span>Calling it now — defense scores first</span>
+    <span>Locked my picks already</span>
+    <span>Katie has wings, I have the towels</span>
+    <span>This drive ends in a touchdown</span>
+    <span>I said 44. It was 45.</span>
+    <span>See you on the leaderboard</span>
+    <span>Bold. Respect the pick.</span>
+    <span>Dip duty is a sacred role</span>
+  </div>
+</div>
+<h2 class="visually-hidden">What game day sounds like in the room</h2>
+
+<!-- ============ FEATURE: THE ROOM ============ -->
+<section class="band" style="padding-top:0" id="features">
+  <div class="wrap">
+    <div class="feature reveal">
+      <div class="f-copy">
+        <span class="f-num display">01</span>
+        <span class="kicker">The Room</span>
+        <h3 class="f-title">Talk trash.<br/>React in <em>one tap.</em><br/>Call the drive.</h3>
+        <p class="f-body">Every game gets its own private room for your crew. Chat like you already do, fire off <b>one-tap reactions</b>, and when a drive is on the line, a live <b>Flash Pick</b> drops mid-action with a countdown. Pick fast — it locks before the snap.</p>
+        <div class="chips">
+          <span class="chip">Live chat</span>
+          <span class="chip">One-tap reactions</span>
+          <span class="chip">Flash Picks</span>
+          <span class="chip">Game receipts</span>
+        </div>
+      </div>
+      <div class="f-media">
+        <div class="stripe-accent stripes" data-parallax="0.1" aria-hidden="true"></div>
+        <div class="phone phone-tilt" data-parallax="-0.05">
+          <img src="assets/room.png" width="620" height="1347"
+               alt="The crew room mid-conversation with messages, reactions from Dad and Katie, and a live Flash Pick card asking how the drive ends." />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLASH PICK SPOTLIGHT ============ -->
+<section class="band flash">
+  <div class="wrap flash-grid">
+    <div class="flash-copy reveal">
+      <span class="kicker">Signature move</span>
+      <h3 class="f-title">Flash Picks hit<br/><em>mid-drive.</em></h3>
+      <p class="f-body">The ball's on the 40, two minutes left, and the whole room has a hot second to call it. Flash Picks appear live during the game, run on a countdown, and pay out points the moment reality catches up. It's the closest thing to yelling at the TV — except this time it counts.</p>
+      <div class="chips">
+        <span class="chip">Live countdown</span>
+        <span class="chip">Points on the line</span>
+        <span class="chip">Instant scoring</span>
+      </div>
+    </div>
+    <div class="flash-anchor reveal d1">
+      <div class="flash-card">
+        <div class="flash-top">
+          <span class="lbl"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg> Flash Pick</span>
+          <span class="pts">20 PTS</span>
+        </div>
+        <div class="flash-body">
+          <p class="flash-q">2:00 left, Steelers ball — this drive ends in?</p>
+          <p class="flash-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M12 1h0M9 1h6" stroke-linecap="round"/></svg> Locks in 12:02</p>
+          <div class="flash-opts">
+            <div class="flash-opt hot">Touchdown</div>
+            <div class="flash-opt">Field goal</div>
+            <div class="flash-opt">Punt</div>
+            <div class="flash-opt">Interception</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE: THE PICKS ============ -->
+<section class="band" style="padding-top:0;padding-bottom:0">
+  <div class="wrap">
+    <div class="feature flip reveal">
+      <div class="f-media">
+        <div class="stripe-accent stripes" data-parallax="0.1" style="left:2%;right:auto;" aria-hidden="true"></div>
+        <div class="phone" data-parallax="-0.05">
+          <img src="assets/picks.png" width="620" height="1347"
+               alt="The pregame picks board showing scored prediction questions with point values and closest-guess-wins prompts." />
+        </div>
+      </div>
+      <div class="f-copy">
+        <span class="f-num display">02</span>
+        <span class="kicker">Call Your Shots</span>
+        <h3 class="f-title">Before kickoff,<br/>put a number<br/><em>on it.</em></h3>
+        <p class="f-body">Every week, your crew answers the same scored questions before the whistle. Total points, passing yards, first score — <b>closest guess takes the pot.</b> Lock 'em in, change your mind until kickoff, then live with your call in front of everyone.</p>
+        <div class="chips">
+          <span class="chip">Scored predictions</span>
+          <span class="chip">Closest-guess-wins</span>
+          <span class="chip">Locks at kickoff</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE: THE SEASON ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="feature reveal">
+      <div class="f-copy">
+        <span class="f-num display">03</span>
+        <span class="kicker">The Long Game</span>
+        <h3 class="f-title">Win the week.<br/>Own the quarter.<br/>Chase <em>the crown.</em></h3>
+        <p class="f-body">Points stack all season into a live leaderboard your crew will not stop checking. The year splits into four quarters — <b>Weeks 1–4, 5–9, 10–14, 15–18</b> — each with its own champion. Rack up the most across all of it and the <b>season crown</b> is yours until next fall.</p>
+        <div class="chips">
+          <span class="chip">Season leaderboard</span>
+          <span class="chip">Quarter champions</span>
+          <span class="chip">The season crown</span>
+        </div>
+      </div>
+      <div class="f-media">
+        <div class="stripe-accent stripes" data-parallax="0.1" aria-hidden="true"></div>
+        <div class="phone phone-tilt" data-parallax="-0.05">
+          <img src="assets/season.png" width="620" height="1347"
+               alt="The season screen with quarter-champion cards for Q1 through Q4 and a season race leaderboard ranking crew members by points." />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe-band stripes" aria-hidden="true" style="opacity:.55;"></div>
+
+<!-- ============ EVERYTHING ELSE ============ -->
+<section class="band" id="more">
+  <div class="wrap">
+    <div class="feature flip reveal" style="border-top:none;padding-top:0;">
+      <div class="f-media">
+        <div class="stripe-accent stripes" data-parallax="0.1" style="left:2%;right:auto;" aria-hidden="true"></div>
+        <div class="phone" data-parallax="-0.05">
+          <img src="assets/crews.png" width="620" height="1347"
+               alt="The crew home screen with a live countdown to Week 1 kickoff and a list of the fan's private crews." />
+        </div>
+      </div>
+      <div class="f-copy">
+        <span class="f-num display">04</span>
+        <span class="kicker">Set the room</span>
+        <h3 class="f-title">Start a crew.<br/>Never miss<br/><em>a kickoff.</em></h3>
+        <p class="f-body">Spin up a private crew for the family, the group chat, the college buddies — as many as you want. A running countdown to the next game sits right up top, so the room fills before the anthem even starts.</p>
+      </div>
+    </div>
+
+    <div class="grid-mini">
+      <div class="mini reveal">
+        <svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16" stroke-linecap="round"/><circle cx="5" cy="19" r="1.6" fill="currentColor" stroke="none"/></svg>
+        <h4>The Wire</h4>
+        <p>Every headline worth arguing about, pulled into one feed so your crew's got fresh material before the takes even start.</p>
+      </div>
+      <div class="mini reveal d1">
+        <svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke-linecap="round"/></svg>
+        <h4>The Schedule</h4>
+        <p>The full slate at a glance — home and away, dates, kickoff times — so nobody's ever asking "wait, who do we play this week?"</p>
+      </div>
+      <div class="mini reveal d2">
+        <svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.6"/><rect x="13" y="3" width="8" height="8" rx="1.6"/><rect x="3" y="13" width="8" height="8" rx="1.6"/><rect x="13" y="13" width="8" height="8" rx="1.6"/></svg>
+        <h4>Home Widgets</h4>
+        <p>Countdown, next matchup, and your leaderboard rank right on your home screen. Game day starts the second you unlock your phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="finale" id="download">
+  <div class="fin-stripe stripes" data-parallax="0.14" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="finale-inner reveal">
+      <span class="kicker">The season starts Sunday, Sep 13</span>
+      <h2 class="display">Bring<br/>your <em>crew.</em></h2>
+      <p>Round up your people, set the room, and make this the season the group chat finally kept score. Steel City Gameday is coming to iPhone.</p>
+      <a class="cta" href="#download" aria-label="Coming to the App Store">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.9c.1 1-.3 2-.9 2.8-.7.8-1.7 1.4-2.7 1.3-.1-1 .3-2 .9-2.7.7-.8 1.8-1.4 2.7-1.4zM19.6 17c-.5 1.1-.7 1.6-1.3 2.6-.9 1.4-2.1 3.1-3.6 3.1-1.4 0-1.7-.9-3.6-.9-1.8 0-2.2.9-3.5.9-1.6 0-2.7-1.5-3.6-2.9C1.1 16.4.8 12 2.4 9.6c.9-1.3 2.4-2.1 3.9-2.1 1.5 0 2.4.9 3.6.9 1.2 0 1.9-.9 3.6-.9 1.3 0 2.7.7 3.7 2-3.2 1.7-2.7 6.3.4 7.5z"/></svg>
+        Coming to the App Store
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="assets/icon.png" alt="Steel City Gameday app icon" />
+        <b>Steel City <span>Gameday</span></b>
+      </div>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="https://steel-city-gameday.vercel.app/privacy">Privacy</a>
+        <a href="https://steel-city-gameday.vercel.app/terms">Terms</a>
+        <a href="mailto:brettcpollak@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <p class="disclaimer">
+      <strong>Steel City Gameday is an unofficial, fan-made app.</strong> It is not affiliated with, endorsed by, or sponsored by the Pittsburgh Steelers, the National Football League, or any of their affiliates. Team and city names are used only nominatively to describe the games fans follow, and no team logos, uniforms, marks, or player likenesses appear anywhere in the app. Steel City Gameday involves no wagering, no entry fees, and no prizes of any kind — it's just your crew, keeping score for fun.
+    </p>
+    <p class="copyr">© 2026 Steel City Gameday. Made by fans, for fans.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Live countdown to Week 1 kickoff ---------- */
+  var target = Date.UTC(2026, 8, 13, 17, 0, 0); // Sun Sep 13 2026, 1:00 PM ET
+  var elD = document.getElementById("cd-days");
+  var elH = document.getElementById("cd-hours");
+  var elM = document.getElementById("cd-mins");
+  var elS = document.getElementById("cd-secs");
+
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+
+  function tick(){
+    var now = Date.now();
+    var diff = target - now;
+    if (diff <= 0){
+      if (elD) elD.textContent = "00";
+      if (elH) elH.textContent = "00";
+      if (elM) elM.textContent = "00";
+      if (elS) elS.textContent = "00";
+      var lbl = document.querySelector(".countdown-label");
+      if (lbl && lbl.getAttribute("data-live") !== "1"){
+        lbl.setAttribute("data-live","1");
+        lbl.innerHTML = '<span class="pulse" aria-hidden="true"></span> Kickoff is here — it\'s game day.';
+      }
+      return false;
+    }
+    var s = Math.floor(diff / 1000);
+    var days = Math.floor(s / 86400); s -= days * 86400;
+    var hrs = Math.floor(s / 3600); s -= hrs * 3600;
+    var mins = Math.floor(s / 60); s -= mins * 60;
+    if (elD) elD.textContent = pad(days);
+    if (elH) elH.textContent = pad(hrs);
+    if (elM) elM.textContent = pad(mins);
+    if (elS) elS.textContent = pad(s);
+    return true;
+  }
+  tick();
+  var cdTimer = setInterval(function(){ if (tick() === false) clearInterval(cdTimer); }, 1000);
+
+  /* ---------- Marquee: duplicate children for a seamless -50% loop ---------- */
+  if (!reduceMotion){
+    var mq = document.getElementById("marquee");
+    if (mq){
+      var originals = Array.prototype.slice.call(mq.children);
+      originals.forEach(function(node){
+        var c = node.cloneNode(true);
+        c.setAttribute("aria-hidden","true");
+        mq.appendChild(c);
+      });
+    }
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  var reveals = document.querySelectorAll(".reveal");
+  if (reduceMotion || !("IntersectionObserver" in window)){
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- Parallax via --px custom property (rAF, motion-safe) ---------- */
+  if (!reduceMotion){
+    var pxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+    if (pxEls.length){
+      var ticking = false;
+      var vh = window.innerHeight;
+      function apply(){
+        var mid = vh / 2;
+        pxEls.forEach(function(el){
+          var rect = el.getBoundingClientRect();
+          if (rect.bottom < -200 || rect.top > vh + 200) return; // skip offscreen
+          var center = rect.top + rect.height / 2;
+          var factor = parseFloat(el.getAttribute("data-parallax")) || 0;
+          var y = -((center - mid) * factor);
+          el.style.setProperty("--px", y.toFixed(1) + "px");
+        });
+        ticking = false;
+      }
+      function onScroll(){
+        if (!ticking){ window.requestAnimationFrame(apply); ticking = true; }
+      }
+      window.addEventListener("scroll", onScroll, { passive:true });
+      window.addEventListener("resize", function(){ vh = window.innerHeight; onScroll(); }, { passive:true });
+      apply();
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
