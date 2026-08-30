@@ -4,15 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Steel City Gameday — Your group chat, built for game day</title>
-<meta name="description" content="Your Sunday group text, upgraded. A private, invite-only Crew room for Steelers game day: call your shots, fire off live Flash Picks, keep the receipts, and crown a season champion. An unofficial fan app coming to the App Store.">
+<meta name="description" content="Your Sunday group text, but it keeps score. A private, invite-only Crew room for Steelers game day — call your shots, live Flash Picks, receipts, a season crown. Unofficial fan app.">
 <meta name="theme-color" content="#0a0a0c">
-<meta property="og:title" content="Steel City Gameday">
-<meta property="og:description" content="Your group chat, built for game day. Private Crews, scored predictions, and a season crown — for people who already text through every snap.">
+<link rel="canonical" href="https://bpollak.github.io/steel-city-gameday/">
+<meta property="og:title" content="Steel City Gameday — Your group chat, built for game day">
+<meta property="og:description" content="Your Sunday group text, but it keeps score. Private Crews, scored predictions, live Flash Picks, and a season crown.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://bpollak.github.io/steel-city-gameday/">
+<meta property="og:image" content="https://bpollak.github.io/steel-city-gameday/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Steel City Gameday — your group chat, built for game day">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Steel City Gameday — Your group chat, built for game day">
+<meta name="twitter:description" content="Your Sunday group text, but it keeps score. Private Crews, scored predictions, and a season crown.">
+<meta name="twitter:image" content="https://bpollak.github.io/steel-city-gameday/assets/og.png">
 <link rel="icon" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
      STEEL CITY GAMEDAY — final build
@@ -26,7 +37,7 @@
     --ink:#0a0a0c; --ink-2:#0e0e12; --panel:#131318; --panel-2:#181820; --panel-3:#1c1c24;
     --line:rgba(255,255,255,.10); --line-soft:rgba(255,255,255,.06);
     --gold-line:rgba(255,183,28,.44); --gold-glow:rgba(255,183,28,.14);
-    --text:#f4f4f7; --muted:#a6a6b2; --dim:#70707c;
+    --text:#f4f4f7; --muted:#a6a6b2; --dim:#8f8f9b;
     --green:#37d17a; --red:#ff6d5a; --steel:#8a8f98;
     --recv:#26262d; --recv-tx:#dcdce3;      /* old group-text received */
     --old-me:#2f394f; --old-me-tx:#dde3f1;   /* old group-text "you" */
@@ -264,7 +275,7 @@
     background:linear-gradient(90deg,var(--gold),var(--gold-deep)); color:#181206; border-radius:999px;
     padding:9px 15px; font-family:var(--f-cond); font-weight:800; font-size:13px; text-transform:uppercase; letter-spacing:.08em}
   @media(max-width:1080px){.float.reacts{left:0} .float.rc{right:0}}
-  @media(max-width:620px){.float{display:none}}
+  @media(max-width:620px){.float,.float.fp,.float.reacts,.float.rc{display:none}}
 
   /* ============================================================ SECTIONS */
   section{position:relative}
@@ -422,13 +433,13 @@
   .foot-blurb{color:var(--muted); max-width:44ch; font-size:14.5px}
   .foot-links{display:flex; flex-wrap:wrap; gap:22px}
   .foot-links a{font-family:var(--f-cond); font-weight:700; font-size:14px; text-transform:uppercase;
-    letter-spacing:.1em; color:var(--muted); transition:color .2s}
+    letter-spacing:.1em; color:var(--muted); transition:color .2s; display:inline-block; padding:8px 0}
   .foot-links a:hover{color:var(--gold)}
   .disc{margin-top:6px; padding-top:22px; border-top:1px solid var(--line); font-size:12px;
-    line-height:1.75; color:#63636d; max-width:82ch}
-  .disc b{color:#8a8a94; font-weight:700}
+    line-height:1.75; color:#9a9aa6; max-width:82ch}
+  .disc b{color:#c4c4cc; font-weight:700}
   .copyr{margin-top:16px; font-family:var(--f-cond); font-weight:600; font-size:12.5px;
-    letter-spacing:.1em; text-transform:uppercase; color:#55555f}
+    letter-spacing:.1em; text-transform:uppercase; color:#8f8f9b}
 
   /* ---- Reveal ---- */
   .rv{opacity:1}
@@ -452,7 +463,7 @@
       <a href="#wedge">The Difference</a>
       <a href="#how">How it works</a>
       <a href="#season">The Season</a>
-      <a href="#get">Get it</a>
+      <a href="#get">Get notified</a>
     </nav>
     <span class="mini-live" aria-hidden="true"><span class="dot live"></span><span id="mini-cd">Kickoff soon</span></span>
   </div>
@@ -494,19 +505,19 @@
         </div>
 
         <div class="cta-row rv d3">
-          <a class="btn btn-solid" href="#get">
-            <svg class="glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.9c.1 1-.3 2-.9 2.8-.7.8-1.7 1.4-2.7 1.3-.1-1 .3-2 .9-2.7.7-.8 1.8-1.4 2.7-1.4zM19.6 17c-.5 1.1-.7 1.6-1.3 2.6-.9 1.4-2.1 3.1-3.6 3.1-1.4 0-1.7-.9-3.6-.9-1.8 0-2.2.9-3.5.9-1.6 0-2.7-1.5-3.6-2.9C1.1 16.4.8 12 2.4 9.6c.9-1.3 2.4-2.1 3.9-2.1 1.5 0 2.4.9 3.6.9 1.2 0 1.9-.9 3.6-.9 1.3 0 2.7.7 3.7 2-3.2 1.7-2.7 6.3.4 7.5z"/></svg>
-            Coming to the App Store
+          <a class="btn btn-solid" href="mailto:brettcpollak@gmail.com?subject=Notify%20me%20%E2%80%94%20Steel%20City%20Gameday&amp;body=Text%20me%20when%20the%20app%20is%20live%20for%20Week%201.">
+            <svg class="glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7L4 7v1l8 5 8-5V7l-8 5z"/></svg>
+            Get the launch alert
           </a>
           <a class="btn btn-line" href="#wedge">See the difference</a>
         </div>
-        <p class="fine rv d3">Free to join · invite-only Crews · no ads, no tracking, no wagering</p>
+        <p class="fine rv d3">Coming to the App Store · Fall 2026 &nbsp;·&nbsp; Free to join · no ads, no tracking, no wagering</p>
       </div>
 
       <div class="hero-stage rv d1">
         <div class="phone-glow" aria-hidden="true"></div>
         <div class="phone">
-          <img src="assets/room.png" width="620" height="1347"
+          <img src="assets/room.png" width="620" height="1347" fetchpriority="high" decoding="async"
             alt="A Crew's private game-day room mid-conversation — Dad, Katie, Uncle Mo and Brett trading messages about wings and predictions — with a live gold Flash Pick card asking how the current drive ends, on a countdown to answer.">
         </div>
         <div class="float reacts" aria-hidden="true">
@@ -548,7 +559,7 @@
               <span class="badge">Delivered</span>
             </div>
             <div class="win-body">
-              <div class="thread" aria-label="An example messy group text thread">
+              <div class="thread" role="group" aria-label="An example messy group text thread">
                 <div class="row"><span class="av dave" aria-hidden="true">DV</span><div class="stack"><span class="nm">Dave</span><span class="bub them">DEFENSE WINS THIS ONE. book it.</span></div></div>
                 <div class="row me"><div class="stack"><span class="bub mine">27–20 us. screenshot this 📸</span></div></div>
                 <div class="row"><span class="av mom" aria-hidden="true">MA</span><div class="stack"><span class="nm">Ma</span><span class="bub them">who's on wings this year</span></div></div>
@@ -582,7 +593,7 @@
               <span class="badge on"><span class="dot live" style="width:7px;height:7px"></span> Live</span>
             </div>
             <div class="win-body">
-              <div class="thread" aria-label="An example scored Crew room thread">
+              <div class="thread" role="group" aria-label="An example scored Crew room thread">
                 <div class="row"><span class="av um" aria-hidden="true">UM</span>
                   <div class="stack"><span class="nm">Uncle Mo</span>
                     <span class="bub crew">Calling it now — defense scores first<br><span class="locked-tag">Locked · pregame pick</span></span>
@@ -647,7 +658,7 @@
       <div class="beat rv">
         <div class="beat-media">
           <div class="phone"><div class="phone-glow" aria-hidden="true"></div>
-            <img src="assets/crews.png" width="620" height="1347" alt="The Crew home screen: a Week 1 matchup card counting down to kickoff, above a list of the fan's private Crews — Pollak Family and College Buddies — with member avatars and a Start a Crew button.">
+            <img src="assets/crews.png" width="620" height="1347" loading="lazy" decoding="async" alt="The Crew home screen: a Week 1 matchup card counting down to kickoff, above a list of the fan's private Crews — Pollak Family and College Buddies — with member avatars and a Start a Crew button.">
           </div>
         </div>
         <div class="beat-copy">
@@ -667,7 +678,7 @@
       <div class="beat flip rv">
         <div class="beat-media">
           <div class="phone"><div class="phone-glow" aria-hidden="true"></div>
-            <img src="assets/picks.png" width="620" height="1347" alt="The pregame picks board: prediction questions with point values, multiple-choice calls, a closest-guess number entry with a Lock it in button, and a progress counter.">
+            <img src="assets/picks.png" width="620" height="1347" loading="lazy" decoding="async" alt="The pregame picks board: prediction questions with point values, multiple-choice calls, a closest-guess number entry with a Lock it in button, and a progress counter.">
           </div>
         </div>
         <div class="beat-copy">
@@ -686,7 +697,7 @@
       <!-- Beat 03: interactive Flash Pick (broadcast graft) -->
       <div class="beat rv">
         <div class="beat-media">
-          <div class="motif" aria-label="A live, playable Flash Pick and Crew reactions">
+          <div class="motif" role="group" aria-label="A live, playable Flash Pick and Crew reactions">
             <div class="flash" id="flash">
               <div class="flash-h"><b><span aria-hidden="true">⚡</span> Flash Pick</b><span class="pts">20 PTS</span></div>
               <div class="flash-b">
@@ -721,7 +732,7 @@
       <!-- Beat 04: receipts motif -->
       <div class="beat flip rv">
         <div class="beat-media">
-          <div class="motif" aria-label="Post-game receipt cards and a game scoreboard">
+          <div class="motif" role="group" aria-label="Post-game receipt cards and a game scoreboard">
             <div class="receipt">
               <span class="chk" aria-hidden="true">✓</span>
               <div><span class="rt">Receipt · Uncle Mo</span><p>“Defense scores first.” <span class="pts">+20</span> — the man was right and the room knows.</p></div>
@@ -787,7 +798,7 @@
         </div>
         <div class="rv d1" style="display:flex; justify-content:center">
           <div class="phone"><div class="phone-glow" aria-hidden="true"></div>
-            <img src="assets/season.png" width="620" height="1347" alt="The season screen: quarter champion cards marking Q1 in play, a Season race leaderboard led by Brett with a crown, a Share the season race button, and the 2026 schedule below.">
+            <img src="assets/season.png" width="620" height="1347" loading="lazy" decoding="async" alt="The season screen: quarter champion cards marking Q1 in play, a Season race leaderboard led by Brett with a crown, a Share the season race button, and the 2026 schedule below.">
           </div>
         </div>
       </div>
@@ -833,9 +844,9 @@
       <h2 class="d rv">Bring the thread<br>where it <span class="g">belongs.</span></h2>
       <p class="rv">Start a Crew, drop the link in the group text, and make everyone call their shot before Atlanta comes to town. The thread you already have — finally keeping score.</p>
       <div class="cta-row rv">
-        <a class="btn btn-solid" href="#top">
-          <svg class="glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.9c.1 1-.3 2-.9 2.8-.7.8-1.7 1.4-2.7 1.3-.1-1 .3-2 .9-2.7.7-.8 1.8-1.4 2.7-1.4zM19.6 17c-.5 1.1-.7 1.6-1.3 2.6-.9 1.4-2.1 3.1-3.6 3.1-1.4 0-1.7-.9-3.6-.9-1.8 0-2.2.9-3.5.9-1.6 0-2.7-1.5-3.6-2.9C1.1 16.4.8 12 2.4 9.6c.9-1.3 2.4-2.1 3.9-2.1 1.5 0 2.4.9 3.6.9 1.2 0 1.9-.9 3.6-.9 1.3 0 2.7.7 3.7 2-3.2 1.7-2.7 6.3.4 7.5z"/></svg>
-          Coming to the App Store
+        <a class="btn btn-solid" href="mailto:brettcpollak@gmail.com?subject=Notify%20me%20%E2%80%94%20Steel%20City%20Gameday&amp;body=Text%20me%20when%20the%20app%20is%20live%20for%20Week%201.">
+          <svg class="glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7L4 7v1l8 5 8-5V7l-8 5z"/></svg>
+          Get the launch alert
         </a>
       </div>
       <div class="close-count rv num-tab" data-countdown role="group" aria-label="Countdown to Week 1 kickoff">
@@ -941,7 +952,9 @@
         if (locked) return;
         chosen = o.getAttribute('data-opt');
         opts.forEach(function(x){ x.setAttribute('aria-pressed', String(x === o)); });
-        result.textContent = 'Your call: ' + chosen + ' — locks in ' + fmt(remaining);
+        // Announce the discrete choice ONCE — the ticking clock lives in the
+        // separate, non-live #flash-timer so screen readers aren't flooded.
+        result.textContent = 'Your call: ' + chosen + ' — locked when the clock hits zero.';
         result.classList.add('show');
       });
     });
@@ -951,7 +964,6 @@
         remaining--;
         if (remaining <= 0){ remaining = 0; if (timerEl) timerEl.textContent = '0:00'; clearInterval(ft); lockCard(); return; }
         if (timerEl) timerEl.textContent = fmt(remaining);
-        if (chosen && !locked) result.textContent = 'Your call: ' + chosen + ' — locks in ' + fmt(remaining);
       }, 1000);
     }
   }
