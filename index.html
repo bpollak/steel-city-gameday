@@ -40,6 +40,9 @@
       --quiet: #77787d;
       --gold: #ffb612;
       --gold-light: #ffd261;
+      --steel: #72777f;
+      --steel-light: #c4c7ca;
+      --steel-dark: #24272c;
       --line: rgba(255, 255, 255, .12);
       --dark-line: rgba(8, 9, 11, .18);
       --display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
@@ -89,15 +92,6 @@
       line-height: .88;
       text-transform: uppercase;
     }
-    .eyebrow {
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .16em;
-      line-height: 1.35;
-      text-transform: uppercase;
-    }
-
     .button {
       display: inline-flex;
       min-height: 54px;
@@ -124,7 +118,9 @@
       position: relative;
       z-index: 20;
       border-bottom: 1px solid var(--line);
-      background: rgba(8, 9, 11, .96);
+      background:
+        linear-gradient(110deg, rgba(107, 112, 119, .2), transparent 32%),
+        rgba(8, 9, 11, .96);
     }
     .nav { display: flex; min-height: 72px; align-items: center; gap: 28px; }
     .brand { display: inline-flex; min-height: 44px; align-items: center; gap: 12px; }
@@ -162,12 +158,44 @@
     .nav-cta:hover { background: var(--gold); color: var(--ink); }
 
     /* Hero */
-    .hero { overflow: hidden; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, .16);
+      background:
+        radial-gradient(circle at 5% -8%, rgba(231, 233, 235, .3), transparent 29%),
+        linear-gradient(118deg, #4a5057 0%, #292d33 33%, #15171b 61%, #090a0d 100%);
+      isolation: isolate;
+    }
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(128deg, rgba(255, 255, 255, .16), transparent 36%),
+        repeating-linear-gradient(96deg, rgba(255, 255, 255, .032) 0 1px, rgba(0, 0, 0, .045) 1px 3px, transparent 3px 8px),
+        repeating-linear-gradient(163deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 6px);
+      content: "";
+    }
+    .hero::after {
+      position: absolute;
+      top: -34%;
+      left: 55%;
+      z-index: 0;
+      width: 2px;
+      height: 168%;
+      background: linear-gradient(180deg, transparent, rgba(226, 228, 230, .48) 15%, rgba(73, 77, 82, .9) 49%, rgba(255, 182, 18, .52) 49.5% 50%, rgba(37, 40, 45, .9) 50.5%, transparent 86%);
+      box-shadow: 7px 0 0 rgba(4, 5, 7, .34), 9px 0 0 rgba(255, 182, 18, .11);
+      content: "";
+      transform: rotate(7deg);
+    }
     .hero-grid {
+      position: relative;
       display: grid;
       min-height: min(790px, calc(100svh - 73px));
-      grid-template-columns: minmax(0, .92fr) minmax(440px, 1.08fr);
+      grid-template-columns: minmax(0, 1fr) minmax(500px, .98fr);
       align-items: stretch;
+      gap: clamp(18px, 2.5vw, 40px);
     }
     .hero-copy {
       position: relative;
@@ -177,9 +205,9 @@
       flex-direction: column;
       justify-content: center;
       padding-block: 76px;
-      padding-right: clamp(36px, 6vw, 92px);
+      padding-right: 12px;
     }
-    .hero h1 { margin-top: 24px; font-size: clamp(78px, 7.5vw, 116px); }
+    .hero h1 { max-width: 660px; font-size: clamp(76px, 6.8vw, 104px); }
     .hero h1 span { display: block; }
     .hero h1 .gold { color: var(--gold); }
     .hero-lede {
@@ -196,63 +224,46 @@
       position: relative;
       min-height: 700px;
       overflow: hidden;
-      clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
       background:
-        radial-gradient(circle at 73% 38%, rgba(255, 182, 18, .24), transparent 34%),
-        linear-gradient(145deg, #202126 0%, #101115 52%, #060709 100%);
+        linear-gradient(136deg, rgba(220, 224, 227, .18), transparent 33%),
+        linear-gradient(145deg, #25282d, #0b0c0f 68%);
       isolation: isolate;
     }
     .hero-art::before {
       position: absolute;
-      inset: -20% -30% -20% 10%;
-      z-index: -1;
+      inset: 0;
+      z-index: 1;
       background:
-        linear-gradient(121deg, transparent 45%, rgba(255, 182, 18, .26) 45.2%, rgba(255, 182, 18, .26) 45.5%, transparent 45.7%),
-        linear-gradient(121deg, transparent 56%, rgba(255, 182, 18, .12) 56.2%, rgba(255, 182, 18, .12) 56.5%, transparent 56.7%),
-        repeating-linear-gradient(165deg, rgba(255, 255, 255, .018) 0 1px, transparent 1px 7px);
+        linear-gradient(90deg, rgba(20, 22, 26, .74) 0%, transparent 18%),
+        linear-gradient(136deg, rgba(255, 255, 255, .08), transparent 24%);
       content: "";
+      pointer-events: none;
     }
     .hero-art::after {
       position: absolute;
-      right: 7%;
-      bottom: 7%;
-      width: 48%;
-      height: 8px;
-      background: repeating-linear-gradient(90deg, var(--gold) 0 34px, transparent 34px 52px);
+      inset: 0;
+      z-index: 3;
+      border-left: 1px solid rgba(231, 233, 235, .22);
       content: "";
-      opacity: .65;
-      transform: skewX(-28deg);
+      pointer-events: none;
     }
-    .hero-phone {
+    .hero-product-image {
       position: absolute;
-      top: 4%;
-      right: clamp(7%, 5vw, 13%);
-      width: min(52%, 370px);
-      overflow: hidden;
-      border: 8px solid #36383e;
-      border-radius: 52px;
-      background: #101115;
-      box-shadow: 0 40px 80px rgba(0, 0, 0, .58), 0 0 0 1px rgba(255, 255, 255, .13);
-      transform: rotate(6deg);
-      transform-origin: 50% 90%;
+      inset: -1% -2% -2% 0;
+      width: 104%;
+      height: 104%;
+      max-width: none;
+      object-fit: cover;
+      object-position: 50% 6%;
+      filter: drop-shadow(-26px 30px 38px rgba(0, 0, 0, .42));
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 13%, #000 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 13%, #000 100%);
     }
-    .hero-phone img { width: 100%; }
-    .hero-label {
-      position: absolute;
-      left: 12%;
-      bottom: 9%;
-      max-width: 170px;
-      color: rgba(255, 250, 241, .66);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .13em;
-      line-height: 1.55;
-      text-transform: uppercase;
-    }
-    .hero-label b { display: block; margin-bottom: 6px; color: var(--gold); font-size: 12px; }
 
     /* Experience */
     .experience {
+      overflow: hidden;
       border-top: 1px solid var(--line);
       padding-block: var(--section);
       background: var(--paper);
@@ -268,33 +279,74 @@
       position: relative;
       display: grid;
       min-height: 680px;
-      overflow: hidden;
+      overflow: visible;
       place-items: center;
-      background: var(--ink-soft);
+      isolation: isolate;
+    }
+    .screen-stage::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: -1;
+      width: min(105%, 500px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        linear-gradient(126deg, #c7c9cb 0%, #72777e 38%, #272a2f 74%, #a2a5a9 100%),
+        repeating-linear-gradient(164deg, rgba(255, 255, 255, .09) 0 1px, transparent 1px 7px);
+      content: "";
+      opacity: .9;
+      transform: translate(-50%, -50%) rotate(-12deg);
+      -webkit-mask-image: radial-gradient(circle, transparent 0 49%, #000 50% 68%, transparent 69%);
+      mask-image: radial-gradient(circle, transparent 0 49%, #000 50% 68%, transparent 69%);
     }
     .screen-stage::after {
       position: absolute;
-      right: -8%;
-      bottom: 8%;
-      width: 58%;
-      height: 9px;
-      background: repeating-linear-gradient(90deg, var(--gold) 0 36px, transparent 36px 55px);
+      top: 16%;
+      left: 12%;
+      z-index: -1;
+      width: 5px;
+      height: 68%;
+      background: var(--gold);
+      box-shadow: 12px 0 0 rgba(8, 9, 11, .16);
       content: "";
-      opacity: .75;
-      transform: skewX(-28deg);
+      transform: rotate(12deg);
     }
     .stage-phone {
       position: relative;
       z-index: 1;
       width: min(69%, 310px);
       overflow: hidden;
-      border: 8px solid #34363b;
+      border: 8px solid #4d5158;
       border-radius: 48px;
       background: #101115;
-      box-shadow: 0 34px 70px rgba(0, 0, 0, .42);
+      box-shadow:
+        0 34px 70px rgba(0, 0, 0, .48),
+        -10px 4px 28px rgba(255, 182, 18, .09),
+        0 0 0 1px #a3a7ad,
+        0 0 0 3px rgba(8, 9, 11, .9);
     }
-    .experience-copy .eyebrow { color: #976400; }
-    .experience h2 { max-width: 670px; margin-top: 22px; font-size: clamp(64px, 7vw, 96px); }
+    .product-tour { display: block; width: 100%; height: auto; background: #090a0c; }
+    .tour-toggle {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      z-index: 2;
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 1px solid rgba(255, 182, 18, .72);
+      border-radius: 50%;
+      background: rgba(8, 9, 11, .88);
+      color: var(--gold);
+      cursor: pointer;
+      font: 800 15px/1 var(--body);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+    .tour-toggle:hover { background: var(--gold); color: var(--ink); }
+    .experience h2 { max-width: 670px; font-size: clamp(64px, 7vw, 96px); }
     .experience-lede {
       max-width: 620px;
       margin-top: 28px;
@@ -302,27 +354,28 @@
       font-size: clamp(17px, 1.5vw, 20px);
       line-height: 1.65;
     }
-    .experience-points { margin-top: 42px; border-top: 1px solid var(--dark-line); }
-    .experience-point {
+    .experience-points {
       display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 18px;
-      border-bottom: 1px solid var(--dark-line);
-      padding-block: 25px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(28px, 4vw, 52px);
+      margin-top: 42px;
     }
-    .experience-point > span { color: #9a6700; font: 800 13px/1 var(--display); letter-spacing: .08em; }
+    .experience-point {
+      border-top: 2px solid var(--ink);
+      padding-top: 23px;
+    }
     .experience-point h3 { font: 800 clamp(28px, 3vw, 38px)/1 var(--display); text-transform: uppercase; }
-    .experience-point p { max-width: 520px; margin-top: 9px; color: var(--paper-muted); font-size: 14px; }
+    .experience-point p { max-width: 520px; margin-top: 11px; color: var(--paper-muted); font-size: 15px; }
 
     /* Season */
-    .season { padding-block: var(--section); background: var(--ink); }
+    .season { overflow: hidden; padding-block: var(--section); background: var(--ink); }
     .season-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.08fr) minmax(340px, .82fr);
       align-items: center;
       gap: clamp(58px, 9vw, 122px);
     }
-    .season h2 { max-width: 700px; margin-top: 22px; font-size: clamp(68px, 7.4vw, 102px); }
+    .season h2 { max-width: 700px; font-size: clamp(68px, 7.4vw, 102px); }
     .season-lede {
       max-width: 620px;
       margin-top: 28px;
@@ -330,36 +383,42 @@
       font-size: clamp(17px, 1.5vw, 20px);
       line-height: 1.65;
     }
-    .season-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      max-width: 620px;
-      margin-top: 42px;
-      border-top: 1px solid var(--line);
-    }
-    .season-stat { padding: 23px 18px 0 0; }
-    .season-stat + .season-stat { border-left: 1px solid var(--line); padding-left: 20px; }
-    .season-stat b { display: block; color: var(--gold); font: 900 52px/.88 var(--display); }
-    .season-stat span {
-      display: block;
-      margin-top: 9px;
-      color: var(--quiet);
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: .1em;
-      line-height: 1.35;
-      text-transform: uppercase;
-    }
     .season-stage {
       position: relative;
       display: grid;
       min-height: 680px;
-      overflow: hidden;
+      overflow: visible;
       place-items: center;
-      border: 1px solid var(--line);
+      isolation: isolate;
+    }
+    .season-stage::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: -1;
+      width: min(110%, 520px);
+      aspect-ratio: 1;
+      border-radius: 50%;
       background:
-        radial-gradient(circle at 30% 22%, rgba(255, 182, 18, .17), transparent 27%),
-        var(--ink-soft);
+        linear-gradient(126deg, #d3d5d7 0%, #777c83 33%, #202328 72%, #aeb1b5 100%),
+        repeating-linear-gradient(164deg, rgba(255, 255, 255, .09) 0 1px, transparent 1px 7px);
+      content: "";
+      opacity: .84;
+      transform: translate(-50%, -50%) rotate(11deg);
+      -webkit-mask-image: radial-gradient(circle, transparent 0 50%, #000 51% 69%, transparent 70%);
+      mask-image: radial-gradient(circle, transparent 0 50%, #000 51% 69%, transparent 70%);
+    }
+    .season-stage::after {
+      position: absolute;
+      top: 14%;
+      right: 13%;
+      z-index: -1;
+      width: 5px;
+      height: 70%;
+      background: var(--gold);
+      box-shadow: -12px 0 0 rgba(255, 255, 255, .08);
+      content: "";
+      transform: rotate(-11deg);
     }
     .season-stage .stage-phone { width: min(69%, 310px); }
 
@@ -404,9 +463,11 @@
     @media (max-width: 960px) {
       .hero-grid { min-height: 0; grid-template-columns: 1fr; }
       .hero-copy { max-width: 760px; padding-block: 72px 64px; padding-right: 0; }
-      .hero-art { min-height: 650px; clip-path: none; }
-      .hero-phone { top: 4%; right: 14%; width: min(46%, 340px); }
-      .hero-label { left: 10%; }
+      .hero-art { width: min(100%, 650px); min-height: 740px; justify-self: center; clip-path: none; }
+      .hero-product-image {
+        -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, .9), #000 12%, #000 100%);
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, .9), #000 12%, #000 100%);
+      }
       .experience-grid, .season-grid { grid-template-columns: 1fr; }
       .experience-copy { order: 1; }
       .experience .screen-stage { order: 2; }
@@ -425,31 +486,22 @@
       .brand-name { max-width: 116px; font-size: 17px; }
 
       .hero-copy { padding-block: 54px 46px; }
-      .hero h1 { margin-top: 18px; font-size: clamp(61px, 18.5vw, 78px); }
+      .hero h1 { font-size: clamp(61px, 18.5vw, 78px); }
       .hero-lede { margin-top: 23px; font-size: 17px; }
       .hero-actions { flex-direction: column; margin-top: 28px; }
       .hero-actions .button { width: 100%; }
       .hero-note { text-align: center; }
-      .hero-art { min-height: 520px; }
-      .hero-phone { top: 5%; right: 8%; width: min(65%, 286px); border-width: 7px; border-radius: 43px; transform: rotate(5deg); }
-      .hero-label { left: 7%; bottom: 9%; max-width: 120px; font-size: 8px; }
-      .hero-label b { font-size: 10px; }
-      .hero-art::after { right: -8%; bottom: 5%; width: 67%; height: 7px; }
+      .hero-art { min-height: 540px; border-top: 1px solid rgba(255, 255, 255, .13); }
+      .hero-product-image { inset: -1% -8% -2%; width: 116%; height: 104%; object-position: 50% 5%; }
 
       .experience-grid, .season-grid { gap: 46px; }
       .experience h2, .season h2 { font-size: 58px; }
       .experience-lede, .season-lede { margin-top: 22px; font-size: 17px; }
-      .experience-points { margin-top: 34px; }
-      .experience-point { grid-template-columns: 32px 1fr; gap: 12px; padding-block: 22px; }
+      .experience-points { grid-template-columns: 1fr; gap: 28px; margin-top: 34px; }
+      .experience-point { padding-top: 20px; }
       .experience-point h3 { font-size: 29px; }
       .screen-stage, .season-stage { min-height: 520px; }
       .stage-phone, .season-stage .stage-phone { width: min(68%, 270px); border-width: 7px; border-radius: 42px; }
-
-      .season-stats { margin-top: 34px; }
-      .season-stat { padding: 19px 9px 0 0; }
-      .season-stat + .season-stat { padding-left: 10px; }
-      .season-stat b { font-size: 40px; }
-      .season-stat span { font-size: 8px; }
 
       .closing h2 { font-size: 58px; }
       .closing .button { width: 100%; }
@@ -484,7 +536,6 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Your group text, built for game day</p>
           <h1 class="display" id="hero-title">
             <span>Put your crew</span>
             <span class="gold">inside the game.</span>
@@ -498,10 +549,7 @@
         </div>
 
         <figure class="hero-art">
-          <div class="hero-phone">
-            <img src="assets/room.png" alt="A private Steel City Gameday Crew room with live conversation and a Flash Pick" width="620" height="1347" fetchpriority="high">
-          </div>
-          <figcaption class="hero-label"><b>Live Crew room</b>Talk, make the call, and watch it lock.</figcaption>
+          <img class="hero-product-image" src="assets/hero-phone-angle-v3.png" alt="Steel City Gameday shown at an angled perspective against brushed steel, with a live Crew conversation and Flash Pick" width="985" height="1597" fetchpriority="high">
         </figure>
       </div>
     </section>
@@ -510,29 +558,25 @@
       <div class="wrap experience-grid">
         <figure class="screen-stage">
           <div class="stage-phone">
-            <img src="assets/picks.png" alt="Pregame and live picks inside Steel City Gameday" width="620" height="1347" loading="lazy">
+            <video class="product-tour" id="product-tour" autoplay muted loop playsinline preload="metadata" poster="assets/crews.png" aria-label="A walkthrough of Crews, Game Day picks, The Wire, and the season race inside Steel City Gameday">
+              <source src="assets/app-tour.mp4" type="video/mp4">
+            </video>
+            <button class="tour-toggle" type="button" aria-controls="product-tour" aria-label="Pause app walkthrough">Ⅱ</button>
           </div>
         </figure>
 
         <div class="experience-copy">
-          <p class="eyebrow">Your group text is still invited</p>
           <h2 class="display" id="experience-title">Give everyone something to play for.</h2>
           <p class="experience-lede">Keep the jokes, arguments, and fire emojis. When a Flash Pick drops, everyone makes the call before the clock runs out. The score settles it.</p>
 
           <div class="experience-points">
             <article class="experience-point">
-              <span>01</span>
-              <div>
-                <h3>The call is live</h3>
-                <p>Flash Picks show up while the game is moving. Your answer locks before the moment passes.</p>
-              </div>
+              <h3>The call is live</h3>
+              <p>Flash Picks show up while the game is moving. Your answer locks before the moment passes.</p>
             </article>
             <article class="experience-point">
-              <span>02</span>
-              <div>
-                <h3>The room keeps score</h3>
-                <p>Every right call adds points. Every miss stays attached to your name. Nobody has to remember who said what.</p>
-              </div>
+              <h3>The room keeps score</h3>
+              <p>Every right call adds points. Every miss stays attached to your name. Nobody has to remember who said what.</p>
             </article>
           </div>
         </div>
@@ -542,14 +586,8 @@
     <section class="season" id="season" aria-labelledby="season-title">
       <div class="wrap season-grid">
         <div class="season-copy">
-          <p class="eyebrow">Built for the full season</p>
           <h2 class="display" id="season-title">One Sunday leads to the next.</h2>
           <p class="season-lede">A group text gets buried. Your Crew gets a season. Weekly points feed four quarter races, then one champion owns the year.</p>
-          <div class="season-stats" aria-label="Season format">
-            <div class="season-stat"><b>18</b><span>Weeks</span></div>
-            <div class="season-stat"><b>4</b><span>Quarter winners</span></div>
-            <div class="season-stat"><b>1</b><span>Season champ</span></div>
-          </div>
         </div>
 
         <figure class="season-stage">
@@ -591,5 +629,30 @@
       </div>
     </div>
   </footer>
+  <script>
+    (() => {
+      const tour = document.getElementById("product-tour");
+      const toggle = document.querySelector(".tour-toggle");
+      if (!tour || !toggle) return;
+
+      const syncToggle = () => {
+        const paused = tour.paused;
+        toggle.textContent = paused ? "▶" : "Ⅱ";
+        toggle.setAttribute("aria-label", paused ? "Play app walkthrough" : "Pause app walkthrough");
+      };
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        tour.pause();
+      }
+      toggle.addEventListener("click", () => {
+        if (tour.paused) tour.play();
+        else tour.pause();
+        syncToggle();
+      });
+      tour.addEventListener("play", syncToggle);
+      tour.addEventListener("pause", syncToggle);
+      syncToggle();
+    })();
+  </script>
 </body>
 </html>
