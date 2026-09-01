@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Steel City Gameday | Steelers Picks, Polls and Crews</title>
-  <meta name="description" content="Steel City Gameday turns every Steelers game into a private competition with pregame picks, live Flash Picks, Crew chat, and one running season score.">
+  <meta name="description" content="Follow Steelers news all week, make picks with a private Crew, answer live Flash Picks, and carry every point through the regular season.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#08090b">
   <link rel="canonical" href="https://steelcitygameday.com/">
@@ -35,7 +35,7 @@
         "@id": "https://steelcitygameday.com/#website",
         "url": "https://steelcitygameday.com/",
         "name": "Steel City Gameday",
-        "description": "Steel City Gameday turns every Steelers game into a private competition with pregame picks, live Flash Picks, Crew chat, and one running season score.",
+        "description": "Follow Steelers news all week, make picks with a private Crew, answer live Flash Picks, and carry every point through the regular season.",
         "inLanguage": "en-US"
       },
       {
@@ -43,19 +43,22 @@
         "@id": "https://steelcitygameday.com/#app",
         "name": "Steel City Gameday",
         "url": "https://steelcitygameday.com/",
-        "description": "Steel City Gameday turns every Steelers game into a private competition with pregame picks, live Flash Picks, Crew chat, and one running season score.",
+        "description": "Follow Steelers news all week, make picks with a private Crew, answer live Flash Picks, and carry every point through the regular season.",
         "operatingSystem": "iOS",
         "applicationCategory": "SportsApplication",
         "image": "https://steelcitygameday.com/assets/icon.png",
         "screenshot": [
+          "https://steelcitygameday.com/assets/wire.png",
           "https://steelcitygameday.com/assets/crews.png",
           "https://steelcitygameday.com/assets/picks.png",
           "https://steelcitygameday.com/assets/room.png",
+          "https://steelcitygameday.com/assets/receipts.png",
           "https://steelcitygameday.com/assets/season.png"
         ],
         "featureList": [
+          "Steelers news updated throughout the week",
           "Private invite-only Crews",
-          "Pregame picks and live in-game polls",
+          "Editable Pregame Picks and live Flash Picks",
           "Crew chat",
           "Season standings and game receipts",
           "Sign in with Apple or email",
@@ -84,10 +87,42 @@
           },
           {
             "@type": "Question",
+            "name": "How often does The Wire update?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Wire checks publisher feeds every 15 minutes. You can also pull to refresh, and every headline links to the original story."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I change a Pregame Pick?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can change a Pregame Pick until it locks at kickoff. The last answer you save is the one that counts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can my Crew see what I picked?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not while a pick is open. Choices stay private until the pick locks. Your Crew can still talk about their calls in the chat."
+            }
+          },
+          {
+            "@type": "Question",
             "name": "How do picks and scoring work?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Before kickoff, every Pregame Pick has a point value. During the game, live score, quarter, and clock updates trigger timed Flash Picks. Correct answers and closest numeric guesses earn the listed points. Each game's winner is crowned at the final whistle, and every point carries into one running season total. The tally never resets: your Crew recognizes its leader after Week 4, at halftime after Week 9, through the third quarter after Week 14, and at the end of the regular season after Week 18. Playoffs are not part of the competition."
+              "text": "Pregame Picks and Flash Picks each show their point value. Correct choices score, and numeric questions go to the closest guess. After the game, receipts reveal the calls and crown the top scorer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the season total reset?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Every point stays in one running total through the regular season. The checkpoints are Week 4 for Q1, Week 9 for halftime, Week 14 for Q3, and Week 18 for the final. Playoffs are not included."
             }
           },
           {
@@ -643,145 +678,167 @@
       </div>
     </section>
 
-    <section class="feature-section light" id="experience" aria-labelledby="crews-title">
+    <section class="feature-section light" id="experience" aria-labelledby="wire-title">
       <div class="wrap feature-grid">
         <figure class="feature-stage">
           <div class="stage-phone">
-            <img src="assets/crews.png" alt="The Crews tab with the next matchup and a list of private groups" width="620" height="1347" loading="lazy">
+            <img src="assets/wire.png" alt="The Wire with current Steelers headlines, publishers, and related coverage" width="620" height="1347" loading="lazy">
           </div>
         </figure>
 
         <div class="feature-copy">
-          <p class="feature-kicker">Crews</p>
-          <h2 class="display" id="crews-title">Your Crew doesn't need the same couch.</h2>
-          <p class="feature-lede">I wanted our family thread to feel like one room, even when we're watching from different houses. A private Crew keeps the talk, the picks, and the running score together.</p>
+          <p class="feature-kicker">All week · The Wire</p>
+          <h2 class="display" id="wire-title">Steelers news doesn't wait for Sunday.</h2>
+          <p class="feature-lede">I wanted one place to see what changed without opening five sites. The Wire checks publisher feeds every 15 minutes, puts the newest stories first, and keeps coverage of the same story together.</p>
           <div class="feature-points">
             <article class="feature-point">
-              <h3>Private by default</h3>
-              <p>No public feed and no strangers. Only people with your invite link can join.</p>
-            </article>
-            <article class="feature-point">
-              <h3>One Crew per group</h3>
-              <p>Keep every group in its own room.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="feature-section dark" aria-labelledby="gameday-title">
-      <div class="wrap feature-grid media-right">
-        <div class="feature-copy">
-          <p class="feature-kicker">Game Day</p>
-          <h2 class="display" id="gameday-title">Before kickoff. Then in the moment.</h2>
-          <p class="feature-lede">Pregame Picks put points on the calls everyone makes before the game. Once the game starts, Flash Picks turn live game state into timed questions. Whoever finishes with the most points wins the game.</p>
-          <div class="feature-points">
-            <article class="feature-point">
-              <h3>Pregame Picks</h3>
-              <p>Every question has a point value. Pick the correct answer—or get closest on a number—and those points go on your game score.</p>
-            </article>
-            <article class="feature-point">
-              <h3>Flash Picks</h3>
-              <p>Live score, quarter, and clock updates trigger quick polls during the game. Answer before time runs out, then watch the points land.</p>
-            </article>
-          </div>
-        </div>
-
-        <figure class="feature-stage feature-stage-dual">
-          <div class="stage-phone">
-            <img src="assets/picks.png" alt="The Game Day Picks screen with prediction questions and point values" width="620" height="1347" loading="lazy">
-          </div>
-          <div class="stage-phone">
-            <img src="assets/room.png" alt="The live Game Day Room with Crew messages and a timed Flash Pick" width="620" height="1347" loading="lazy">
-          </div>
-        </figure>
-      </div>
-    </section>
-
-    <section class="feature-section light" id="season" aria-labelledby="season-title">
-      <div class="wrap feature-grid">
-        <figure class="feature-stage">
-          <div class="stage-phone">
-            <img src="assets/season.png" alt="The Season tab with Crew standings and the full schedule" width="620" height="1347" loading="lazy">
-          </div>
-        </figure>
-
-        <div class="feature-copy">
-          <p class="feature-kicker">Season</p>
-          <h2 class="display" id="season-title">One score, carried all season.</h2>
-          <p class="feature-lede">The game's winner gets the weekly crown, but everyone's points carry into the next game. The total never resets. See who's ahead after the first quarter of the schedule, at halftime, through the third quarter, and at the end of the regular season. That's the finish line—the playoffs aren't included.</p>
-          <div class="feature-points">
-            <article class="feature-point">
-              <h3>The tally never resets</h3>
-              <p>Every point from every Pregame Pick and Flash Pick stays with you from Week 1 through the final regular-season game.</p>
-            </article>
-            <article class="feature-point">
-              <h3>Four checkpoints</h3>
-              <p>Week 4: first-quarter leader. Week 9: halftime leader. Week 14: third-quarter leader. Week 18: regular-season champion.</p>
-            </article>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="feature-section dark" aria-labelledby="settings-title">
-      <div class="wrap feature-grid media-right">
-        <div class="feature-copy">
-          <p class="feature-kicker">Settings</p>
-          <h2 class="display" id="settings-title">Your profile, pass, and privacy controls.</h2>
-          <p class="feature-lede">Change the name your Crew sees, manage blocked members, restore your Season Pass, or handle account and support settings in one place.</p>
-          <div class="feature-points">
-            <article class="feature-point">
-              <h3>Profile and purchases</h3>
-              <p>Update your name or check and restore your Season Pass.</p>
-            </article>
-            <article class="feature-point">
-              <h3>Safety and account</h3>
-              <p>Manage blocked members, get help, sign out, or delete your account.</p>
-            </article>
-          </div>
-        </div>
-
-        <figure class="feature-stage">
-          <div class="stage-phone">
-            <img src="assets/settings.png" alt="The Settings tab with profile, Season Pass, blocked members, and account links" width="620" height="1347" loading="lazy">
-          </div>
-        </figure>
-      </div>
-    </section>
-
-    <section class="feature-section dark" aria-labelledby="wire-title">
-      <div class="wrap feature-grid">
-        <figure class="feature-stage">
-          <div class="stage-phone">
-            <img src="assets/wire.png" alt="The Wire tab with Steelers headlines, publishers, and related coverage" width="620" height="1347" loading="lazy">
-          </div>
-        </figure>
-
-        <div class="feature-copy">
-          <p class="feature-kicker">The Wire</p>
-          <h2 class="display" id="wire-title">Every Steelers headline, once.</h2>
-          <p class="feature-lede">The beat writers and fan sites in one stream. When several outlets cover the same story, The Wire keeps their takes together.</p>
-          <div class="feature-points">
-            <article class="feature-point">
-              <h3>Catch up fast</h3>
-              <p>Scan the latest stories without bouncing between sites.</p>
+              <h3>Start with what changed</h3>
+              <p>Catch up on injuries, roster moves, practice news, and the stories people are talking about before you make your calls.</p>
             </article>
             <article class="feature-point">
               <h3>Read the source</h3>
-              <p>Tap any headline to read the full story from the publisher.</p>
+              <p>Tap a headline to open the full story from the publisher.</p>
             </article>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="feature-section dark" aria-labelledby="crews-title">
+      <div class="wrap feature-grid media-right">
+        <div class="feature-copy">
+          <p class="feature-kicker">Before the game · Your Crew</p>
+          <h2 class="display" id="crews-title">Pick the people you actually watch with.</h2>
+          <p class="feature-lede">Choose a private Crew for that week's game. This is where the talk starts: injuries, matchups, what you read on The Wire, and who everyone thinks will win.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>The room opens early</h3>
+              <p>The chat is there before kickoff and stays with the game.</p>
+            </article>
+            <article class="feature-point">
+              <h3>Your group stays private</h3>
+              <p>Only people with your invite link can join.</p>
+            </article>
+          </div>
+        </div>
+
+        <figure class="feature-stage">
+          <div class="stage-phone">
+            <img src="assets/crews.png" alt="The Crews tab with the next Steelers matchup and a list of private groups" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="feature-section light" aria-labelledby="pregame-title">
+      <div class="wrap feature-grid">
+        <figure class="feature-stage">
+          <div class="stage-phone">
+            <img src="assets/picks.png" alt="Pregame Picks with editable answers, closest-guess questions, and point values" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
+
+        <div class="feature-copy">
+          <p class="feature-kicker">Before kickoff · Pregame Picks</p>
+          <h2 class="display" id="pregame-title">Do the homework, then make the call.</h2>
+          <p class="feature-lede">Every Pregame Pick has a point value. Choose an answer or enter a number. You can change any pick until kickoff, so a late injury can still change your call.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Change your mind</h3>
+              <p>The last answer you save before kickoff is the one that counts.</p>
+            </article>
+            <article class="feature-point">
+              <h3>Nobody can copy you</h3>
+              <p>Other Crew members cannot see your choices while picks are open. The calls reveal after the lock.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-section dark" aria-labelledby="live-title">
+      <div class="wrap feature-grid media-right">
+        <div class="feature-copy">
+          <p class="feature-kicker">During the game · Crew Room</p>
+          <h2 class="display" id="live-title">Kickoff changes the conversation.</h2>
+          <p class="feature-lede">Now the chat is about what everyone sees on TV. The live score, quarter, and clock trigger timed Flash Picks in the room. Make the call before the timer runs out.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Pick in the moment</h3>
+              <p>Flash Picks react to the game. Each one shows its point value and closing time.</p>
+            </article>
+            <article class="feature-point">
+              <h3>Talk through the call</h3>
+              <p>Choices stay private while the poll is open. If you want to say what you picked, say it in the chat.</p>
+            </article>
+          </div>
+        </div>
+
+        <figure class="feature-stage">
+          <div class="stage-phone">
+            <img src="assets/room.png" alt="The live Crew Room with game chat, score and clock, and a timed Flash Pick" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="feature-section light" aria-labelledby="receipts-title">
+      <div class="wrap feature-grid">
+        <figure class="feature-stage">
+          <div class="stage-phone">
+            <img src="assets/receipts.png" alt="The final game receipts with the weekly winner, each member's points, and revealed picks" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
+
+        <div class="feature-copy">
+          <p class="feature-kicker">After the game · Receipts</p>
+          <h2 class="display" id="receipts-title">When the game ends, everybody sees the calls.</h2>
+          <p class="feature-lede">Receipts reveal the answers, total the points, and crown the game's top scorer. This is where the Crew can settle who actually called it.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Correct or closest</h3>
+              <p>Correct choices earn their listed points. Numeric questions go to the closest guess.</p>
+            </article>
+            <article class="feature-point">
+              <h3>A winner for every game</h3>
+              <p>The person with the most points gets the crown. If the top score is tied, the crown is shared.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-section dark" id="season" aria-labelledby="season-title">
+      <div class="wrap feature-grid media-right">
+        <div class="feature-copy">
+          <p class="feature-kicker">Between games · Season race</p>
+          <h2 class="display" id="season-title">Every point stays in the race.</h2>
+          <p class="feature-lede">The game score carries into one running regular-season total. The checkpoints show who is ahead without resetting anything, and the schedule gives the Crew its next matchup.</p>
+          <div class="feature-points">
+            <article class="feature-point">
+              <h3>Four checkpoints</h3>
+              <p>Week 4 is Q1, Week 9 is halftime, Week 14 is Q3, and Week 18 is the regular-season final.</p>
+            </article>
+            <article class="feature-point">
+              <h3>Then you start again</h3>
+              <p>Check The Wire, talk through the matchup, update your picks, and go again. Playoffs are not part of the competition.</p>
+            </article>
+          </div>
+        </div>
+
+        <figure class="feature-stage">
+          <div class="stage-phone">
+            <img src="assets/season.png" alt="The cumulative season race with Q1, halftime, Q3, and regular-season final checkpoints" width="620" height="1347" loading="lazy">
+          </div>
+        </figure>
       </div>
     </section>
 
     <section class="closing" aria-labelledby="closing-title">
       <div class="wrap closing-grid">
-        <h2 class="display" id="closing-title">Different houses. One Crew. A full season to settle it.</h2>
+        <h2 class="display" id="closing-title">I built this for the people I already watch with.</h2>
         <div class="closing-copy">
-          <p>Steel City Gameday is coming to iPhone for the 2026 season.</p>
+          <p>Steel City Gameday is coming to iPhone for the 2026 season. Bring your Crew, make your calls, and keep the conversation going between games.</p>
         </div>
       </div>
     </section>
@@ -802,8 +859,24 @@
             <p>Yes. There's no public feed. Only people with your Crew invite link can join.</p>
           </article>
           <article class="faq-item">
+            <h3>How often does The Wire update?</h3>
+            <p>The Wire checks publisher feeds every 15 minutes. You can also pull to refresh, and every headline links to the original story.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Can I change a Pregame Pick?</h3>
+            <p>Yes. You can change a Pregame Pick until it locks at kickoff. The last answer you save is the one that counts.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Can my Crew see what I picked?</h3>
+            <p>Not while a pick is open. Choices stay private until the pick locks. Your Crew can still talk about their calls in the chat.</p>
+          </article>
+          <article class="faq-item">
             <h3>How do picks and scoring work?</h3>
-            <p>Before kickoff, every Pregame Pick has a point value. During the game, live score, quarter, and clock updates trigger timed Flash Picks. Correct answers and closest numeric guesses earn the listed points. Each game's winner is crowned at the final whistle, and every point carries into one running season total that never resets. Your Crew recognizes its leader after Week 4, at halftime after Week 9, through the third quarter after Week 14, and at the end of the regular season after Week 18. Playoffs are not part of the competition.</p>
+            <p>Pregame Picks and Flash Picks each show their point value. Correct choices score, and numeric questions go to the closest guess. After the game, receipts reveal the calls and crown the top scorer.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Does the season total reset?</h3>
+            <p>No. Every point stays in one running total through the regular season. The checkpoints are Week 4 for Q1, Week 9 for halftime, Week 14 for Q3, and Week 18 for the final. Playoffs are not included.</p>
           </article>
           <article class="faq-item">
             <h3>Is Steel City Gameday free?</h3>
