@@ -304,17 +304,15 @@
       overflow: hidden;
       border-bottom: 1px solid rgba(255, 255, 255, .16);
       background:
-        radial-gradient(ellipse at 76% 42%, rgba(208, 212, 214, .2), transparent 44%),
-        linear-gradient(112deg, #454c51 0%, #343a3e 34%, #24282c 66%, #111316 100%);
+        linear-gradient(105deg, rgba(8, 10, 12, .62) 0%, rgba(8, 10, 12, .42) 52%, rgba(8, 10, 12, .3) 100%),
+        url("assets/hero-steel-texture.png") center 46% / cover no-repeat;
       isolation: isolate;
     }
     .hero::before {
       position: absolute;
       inset: 0;
       z-index: -1;
-      background:
-        linear-gradient(105deg, rgba(255, 255, 255, .12), transparent 35%, rgba(0, 0, 0, .18) 100%),
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, .025) 0 1px, rgba(0, 0, 0, .035) 1px 2px, transparent 2px 5px);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(0, 0, 0, .2));
       content: "";
     }
     .hero-grid {
@@ -539,11 +537,6 @@
     .copyright { flex: 0 0 auto; color: var(--quiet); font-size: 10px; }
 
     @media (max-width: 960px) {
-      .hero {
-        background:
-          radial-gradient(ellipse at 50% 78%, rgba(208, 212, 214, .24), transparent 42%),
-          linear-gradient(165deg, #454c51 0%, #30363a 54%, #171a1e 100%);
-      }
       .hero-grid { min-height: 0; grid-template-columns: 1fr; }
       .hero-copy { max-width: 760px; padding-block: 72px 64px; padding-right: 0; }
       .hero-art { width: min(100%, 650px); min-height: 740px; justify-self: center; clip-path: none; }
@@ -571,10 +564,10 @@
       .hero-note { text-align: center; }
       .hero-art {
         width: calc(100% + (var(--gutter) * 2));
-        min-height: 480px;
+        min-height: 490px;
         margin-inline: calc(var(--gutter) * -1);
       }
-      .hero-product-image { inset: -8% -8% -2%; width: 116%; height: 112%; object-position: 50% 42%; }
+      .hero-product-image { inset: -8% -7% -2%; width: 114%; height: 112%; object-position: 50% 30%; }
 
       .feature-grid, .feature-grid.media-right { gap: 46px; }
       .feature-section h2 { font-size: 56px; }
