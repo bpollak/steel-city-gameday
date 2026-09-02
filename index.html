@@ -377,15 +377,6 @@
       background: transparent;
       isolation: isolate;
     }
-    .hero-art::before {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background:
-        linear-gradient(90deg, rgba(32, 36, 40, .4) 0%, transparent 22%, transparent 80%, rgba(12, 14, 17, .22) 100%);
-      content: "";
-      pointer-events: none;
-    }
     .hero-product-image {
       position: absolute;
       inset: -1% -2% -2% 0;
@@ -394,15 +385,7 @@
       max-width: none;
       object-fit: cover;
       object-position: 50% 6%;
-      filter: brightness(.84) contrast(.96) drop-shadow(-26px 30px 38px rgba(0, 0, 0, .42));
-      -webkit-mask-image:
-        linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%),
-        linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-      -webkit-mask-composite: source-in;
-      mask-image:
-        linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%),
-        linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-      mask-composite: intersect;
+      filter: drop-shadow(-26px 30px 38px rgba(0, 0, 0, .42));
     }
 
     /* App sections */
@@ -655,7 +638,7 @@
         </div>
 
         <figure class="hero-art">
-          <img class="hero-product-image" src="assets/hero-phone-angle-v3.png" alt="Steel City Gameday shown at an angled perspective against brushed steel, with a live Crew conversation and Flash Pick" width="985" height="1597" fetchpriority="high">
+          <img class="hero-product-image" src="assets/hero-phone-cutout.png" alt="Steel City Gameday shown on an angled phone, with a live Crew conversation and Flash Pick" width="985" height="1597" fetchpriority="high">
         </figure>
       </div>
     </section>
