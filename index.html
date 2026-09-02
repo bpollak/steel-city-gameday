@@ -375,8 +375,18 @@
       background: transparent;
       isolation: isolate;
     }
+    .hero-art::before {
+      position: absolute;
+      inset: 7% -4% 3% -6%;
+      z-index: 0;
+      background: radial-gradient(ellipse at 52% 45%, rgba(238, 241, 243, .28) 0%, rgba(206, 212, 216, .14) 38%, transparent 72%);
+      content: "";
+      filter: blur(12px);
+      pointer-events: none;
+    }
     .hero-product-image {
       position: absolute;
+      z-index: 1;
       inset: -1% -2% -2% 0;
       width: 104%;
       height: 104%;
