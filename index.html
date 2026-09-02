@@ -543,19 +543,6 @@
     .faq-item h3 { font: 800 clamp(25px, 2.5vw, 32px)/1.05 var(--display); text-transform: uppercase; }
     .faq-item p { max-width: 720px; margin-top: 12px; color: var(--paper-muted); font-size: 16px; line-height: 1.65; }
 
-    /* Close */
-    .closing { padding-block: clamp(78px, 9vw, 120px); background: var(--gold); color: var(--ink); }
-    .closing-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
-      align-items: end;
-      gap: clamp(40px, 8vw, 100px);
-    }
-    .closing h2 { max-width: 780px; font-size: clamp(62px, 7.4vw, 100px); }
-    .closing-copy p { max-width: 520px; font-size: clamp(17px, 1.45vw, 19px); line-height: 1.6; }
-    .closing .button { margin-top: 26px; background: var(--ink); color: var(--white); }
-    .closing .button:hover { background: #24262b; }
-
     /* Footer */
     footer { border-top: 1px solid var(--line); padding-block: 36px 42px; }
     .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
@@ -590,7 +577,6 @@
       .feature-stage { order: 2; min-height: 650px; }
       .faq-grid { grid-template-columns: 1fr; }
       .faq-intro { position: static; }
-      .closing-grid { grid-template-columns: 1fr; align-items: start; }
     }
 
     @media (max-width: 620px) {
@@ -627,8 +613,6 @@
       .faq h2 { font-size: 56px; }
       .faq-item { padding-block: 24px; }
 
-      .closing h2 { font-size: 58px; }
-      .closing .button { width: 100%; }
       .footer-top { align-items: flex-start; flex-direction: column; }
       .footer-links { width: 100%; justify-content: space-between; }
       .footer-bottom { display: block; }
@@ -807,15 +791,6 @@
             <img src="assets/season.png" alt="The cumulative season race with Q1, halftime, Q3, and regular-season final checkpoints" width="620" height="1347" loading="lazy">
           </div>
         </figure>
-      </div>
-    </section>
-
-    <section class="closing" aria-labelledby="closing-title">
-      <div class="wrap closing-grid">
-        <h2 class="display" id="closing-title">Use one app for your Crew's game-day activities.</h2>
-        <div class="closing-copy">
-          <p>Steel City Gameday is coming to iPhone for the 2026 season. Create a Crew to chat, make picks, review scores, and track standings.</p>
-        </div>
       </div>
     </section>
 
