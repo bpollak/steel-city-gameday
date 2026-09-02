@@ -304,7 +304,7 @@
       overflow: hidden;
       border-bottom: 1px solid rgba(255, 255, 255, .16);
       background:
-        linear-gradient(105deg, rgba(8, 10, 12, .62) 0%, rgba(8, 10, 12, .42) 52%, rgba(8, 10, 12, .3) 100%),
+        linear-gradient(105deg, rgba(8, 10, 12, .78) 0%, rgba(8, 10, 12, .58) 48%, rgba(8, 10, 12, .42) 100%),
         url("assets/hero-steel-texture.png") center 46% / cover no-repeat;
       isolation: isolate;
     }
@@ -335,7 +335,7 @@
       padding-block: 76px;
       padding-right: 12px;
     }
-    .hero h1 { max-width: 660px; font-size: clamp(76px, 6.8vw, 104px); }
+    .hero h1 { max-width: 660px; font-size: clamp(60px, 5.3vw, 78px); }
     .hero h1 span { display: block; }
     .hero h1 .gold { color: var(--gold); }
     .hero-lede {
@@ -347,20 +347,21 @@
     }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
     .hero-actions .button-primary {
-      min-width: 212px;
+      width: 224px;
       min-height: 58px;
+      border-radius: 10px;
       box-shadow: 0 12px 30px rgba(255, 182, 18, .2);
     }
     .appstore-coming-soon {
       display: inline-flex;
-      width: fit-content;
-      min-height: 54px;
+      width: 224px;
+      min-height: 58px;
       align-items: center;
+      justify-content: center;
       gap: 11px;
-      margin-top: 18px;
       border: 1px solid rgba(255, 255, 255, .3);
-      border-radius: 14px;
-      padding: 7px 18px 7px 11px;
+      border-radius: 10px;
+      padding: 7px 14px;
       background: #000;
       color: var(--white);
     }
@@ -375,36 +376,289 @@
     .appstore-coming-soon-text strong { margin-top: 3px; font-size: 17px; font-weight: 600; }
     .hero-note { margin-top: 14px; color: var(--quiet); font-size: 11px; font-weight: 600; }
 
+    /* Hero: live Crew Room card */
     .hero-art {
       position: relative;
-      min-height: 700px;
-      overflow: hidden;
-      background: transparent;
-      isolation: isolate;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-block: 26px;
     }
     .hero-art::before {
       position: absolute;
-      inset: 7% -4% 3% -6%;
+      inset: 12% -6% 8% -10%;
       z-index: 0;
-      background: radial-gradient(ellipse at 52% 45%, rgba(245, 247, 248, .44) 0%, rgba(215, 220, 223, .24) 38%, rgba(176, 183, 188, .09) 58%, transparent 74%);
+      background: radial-gradient(ellipse at 50% 50%, rgba(255, 182, 18, .16) 0%, rgba(255, 182, 18, .05) 45%, transparent 70%);
       content: "";
-      filter: blur(3px);
       pointer-events: none;
     }
-    .hero-product-image {
-      position: absolute;
+    .room-phone {
+      position: relative;
       z-index: 1;
-      inset: -1% -2% -2% 0;
-      width: 104%;
-      height: 104%;
-      max-width: none;
-      object-fit: cover;
-      object-position: 50% 6%;
-      filter:
-        drop-shadow(0 0 9px rgba(244, 247, 249, .42))
-        drop-shadow(0 0 24px rgba(220, 226, 230, .2))
-        drop-shadow(-26px 30px 38px rgba(0, 0, 0, .48));
+      width: min(100%, 358px);
+      overflow: hidden;
+      border: 8px solid #4d5158;
+      border-radius: 50px;
+      background: #0d0e11;
+      box-shadow:
+        0 34px 70px rgba(0, 0, 0, .5),
+        -10px 4px 28px rgba(255, 182, 18, .1),
+        0 0 0 1px #a3a7ad,
+        0 0 0 3px rgba(8, 9, 11, .9);
     }
+    .room {
+      display: flex;
+      width: 100%;
+      aspect-ratio: 9 / 19.5;
+      flex-direction: column;
+      background: #0d0e11;
+      color: var(--white);
+      font-family: var(--body);
+      overflow: hidden;
+    }
+    .room-status {
+      position: relative;
+      display: flex;
+      height: 44px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 26px 0;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .room-status::before {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      width: 96px;
+      height: 26px;
+      border-radius: 999px;
+      background: #000;
+      content: "";
+      transform: translateX(-50%);
+    }
+    .room-status svg { width: 15px; height: 15px; fill: currentColor; }
+    .room-status-icons { display: flex; align-items: center; gap: 5px; }
+    .room-status-icons i {
+      display: inline-block;
+      width: 22px;
+      height: 11px;
+      border: 1.5px solid rgba(255, 255, 255, .75);
+      border-radius: 3px;
+      background: linear-gradient(90deg, #4cd964 0 85%, transparent 85%);
+    }
+    .room-head {
+      padding: 4px 16px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+    .room-crew {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .room-crew svg { width: 15px; height: 15px; fill: var(--gold); }
+    .room-score {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .room-team {
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font: 900 13px/1 var(--display);
+      letter-spacing: .04em;
+    }
+    .room-team.pit { background: var(--gold); color: var(--ink); }
+    .room-team.atl { border: 1.5px solid rgba(255, 255, 255, .3); color: var(--white); }
+    .room-score-num {
+      font: 900 34px/1 var(--display);
+      letter-spacing: .02em;
+    }
+    .room-score-num .pit { color: var(--gold); }
+    .room-score-num .dash { margin-inline: 8px; color: var(--quiet); }
+    .room-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      margin-top: 12px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 999px;
+      padding: 4px;
+      background: rgba(255, 255, 255, .03);
+    }
+    .room-tab {
+      border-radius: 999px;
+      padding: 8px 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .room-tab.on { background: var(--gold); color: var(--ink); font-weight: 800; }
+    .room-body {
+      display: flex;
+      min-height: 0;
+      flex: 1;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 7px;
+      padding: 8px 14px 8px;
+      overflow: hidden;
+    }
+    .room-body > * { flex-shrink: 0; }
+    .msg { display: grid; grid-template-columns: 30px 1fr; gap: 9px; align-items: end; }
+    .msg-avatar {
+      display: inline-flex;
+      width: 30px;
+      height: 30px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #2f5c86;
+      color: #dbeeff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .msg-avatar.alt { background: #5a3a7a; color: #eee0ff; }
+    .msg-body { display: flex; flex-direction: column; gap: 4px; }
+    .msg-name { padding-left: 4px; color: #8ec5ff; font-size: 11px; font-weight: 700; }
+    .msg-bubble {
+      width: fit-content;
+      max-width: 100%;
+      border-radius: 18px;
+      padding: 9px 13px;
+      background: #1e1f25;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+    .msg.me { grid-template-columns: 1fr; justify-items: end; }
+    .msg.me .msg-bubble { background: #2a2418; border: 1px solid rgba(255, 182, 18, .35); }
+    .room-stamp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 2px;
+      color: var(--quiet);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .live {
+      border-radius: 999px;
+      padding: 3px 7px;
+      background: #d92d20;
+      color: #fff;
+      font: 800 9px/1 var(--body);
+      letter-spacing: .1em;
+    }
+    .flash {
+      margin-top: 4px;
+      border: 1px solid rgba(255, 182, 18, .55);
+      border-radius: 16px;
+      background: #121319;
+      overflow: hidden;
+    }
+    .flash-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 14px;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .flash-head span { display: inline-flex; align-items: center; gap: 6px; }
+    .flash-head svg { width: 12px; height: 12px; fill: currentColor; }
+    .flash-q { padding: 12px 14px 4px; font-size: 15px; font-weight: 600; line-height: 1.3; text-align: center; }
+    .flash-lock { color: #ff7a6e; font-size: 12px; font-weight: 700; text-align: center; }
+    .flash-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 12px 12px; }
+    .flash-btn {
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 12px;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .flash-btn.yes { border-color: var(--gold); background: var(--gold); color: var(--ink); }
+    .room-composer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding: 10px 14px 8px;
+    }
+    .room-composer span {
+      flex: 1;
+      border-radius: 999px;
+      padding: 10px 15px;
+      background: #1e1f25;
+      color: var(--quiet);
+      font-size: 13px;
+    }
+    .room-composer i {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .room-composer i svg { width: 15px; height: 15px; fill: var(--ink); }
+    .room-tabbar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 4px 12px 10px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 999px;
+      padding: 5px;
+      background: #15161b;
+    }
+    .room-tabbar span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      border-radius: 999px;
+      padding: 6px 0 5px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 600;
+    }
+    .room-tabbar span.on { background: rgba(255, 255, 255, .08); color: var(--gold); }
+    .room-tabbar svg { width: 18px; height: 18px; fill: currentColor; }
+    .room-home {
+      width: 120px;
+      height: 5px;
+      margin: 0 auto 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .85);
+    }
+
+    @keyframes room-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+    .room-body > * { animation: room-in .5s ease both; }
+    .room-body > :nth-child(2) { animation-delay: .25s; }
+    .room-body > :nth-child(3) { animation-delay: .7s; }
+    .room-body > :nth-child(4) { animation-delay: 1.15s; }
+    .room-body > :nth-child(5) { animation-delay: 1.6s; }
+    .room-body > .room-stamp { animation: none; }
 
     /* App sections */
     .feature-section {
@@ -559,7 +813,7 @@
     @media (max-width: 960px) {
       .hero-grid { min-height: 0; grid-template-columns: 1fr; }
       .hero-copy { max-width: 760px; padding-block: 72px 64px; padding-right: 0; }
-      .hero-art { width: min(100%, 650px); min-height: 740px; justify-self: center; clip-path: none; }
+      .hero-art { width: 100%; padding-block: 0 64px; }
       .feature-grid, .feature-grid.media-right { grid-template-columns: 1fr; }
       .feature-copy { order: 1; }
       .feature-stage { order: 2; min-height: 650px; }
@@ -576,18 +830,14 @@
       .brand-name { max-width: 116px; font-size: 17px; }
 
       .hero-copy { padding-block: 54px 18px; }
-      .hero h1 { font-size: clamp(61px, 18.5vw, 78px); }
+      .hero h1 { font-size: clamp(50px, 15vw, 64px); }
       .hero-lede { margin-top: 23px; font-size: 17px; }
       .hero-actions { flex-direction: column; margin-top: 28px; }
-      .hero-actions .button { width: 100%; }
-      .appstore-coming-soon { align-self: center; }
+      .hero-actions .button, .appstore-coming-soon { width: 100%; }
       .hero-note { text-align: center; }
-      .hero-art {
-        width: calc(100% + (var(--gutter) * 2));
-        min-height: 490px;
-        margin-inline: calc(var(--gutter) * -1);
-      }
-      .hero-product-image { inset: -8% -7% -2%; width: 114%; height: 112%; object-position: 50% 30%; }
+      .hero-art { padding-block: 8px 56px; }
+      .room-phone { width: 100%; border-width: 7px; border-radius: 44px; }
+      .room-body > .msg:first-of-type { display: none; }
 
       .feature-grid, .feature-grid.media-right { gap: 46px; }
       .feature-section h2 { font-size: 56px; }
@@ -613,7 +863,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { transition-duration: .01ms !important; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation: none !important; }
     }
   </style>
 </head>
@@ -636,22 +886,84 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <h1 class="display" id="hero-title">
-            <span>Follow Steelers games</span>
-            <span class="gold">with your Crew.</span>
+            <span>Your group chat,</span>
+            <span class="gold">built for</span>
+            <span class="gold">game day.</span>
           </h1>
-          <p class="hero-lede">Steel City Gameday gives your private group one place to make pregame picks, answer live polls, chat during the game, review results, and track season standings.</p>
+          <p class="hero-lede">Steel City Gameday is the private room where your Crew makes picks before kickoff, calls the game live, and settles it in the season standings.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#experience">See how it works <span aria-hidden="true">↓</span></a>
-          </div>
           <span class="appstore-coming-soon" role="img" aria-label="Steel City Gameday is coming soon to the App Store">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.031 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"></path></svg>
             <span class="appstore-coming-soon-text"><small>Coming soon to the</small><strong>App Store</strong></span>
           </span>
+          </div>
           <p class="hero-note">Coming to iPhone · Fall 2026 · Invite-only Crews · No wagering</p>
         </div>
 
-        <figure class="hero-art">
-          <img class="hero-product-image" src="assets/hero-phone-cutout.png" alt="Steel City Gameday shown on an angled phone, with a live Crew conversation and Flash Pick" width="985" height="1597" fetchpriority="high">
+        <figure class="hero-art" aria-label="Example Crew Room during a Steelers game, with live chat and a Flash Pick">
+          <div class="room-phone" aria-hidden="true">
+          <div class="room">
+            <div class="room-status">
+              <span>9:41</span>
+              <span class="room-status-icons"><svg viewBox="0 0 24 24"><path d="M2 22h3v-6H2v6zm5 0h3V11H7v11zm5 0h3V6h-3v16zm5 0h3V2h-3v20z"/></svg><i></i></span>
+            </div>
+            <div class="room-head">
+              <div class="room-crew">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                Pollak Family
+              </div>
+              <div class="room-score">
+                <span class="room-team pit">PIT</span>
+                <span class="room-score-num"><span class="pit">17</span><span class="dash">–</span>14</span>
+                <span class="room-team atl">ATL</span>
+              </div>
+              <div class="room-tabs">
+                <span class="room-tab">Picks</span>
+                <span class="room-tab on">Room</span>
+                <span class="room-tab">Receipts</span>
+              </div>
+            </div>
+            <div class="room-body">
+              <p class="room-stamp"><span class="live">LIVE</span> Q4 · 2:00 remaining</p>
+              <div class="msg">
+                <span class="msg-avatar">D</span>
+                <div class="msg-body"><span class="msg-name">Dad</span><span class="msg-bubble">That last drive changed everything.</span></div>
+              </div>
+              <div class="msg me">
+                <div class="msg-body"><span class="msg-bubble">I still think we get one more score.</span></div>
+              </div>
+              <div class="msg">
+                <span class="msg-avatar alt">UM</span>
+                <div class="msg-body"><span class="msg-name">Uncle Mo</span><span class="msg-bubble">Same. Taking yes on the Flash Pick.</span></div>
+              </div>
+              <div class="flash">
+                <div class="flash-head">
+                  <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>Flash Pick</span>
+                  <span>20 pts</span>
+                </div>
+                <p class="flash-q">Will there be another score before the game ends?</p>
+                <p class="flash-lock">Locks in 2:00</p>
+                <div class="flash-actions">
+                  <span class="flash-btn yes">Yes</span>
+                  <span class="flash-btn">No</span>
+                </div>
+              </div>
+            </div>
+            <div class="room-composer">
+              <span>Message the Crew…</span>
+              <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg></i>
+            </div>
+            <div class="room-tabbar">
+              <span><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Crews</span>
+              <span class="on"><svg viewBox="0 0 24 24"><path d="M20.5 3.5c-3.6-1.2-8.3.2-11.7 3.6S3.2 15.5 3.5 20.5c3.6 1.2 8.3-.2 11.7-3.6s4.5-8.1 5.3-13.4zM8.4 15.6l-1.1-1.1 8.2-8.2 1.1 1.1-8.2 8.2z"/></svg>Game Day</span>
+              <span><svg viewBox="0 0 24 24"><path d="M12 10a2 2 0 100 4 2 2 0 000-4zm-5.7 5.7l1.4-1.4A4 4 0 018 12c0-1.2.4-2.2 1.1-3l-1.4-1.4A6 6 0 006 12c0 1.7.7 3.2 1.7 4.3zm11.4 0A6 6 0 0018 12c0-1.7-.7-3.2-1.7-4.3l-1.4 1.4c.7.8 1.1 1.8 1.1 3s-.4 2.2-1.1 3l1.4 1.4zM4.9 18.5l1.4-1.4A8 8 0 014 12c0-2.2.9-4.2 2.3-5.7L4.9 4.9A10 10 0 002 12c0 2.8 1.1 5.3 2.9 7.1zm14.2 0A10 10 0 0022 12c0-2.8-1.1-5.3-2.9-7.1l-1.4 1.4A8 8 0 0120 12c0 2.2-.9 4.2-2.3 5.7l1.4 1.4z"/></svg>The Wire</span>
+              <span><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V9h14v11zM7 11h3v3H7zm4 0h3v3h-3zm4 0h3v3h-3zM7 15h3v3H7zm4 0h3v3h-3z"/></svg>Season</span>
+              <span><svg viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 000-2l2.1-1.6-2-3.5-2.5 1a7.7 7.7 0 00-1.7-1L15 3.3H9L8.7 5.9a7.7 7.7 0 00-1.7 1l-2.5-1-2 3.5L4.6 11a7.6 7.6 0 000 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.3 2.6h6l.3-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5L19.4 13zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z"/></svg>Settings</span>
+            </div>
+            <div class="room-home"></div>
+          </div>
+          </div>
         </figure>
       </div>
     </section>
