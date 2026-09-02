@@ -74,7 +74,7 @@
             "name": "What is Steel City Gameday?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Steel City Gameday is a private iPhone app for Steelers fans who want to share game day, even when they aren't watching from the same place. It brings Crew chat, pregame picks, live polls, and season-long standings into one app."
+              "text": "A private iPhone app for Steelers fans who want to share game day, even when they aren't watching from the same place. It brings Crew chat, pregame picks, live polls, and season-long standings into one app."
             }
           },
           {
@@ -82,47 +82,7 @@
             "name": "Are Crews private?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. There's no public feed. Only people with your Crew invite link can join."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How often does The Wire update?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The Wire checks publisher feeds every 15 minutes. You can also pull to refresh, and every headline links to the original story."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I change a Pregame Pick?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. You can change a Pregame Pick until it locks at kickoff. The last answer you save is the one that counts."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can my Crew see what I picked?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Not while a pick is open. Choices stay private until the pick locks. Your Crew can still talk about their calls in the chat."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do picks and scoring work?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Pregame Picks and Flash Picks each show their point value. Correct choices score, and numeric questions go to the closest guess. After the game, receipts reveal the calls and crown the top scorer."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does the season total reset?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Every point stays in one running total through the regular season. The checkpoints are Week 4 for Q1, Week 9 for halftime, Week 14 for Q3, and Week 18 for the final. Playoffs are not included."
+              "text": "Yes. There's no public feed. Only people with your Crew invite link can join, and nobody sees your picks until they lock."
             }
           },
           {
@@ -135,14 +95,6 @@
           },
           {
             "@type": "Question",
-            "name": "Why is an account required?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Your account keeps your private Crew membership, picks, points, messages, safety controls, and Season Pass connected to you across devices. Sign in with Apple or use an email address."
-            }
-          },
-          {
-            "@type": "Question",
             "name": "Is this a betting app?",
             "acceptedAnswer": {
               "@type": "Answer",
@@ -151,10 +103,10 @@
           },
           {
             "@type": "Question",
-            "name": "Where will Steel City Gameday be available?",
+            "name": "When and where can I get it?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Steel City Gameday will be on iPhone for the 2026 season."
+              "text": "Steel City Gameday is coming to iPhone for the 2026 season. Sign in with Apple or an email address."
             }
           }
         ]
@@ -769,6 +721,39 @@
     .feature-stage-dual .stage-phone:first-child { transform: rotate(-4deg) translateY(-16px); }
     .feature-stage-dual .stage-phone:last-child { z-index: 2; margin-left: -54px; transform: rotate(4deg) translateY(18px); }
 
+    /* The Wire strip */
+    .wire-strip { border-top: 1px solid var(--dark-line); padding-block: clamp(44px, 5vw, 64px); background: var(--paper); color: var(--ink); }
+    .wire-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      align-items: center;
+      column-gap: clamp(24px, 5vw, 72px);
+      row-gap: 16px;
+    }
+    .wire-grid .feature-kicker { grid-column: 1 / -1; margin-bottom: 0; color: #9d6700; }
+    .wire-grid h2 { font: 800 clamp(28px, 2.9vw, 38px)/1.02 var(--display); text-transform: uppercase; }
+    .wire-grid p:not(.feature-kicker) { max-width: 560px; color: var(--paper-muted); font-size: 16px; line-height: 1.6; }
+
+    /* Closing band */
+    .closing {
+      border-top: 1px solid var(--line);
+      padding-block: clamp(72px, 8vw, 112px);
+      background:
+        linear-gradient(105deg, rgba(8, 10, 12, .84) 0%, rgba(8, 10, 12, .66) 60%, rgba(8, 10, 12, .5) 100%),
+        url("assets/hero-steel-texture.png") center 60% / cover no-repeat;
+    }
+    .closing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) auto;
+      align-items: center;
+      gap: clamp(32px, 6vw, 96px);
+    }
+    .closing h2 { max-width: 640px; font-size: clamp(52px, 5.6vw, 80px); }
+    .closing h2 .gold { color: var(--gold); }
+    .closing-note { margin-top: 20px; color: var(--quiet); font-size: 12px; font-weight: 600; }
+    .closing-actions { display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
+    .closing-actions .appstore-coming-soon, .closing-actions .button { width: 240px; min-height: 58px; border-radius: 10px; }
+
     /* FAQ */
     .faq { border-top: 1px solid var(--dark-line); padding-block: var(--section); background: var(--paper); color: var(--ink); }
     .faq-grid {
@@ -819,6 +804,8 @@
       .feature-stage { order: 2; min-height: 650px; }
       .faq-grid { grid-template-columns: 1fr; }
       .faq-intro { position: static; }
+      .closing-grid { grid-template-columns: 1fr; }
+      .closing-actions { flex-direction: row; flex-wrap: wrap; }
     }
 
     @media (max-width: 620px) {
@@ -851,6 +838,10 @@
       .feature-stage-dual .stage-phone { width: min(56%, 240px); }
       .feature-stage-dual .stage-phone:last-child { margin-left: -46px; }
 
+      .wire-grid { grid-template-columns: 1fr; gap: 14px; }
+      .closing-grid { grid-template-columns: 1fr; }
+      .closing h2 { font-size: 50px; }
+      .closing-actions .appstore-coming-soon, .closing-actions .button { width: 100%; }
       .faq-grid { gap: 42px; }
       .faq h2 { font-size: 56px; }
       .faq-item { padding-block: 24px; }
@@ -890,7 +881,7 @@
             <span class="gold">built for</span>
             <span class="gold">game day.</span>
           </h1>
-          <p class="hero-lede">Steel City Gameday is the private room where your Crew makes picks before kickoff, calls the game live, and settles it in the season standings.</p>
+          <p class="hero-lede">Private group chats for the people you watch Steelers games with, one Crew for family, another for college friends, with a fantasy football twist. Each Crew answers poll questions before and during the game, earns points for correct answers, and keeps a running tally all season.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#experience">See how it works <span aria-hidden="true">↓</span></a>
           <span class="appstore-coming-soon" role="img" aria-label="Steel City Gameday is coming soon to the App Store">
@@ -968,27 +959,30 @@
       </div>
     </section>
 
-    <section class="feature-section dark" id="experience" aria-labelledby="crews-title">
+    <section class="feature-section dark" id="experience" aria-labelledby="live-title">
       <div class="wrap feature-grid media-right">
         <div class="feature-copy">
-          <p class="feature-kicker">Private groups · Crews</p>
-          <h2 class="display" id="crews-title">Create or join a private Crew.</h2>
-          <p class="feature-lede">A Crew is an invite-only group for friends and family. Crew members can chat, make picks, compare results, and compete in the same season standings.</p>
+          <p class="feature-kicker">During the game · Crew Room</p>
+          <h2 class="display" id="live-title">Chat with your Crew during the game.</h2>
+          <p class="feature-lede">Each game has a Crew Room. Members send messages and reactions, see the current score and game clock, and answer timed Flash Picks while the game is in progress.</p>
           <div class="feature-points">
             <article class="feature-point">
-              <h3>Chat before and during the game</h3>
-              <p>Each game has a Crew Room where members can send messages and reactions.</p>
+              <h3>Invite-only Crews</h3>
+              <p>A Crew is a private group for friends and family. People can join only with its invite link. There is no public feed.</p>
             </article>
             <article class="feature-point">
-              <h3>Invite-only access</h3>
-              <p>People can join your Crew only when they have its invite link.</p>
+              <h3>Timed Flash Picks</h3>
+              <p>Each live poll shows its point value and the time remaining to answer. Answers stay hidden from other members until the poll closes.</p>
             </article>
           </div>
         </div>
 
-        <figure class="feature-stage">
+        <figure class="feature-stage feature-stage-dual">
           <div class="stage-phone">
             <img src="assets/crews.png" alt="The Crews tab with the next Steelers matchup and a list of private groups" width="620" height="1347" loading="lazy">
+          </div>
+          <div class="stage-phone">
+            <img src="assets/room.png" alt="The live Crew Room with game chat, score and clock, and a timed Flash Pick" width="620" height="1347" loading="lazy">
           </div>
         </figure>
       </div>
@@ -1005,7 +999,7 @@
         <div class="feature-copy">
           <p class="feature-kicker">Before kickoff · Pregame Picks</p>
           <h2 class="display" id="pregame-title">Make predictions before kickoff.</h2>
-          <p class="feature-lede">Answer multiple-choice and numeric questions about the upcoming game. Each question shows how many points a correct or closest answer is worth.</p>
+          <p class="feature-lede">Answer multiple-choice and numeric questions about the upcoming game, such as who wins, total points, and first touchdown. Each question shows how many points a correct or closest answer is worth.</p>
           <div class="feature-points">
             <article class="feature-point">
               <h3>Edit picks until kickoff</h3>
@@ -1020,77 +1014,28 @@
       </div>
     </section>
 
-    <section class="feature-section dark" aria-labelledby="live-title">
+    <section class="feature-section dark" id="season" aria-labelledby="after-title">
       <div class="wrap feature-grid media-right">
         <div class="feature-copy">
-          <p class="feature-kicker">During the game · Crew Room</p>
-          <h2 class="display" id="live-title">Chat and answer live polls during the game.</h2>
-          <p class="feature-lede">The Crew Room shows your group chat, the current score and game clock, and timed Flash Picks that appear while the game is in progress.</p>
+          <p class="feature-kicker">After the game · Receipts and Standings</p>
+          <h2 class="display" id="after-title">Review results and season standings.</h2>
+          <p class="feature-lede">After the game, receipts show each question, every member's answer, the correct result, and points earned. Points from each game are added to a running regular-season total.</p>
           <div class="feature-points">
             <article class="feature-point">
-              <h3>Answer timed Flash Picks</h3>
-              <p>Each live poll shows its point value and the time remaining to answer.</p>
+              <h3>Game receipts</h3>
+              <p>Correct choices earn the listed points, and numeric questions award points to the closest answer. The member with the most points is shown as the game winner.</p>
             </article>
             <article class="feature-point">
-              <h3>Keep live picks private</h3>
-              <p>Answers remain hidden from other Crew members until the poll closes.</p>
+              <h3>Season standings</h3>
+              <p>Standings cover the regular season, with checkpoints at Week 4, Week 9, Week 14, and Week 18. Playoffs are not included.</p>
             </article>
           </div>
         </div>
 
-        <figure class="feature-stage">
-          <div class="stage-phone">
-            <img src="assets/room.png" alt="The live Crew Room with game chat, score and clock, and a timed Flash Pick" width="620" height="1347" loading="lazy">
-          </div>
-        </figure>
-      </div>
-    </section>
-
-    <section class="feature-section light" aria-labelledby="receipts-title">
-      <div class="wrap feature-grid">
-        <figure class="feature-stage">
+        <figure class="feature-stage feature-stage-dual">
           <div class="stage-phone">
             <img src="assets/receipts.png" alt="The final game receipts with the weekly winner, each member's points, and revealed picks" width="620" height="1347" loading="lazy">
           </div>
-        </figure>
-
-        <div class="feature-copy">
-          <p class="feature-kicker">After the game · Receipts</p>
-          <h2 class="display" id="receipts-title">Review every pick and score after the game.</h2>
-          <p class="feature-lede">Receipts show each question, every member's answer, the correct result, points earned, and the game's highest scorer.</p>
-          <div class="feature-points">
-            <article class="feature-point">
-              <h3>See how points were awarded</h3>
-              <p>Correct choices earn the listed points. Numeric questions award points to the closest answer.</p>
-            </article>
-            <article class="feature-point">
-              <h3>See the game winner</h3>
-              <p>The member with the most points is shown as the winner. Tied members share the top result.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="feature-section dark" id="season" aria-labelledby="season-title">
-      <div class="wrap feature-grid media-right">
-        <div class="feature-copy">
-          <p class="feature-kicker">Across the season · Standings</p>
-          <h2 class="display" id="season-title">Track total points across the regular season.</h2>
-          <p class="feature-lede">Points from each game are added to every member's regular-season total. The standings show rankings, progress checkpoints, and upcoming games.</p>
-          <div class="feature-points">
-            <article class="feature-point">
-              <h3>View season checkpoints</h3>
-              <p>The app marks Week 4 as Q1, Week 9 as halftime, Week 14 as Q3, and Week 18 as the regular-season final.</p>
-            </article>
-            <article class="feature-point">
-              <h3>See upcoming games</h3>
-              <p>The schedule shows the Crew's next matchup. The competition covers the regular season and does not include playoffs.</p>
-            </article>
-          </div>
-        </div>
-
-        <figure class="feature-stage">
           <div class="stage-phone">
             <img src="assets/season.png" alt="The cumulative season race with Q1, halftime, Q3, and regular-season final checkpoints" width="620" height="1347" loading="lazy">
           </div>
@@ -1098,29 +1043,11 @@
       </div>
     </section>
 
-    <section class="feature-section light" aria-labelledby="wire-title">
-      <div class="wrap feature-grid">
-        <figure class="feature-stage">
-          <div class="stage-phone">
-            <img src="assets/wire.png" alt="The Wire with current Steelers headlines, publishers, and related coverage" width="620" height="1347" loading="lazy">
-          </div>
-        </figure>
-
-        <div class="feature-copy">
-          <p class="feature-kicker">News · The Wire</p>
-          <h2 class="display" id="wire-title">Read Steelers news from original publishers.</h2>
-          <p class="feature-lede">The Wire checks publisher feeds every 15 minutes, lists the newest Steelers stories first, and groups articles that cover the same topic.</p>
-          <div class="feature-points">
-            <article class="feature-point">
-              <h3>See recent Steelers news</h3>
-              <p>Browse stories about injuries, roster changes, practices, matchups, and other team updates.</p>
-            </article>
-            <article class="feature-point">
-              <h3>Open the original article</h3>
-              <p>Tap any headline to read the complete story on the publisher's website.</p>
-            </article>
-          </div>
-        </div>
+    <section class="wire-strip" aria-labelledby="wire-title">
+      <div class="wrap wire-grid">
+        <p class="feature-kicker">Also in the app · The Wire</p>
+        <h2 id="wire-title">Steelers news from original publishers.</h2>
+        <p>The Wire checks publisher feeds every 15 minutes, lists the newest stories first, and groups articles that cover the same topic. Tap a headline to read the full story on the publisher's website.</p>
       </div>
     </section>
 
@@ -1133,52 +1060,44 @@
         <div class="faq-list">
           <article class="faq-item">
             <h3>What is Steel City Gameday?</h3>
-            <p>Steel City Gameday is a private iPhone app for Steelers fans who want to share game day, even when they aren't watching from the same place. It brings Crew chat, pregame picks, live polls, and season-long standings into one app.</p>
+            <p>A private iPhone app for Steelers fans who want to share game day, even when they aren't watching from the same place. It brings Crew chat, pregame picks, live polls, and season-long standings into one app.</p>
           </article>
           <article class="faq-item">
             <h3>Are Crews private?</h3>
-            <p>Yes. There's no public feed. Only people with your Crew invite link can join.</p>
-          </article>
-          <article class="faq-item">
-            <h3>How often does The Wire update?</h3>
-            <p>The Wire checks publisher feeds every 15 minutes. You can also pull to refresh, and every headline links to the original story.</p>
-          </article>
-          <article class="faq-item">
-            <h3>Can I change a Pregame Pick?</h3>
-            <p>Yes. You can change a Pregame Pick until it locks at kickoff. The last answer you save is the one that counts.</p>
-          </article>
-          <article class="faq-item">
-            <h3>Can my Crew see what I picked?</h3>
-            <p>Not while a pick is open. Choices stay private until the pick locks. Your Crew can still talk about their calls in the chat.</p>
-          </article>
-          <article class="faq-item">
-            <h3>How do picks and scoring work?</h3>
-            <p>Pregame Picks and Flash Picks each show their point value. Correct choices score, and numeric questions go to the closest guess. After the game, receipts reveal the calls and crown the top scorer.</p>
-          </article>
-          <article class="faq-item">
-            <h3>Does the season total reset?</h3>
-            <p>No. Every point stays in one running total through the regular season. The checkpoints are Week 4 for Q1, Week 9 for halftime, Week 14 for Q3, and Week 18 for the final. Playoffs are not included.</p>
+            <p>Yes. There's no public feed. Only people with your Crew invite link can join, and nobody sees your picks until they lock.</p>
           </article>
           <article class="faq-item">
             <h3>Is Steel City Gameday free?</h3>
             <p>Crew chat and your first five played games are free. After that, a one-time 2026 Season Pass covers scored picks, receipts, and season standings. It does not renew.</p>
           </article>
           <article class="faq-item">
-            <h3>Why is an account required?</h3>
-            <p>Your account keeps your private Crew membership, picks, points, messages, safety controls, and Season Pass connected to you across devices. Sign in with Apple or use an email address. <a href="account/">More about signing in</a>.</p>
-          </article>
-          <article class="faq-item">
             <h3>Is this a betting app?</h3>
             <p>No. Picks are for entertainment inside your Crew. There is no wagering, entry fee, or prize of monetary value.</p>
           </article>
           <article class="faq-item">
-            <h3>Where will Steel City Gameday be available?</h3>
-            <p>Steel City Gameday will be on iPhone for the 2026 season.</p>
+            <h3>When and where can I get it?</h3>
+            <p>Steel City Gameday is coming to iPhone for the 2026 season. Sign in with Apple or an email address. <a href="account/">More about signing in</a>.</p>
           </article>
         </div>
       </div>
     </section>
 
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="wrap closing-grid">
+        <div>
+          <p class="feature-kicker">Availability</p>
+          <h2 class="display" id="closing-title">Coming to iPhone for the <span class="gold">2026 season.</span></h2>
+          <p class="closing-note">Invite-only Crews · No wagering · Sign in with Apple or email</p>
+        </div>
+        <div class="closing-actions">
+          <span class="appstore-coming-soon" role="img" aria-label="Steel City Gameday is coming soon to the App Store">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.031 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"></path></svg>
+            <span class="appstore-coming-soon-text"><small>Coming soon to the</small><strong>App Store</strong></span>
+          </span>
+          <a class="button button-quiet" href="#faq">Read the FAQ</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
