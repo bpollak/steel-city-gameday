@@ -45,6 +45,7 @@
         "url": "https://steelcitygameday.com/",
         "description": "Create a private Crew, make pregame picks, answer live polls, chat during Steelers games, read news, and track season standings.",
         "operatingSystem": "iOS",
+        "downloadUrl": "https://apps.apple.com/us/app/steel-city-gameday/id6806732803",
         "applicationCategory": "SportsApplication",
         "image": "https://steelcitygameday.com/assets/icon.png",
         "screenshot": [
@@ -106,7 +107,7 @@
             "name": "When and where can I get it?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Steel City Gameday is coming to iPhone for the 2026 season. Sign in with Apple or an email address."
+              "text": "Steel City Gameday is approved for the App Store for iPhone. Use the App Store links on this page to download it. The listing may take time to appear. Sign in with Apple or an email address."
             }
           }
         ]
@@ -304,7 +305,7 @@
       border-radius: 10px;
       box-shadow: 0 12px 30px rgba(255, 182, 18, .2);
     }
-    .appstore-coming-soon {
+    .appstore-download {
       display: inline-flex;
       width: 224px;
       min-height: 58px;
@@ -317,15 +318,17 @@
       background: #000;
       color: var(--white);
     }
-    .appstore-coming-soon svg { width: 28px; height: 28px; flex: 0 0 auto; fill: currentColor; }
-    .appstore-coming-soon-text { display: flex; flex-direction: column; line-height: 1; }
-    .appstore-coming-soon-text small {
+    .appstore-download:hover { border-color: var(--gold); }
+    .appstore-download:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+    .appstore-download svg { width: 28px; height: 28px; flex: 0 0 auto; fill: currentColor; }
+    .appstore-download-text { display: flex; flex-direction: column; line-height: 1; }
+    .appstore-download-text small {
       color: #c3ccd4;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .02em;
     }
-    .appstore-coming-soon-text strong { margin-top: 3px; font-size: 17px; font-weight: 600; }
+    .appstore-download-text strong { margin-top: 3px; font-size: 17px; font-weight: 600; }
     .hero-note { margin-top: 14px; color: var(--quiet); font-size: 11px; font-weight: 600; }
 
     /* Hero: live Crew Room card */
@@ -752,7 +755,7 @@
     .closing h2 .gold { color: var(--gold); }
     .closing-note { margin-top: 20px; color: var(--quiet); font-size: 12px; font-weight: 600; }
     .closing-actions { display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
-    .closing-actions .appstore-coming-soon, .closing-actions .button { width: 240px; min-height: 58px; border-radius: 10px; }
+    .closing-actions .appstore-download, .closing-actions .button { width: 240px; min-height: 58px; border-radius: 10px; }
 
     /* FAQ */
     .faq { border-top: 1px solid var(--dark-line); padding-block: var(--section); background: var(--paper); color: var(--ink); }
@@ -820,7 +823,7 @@
       .hero h1 { font-size: clamp(50px, 15vw, 64px); }
       .hero-lede { margin-top: 23px; font-size: 17px; }
       .hero-actions { flex-direction: column; margin-top: 28px; }
-      .hero-actions .button, .appstore-coming-soon { width: 100%; }
+      .hero-actions .button, .appstore-download { width: 100%; }
       .hero-note { text-align: center; }
       .hero-art { padding-block: 8px 56px; }
       .room-phone { width: 100%; border-width: 7px; border-radius: 44px; }
@@ -841,7 +844,7 @@
       .wire-grid { grid-template-columns: 1fr; gap: 14px; }
       .closing-grid { grid-template-columns: 1fr; }
       .closing h2 { font-size: 50px; }
-      .closing-actions .appstore-coming-soon, .closing-actions .button { width: 100%; }
+      .closing-actions .appstore-download, .closing-actions .button { width: 100%; }
       .faq-grid { gap: 42px; }
       .faq h2 { font-size: 56px; }
       .faq-item { padding-block: 24px; }
@@ -884,12 +887,12 @@
           <p class="hero-lede">Private group chats for the people you watch Steelers games with, one Crew for family, another for college friends, with a fantasy football twist. Each Crew answers poll questions before and during the game, earns points for correct answers, and keeps a running tally all season.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#experience">See how it works <span aria-hidden="true">↓</span></a>
-          <span class="appstore-coming-soon" role="img" aria-label="Steel City Gameday is coming soon to the App Store">
+          <a class="appstore-download" href="https://apps.apple.com/us/app/steel-city-gameday/id6806732803" aria-label="Download Steel City Gameday on the App Store">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.031 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"></path></svg>
-            <span class="appstore-coming-soon-text"><small>Coming soon to the</small><strong>App Store</strong></span>
-          </span>
+            <span class="appstore-download-text"><small>Download on the</small><strong>App Store</strong></span>
+          </a>
           </div>
-          <p class="hero-note">Coming to iPhone · Fall 2026 · Invite-only Crews · No wagering</p>
+          <p class="hero-note">Approved for the App Store · Invite-only Crews · No wagering</p>
         </div>
 
         <figure class="hero-art" aria-label="Example Crew Room during a Steelers game, with live chat and a Flash Pick">
@@ -1076,7 +1079,7 @@
           </article>
           <article class="faq-item">
             <h3>When and where can I get it?</h3>
-            <p>Steel City Gameday is coming to iPhone for the 2026 season. Sign in with Apple or an email address. <a href="account/">More about signing in</a>.</p>
+            <p>Steel City Gameday is approved for the App Store for iPhone. Use the App Store links on this page to download it. The listing may take time to appear. Sign in with Apple or an email address. <a href="account/">More about signing in</a>.</p>
           </article>
         </div>
       </div>
@@ -1086,14 +1089,14 @@
       <div class="wrap closing-grid">
         <div>
           <p class="feature-kicker">Availability</p>
-          <h2 class="display" id="closing-title">Coming to iPhone for the <span class="gold">2026 season.</span></h2>
-          <p class="closing-note">Invite-only Crews · No wagering · Sign in with Apple or email</p>
+          <h2 class="display" id="closing-title">Approved for the <span class="gold">App Store.</span></h2>
+          <p class="closing-note">Free to download for iPhone. The App Store listing may take time to appear.</p>
         </div>
         <div class="closing-actions">
-          <span class="appstore-coming-soon" role="img" aria-label="Steel City Gameday is coming soon to the App Store">
+          <a class="appstore-download" href="https://apps.apple.com/us/app/steel-city-gameday/id6806732803" aria-label="Download Steel City Gameday on the App Store">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.031 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"></path></svg>
-            <span class="appstore-coming-soon-text"><small>Coming soon to the</small><strong>App Store</strong></span>
-          </span>
+            <span class="appstore-download-text"><small>Download on the</small><strong>App Store</strong></span>
+          </a>
           <a class="button button-quiet" href="#faq">Read the FAQ</a>
         </div>
       </div>
