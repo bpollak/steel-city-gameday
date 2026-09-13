@@ -638,6 +638,41 @@
     .room-body > :nth-child(5) { animation-delay: 1.6s; }
     .room-body > .room-stamp { animation: none; }
 
+    /* Featured film */
+    .video-feature {
+      border-top: 1px solid var(--line);
+      padding-block: clamp(56px, 6vw, 80px);
+      background: var(--ink-soft);
+      scroll-margin-top: 24px;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+      align-items: center;
+      gap: clamp(40px, 8vw, 100px);
+    }
+    .video-copy h2 { max-width: 620px; font-size: clamp(52px, 6vw, 80px); }
+    .video-copy .feature-lede { max-width: 500px; color: var(--muted); }
+    .video-detail { margin-top: 22px; color: var(--muted); font-size: 13px; }
+    .video-detail span { margin-inline: 8px; color: var(--gold); }
+    .video-player { width: min(100%, 340px); justify-self: center; }
+    .video-player video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #000;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .3);
+    }
+    .video-player figcaption { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
+    .video-player figcaption a { text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 760px) {
+      .video-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+      .video-copy h2 { max-width: 540px; }
+    }
+
     /* App sections */
     .feature-section {
       overflow: hidden;
@@ -930,7 +965,7 @@
           </h1>
           <p class="hero-lede">Private group chats for the people you watch Steelers games with, one Crew for family, another for college friends, with a fantasy football twist. Each Crew answers poll questions before and during the game, earns points for correct answers, and keeps a running tally all season.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#experience">See how it works <span aria-hidden="true">↓</span></a>
+            <a class="button button-primary" href="#video">Watch the video <span aria-hidden="true">▶</span></a>
           <a class="appstore-download" href="https://apps.apple.com/us/app/steel-city-gameday/id6806732803" aria-label="Download Steel City Gameday on the App Store">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.031 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"></path></svg>
             <span class="appstore-download-text"><small>Download on the</small><strong>App Store</strong></span>
@@ -1003,6 +1038,24 @@
             <div class="room-home"></div>
           </div>
           </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="video-feature" id="video" aria-labelledby="video-title">
+      <div class="wrap video-grid">
+        <div class="video-copy">
+          <p class="feature-kicker">Watch Steel City Gameday</p>
+          <h2 class="display" id="video-title">Get your Crew together.</h2>
+          <p class="feature-lede">From pregame picks to the final standings, see how a Crew follows the game together.</p>
+          <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
+        </div>
+        <figure class="video-player">
+          <video controls playsinline preload="none" poster="assets/gameday-video-poster.jpg" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
+            <source src="assets/gameday-video.mp4" type="video/mp4">
+            <p><a href="assets/gameday-video.mp4">Watch the Steel City Gameday video.</a></p>
+          </video>
+          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4">Open video</a></figcaption>
         </figure>
       </div>
     </section>
@@ -1206,5 +1259,11 @@
       </div>
     </div>
   </footer>
+  <script>
+    const featuredVideo = document.querySelector('.video-player video');
+    featuredVideo.defaultPlaybackRate = 1.1;
+    featuredVideo.playbackRate = 1.1;
+    featuredVideo.preservesPitch = true;
+  </script>
 </body>
 </html>
