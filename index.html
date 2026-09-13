@@ -648,14 +648,16 @@
     .video-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(500px, .98fr);
+      grid-template-areas: "player copy";
       align-items: center;
       gap: clamp(18px, 2.5vw, 40px);
     }
+    .video-copy { grid-area: copy; }
     .video-copy h2 { max-width: 620px; font-size: clamp(52px, 6vw, 80px); }
     .video-copy .feature-lede { max-width: 500px; color: var(--muted); }
     .video-detail { margin-top: 22px; color: var(--muted); font-size: 13px; }
     .video-detail span { margin-inline: 8px; color: var(--gold); }
-    .video-player { width: min(100%, 340px); justify-self: center; }
+    .video-player { grid-area: player; width: min(100%, 340px); justify-self: center; }
     .video-player video {
       display: block;
       width: 100%;
@@ -669,7 +671,7 @@
     .video-player figcaption { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
     .video-player figcaption a { text-decoration: underline; text-underline-offset: 3px; }
     @media (max-width: 960px) {
-      .video-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+      .video-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "player"; gap: 32px; }
       .video-copy h2 { max-width: 540px; }
     }
 
@@ -1047,7 +1049,7 @@
         <div class="video-copy">
           <p class="feature-kicker">Watch Steel City Gameday</p>
           <h2 class="display" id="video-title">Get your Crew together.</h2>
-          <p class="feature-lede">From pregame picks to the final standings, see how a Crew follows the game together.</p>
+          <p class="feature-lede">See how your Crew can make the most of Steel City Gameday. Follow Steelers news, make pregame picks, chat during the game, answer live Flash Picks, and compare results and season standings. This game-day walkthrough shows how the features work together, whether your Crew is on the same couch or watching from different places.</p>
           <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
         </div>
         <figure class="video-player">
