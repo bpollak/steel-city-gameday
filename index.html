@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Steel City Gameday | Steelers Picks, Polls and Crews</title>
-  <meta name="description" content="Create a private Crew, make pregame picks, answer live polls, chat during Steelers games, read news, and track season standings.">
+  <meta name="description" content="Bring your Crew to Steelers game day. Private chat, push notifications, quick replies, pregame picks, live polls, and season standings for iPhone.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#08090b">
   <link rel="canonical" href="https://steelcitygameday.com/">
   <link rel="sitemap" type="application/xml" href="https://steelcitygameday.com/sitemap.xml">
 
   <meta property="og:title" content="Steel City Gameday | Steelers Picks, Polls and Crews">
-  <meta property="og:description" content="Create a private Crew, make picks, answer live polls, chat during games, and track season standings.">
+  <meta property="og:description" content="Get your Crew together for Falcons at Pittsburgh. Now with Crew push notifications, quick replies, and alerts you control. Update on the App Store.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://steelcitygameday.com/">
   <meta property="og:site_name" content="Steel City Gameday">
@@ -22,7 +22,7 @@
   <meta property="og:image:alt" content="Steel City Gameday family Crew chatting and answering a live Flash Pick">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Steel City Gameday | Steelers Picks, Polls and Crews">
-  <meta name="twitter:description" content="Create a private Crew, make picks, answer live polls, chat during games, and track season standings.">
+  <meta name="twitter:description" content="Get your Crew together for Falcons at Pittsburgh. Now with Crew push notifications, quick replies, and alerts you control. Update on the App Store.">
   <meta name="twitter:image" content="https://steelcitygameday.com/assets/og-v3.png">
   <meta name="twitter:image:alt" content="Steel City Gameday family Crew chatting and answering a live Flash Pick">
 
@@ -35,7 +35,7 @@
         "@id": "https://steelcitygameday.com/#website",
         "url": "https://steelcitygameday.com/",
         "name": "Steel City Gameday",
-        "description": "Create a private Crew, make pregame picks, answer live polls, chat during Steelers games, read news, and track season standings.",
+        "description": "Bring your Crew to Steelers game day. Private chat, push notifications, quick replies, pregame picks, live polls, and season standings for iPhone.",
         "inLanguage": "en-US"
       },
       {
@@ -43,7 +43,8 @@
         "@id": "https://steelcitygameday.com/#app",
         "name": "Steel City Gameday",
         "url": "https://steelcitygameday.com/",
-        "description": "Create a private Crew, make pregame picks, answer live polls, chat during Steelers games, read news, and track season standings.",
+        "description": "Bring your Crew to Steelers game day. Private chat, push notifications, quick replies, pregame picks, live polls, and season standings for iPhone.",
+        "softwareVersion": "1.0.2",
         "operatingSystem": "iOS",
         "downloadUrl": "https://apps.apple.com/us/app/steel-city-gameday/id6806732803",
         "applicationCategory": "SportsApplication",
@@ -61,6 +62,9 @@
           "Private invite-only Crews",
           "Editable Pregame Picks and live Flash Picks",
           "Crew chat",
+          "Crew message push notifications and replies from notifications",
+          "Highlighted @mentions and per-Crew notification controls",
+          "Saved message drafts and restored Room reading position",
           "Season standings and game receipts",
           "Sign in with Apple or email",
           "Steelers news from original publishers"
@@ -84,6 +88,14 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Yes. There's no public feed. Only people with your Crew invite link can join, and nobody sees your picks until they lock."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I control Crew notifications?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Notifications are optional. In Settings > Notifications, choose All, Mentions and replies, or Muted for each Crew. You can also mute a Crew for the current game. Update to version 1.0.2 to use these features."
             }
           },
           {
@@ -251,6 +263,15 @@
     }
     .nav-cta:hover { background: var(--gold); color: var(--ink); }
 
+    /* Week one */
+    .kickoff-band { border-bottom: 2px solid var(--gold); background: var(--ink-soft); }
+    .kickoff-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 28px; padding-block: 18px; }
+    .kickoff-matchup { font: 800 25px/1.1 var(--display); text-transform: uppercase; }
+    .kickoff-matchup span { color: var(--gold); }
+    .kickoff-time { margin-top: 5px; color: var(--muted); font-size: 12px; }
+    .kickoff-link { display: inline-flex; min-height: 44px; align-items: center; gap: 7px; color: var(--gold); font-size: 13px; font-weight: 700; }
+    .kickoff-link:hover { color: var(--gold-light); }
+
     /* Hero */
     .hero {
       position: relative;
@@ -330,6 +351,8 @@
     }
     .appstore-download-text strong { margin-top: 3px; font-size: 17px; font-weight: 600; }
     .hero-note { margin-top: 14px; color: var(--quiet); font-size: 11px; font-weight: 600; }
+    .hero-release { align-self: flex-start; display: inline-flex; min-height: 44px; align-items: center; margin-top: 8px; color: var(--gold); font-size: 13px; font-weight: 700; }
+    .hero-release:hover { color: var(--gold-light); }
 
     /* Hero: live Crew Room card */
     .hero-art {
@@ -724,6 +747,17 @@
     .feature-stage-dual .stage-phone:first-child { transform: rotate(-4deg) translateY(-16px); }
     .feature-stage-dual .stage-phone:last-child { z-index: 2; margin-left: -54px; transform: rotate(4deg) translateY(18px); }
 
+    /* Latest release */
+    .release-section { padding-block: clamp(56px, 6vw, 80px); }
+    .release-heading { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .release-section .feature-kicker { color: #875800; }
+    .release-section h2 { max-width: 690px; font-size: clamp(46px, 5vw, 68px); }
+    .release-section .feature-lede { max-width: 790px; }
+    .release-section .feature-point { border-color: var(--dark-line); }
+    .release-section .feature-point h3 { font-size: clamp(25px, 2.6vw, 32px); }
+    .release-section .button { flex-shrink: 0; }
+    .release-section :focus-visible { outline-color: var(--ink); }
+
     /* The Wire strip */
     .wire-strip { border-top: 1px solid var(--dark-line); padding-block: clamp(44px, 5vw, 64px); background: var(--paper); color: var(--ink); }
     .wire-grid {
@@ -754,6 +788,7 @@
     .closing h2 { max-width: 640px; font-size: clamp(52px, 5.6vw, 80px); }
     .closing h2 .gold { color: var(--gold); }
     .closing-note { margin-top: 20px; color: var(--quiet); font-size: 12px; font-weight: 600; }
+    .closing-invite { max-width: 520px; margin-top: 24px; color: var(--muted); font-size: 18px; }
     .closing-actions { display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
     .closing-actions .appstore-download, .closing-actions .button { width: 240px; min-height: 58px; border-radius: 10px; }
 
@@ -876,6 +911,15 @@
   </header>
 
   <main id="main">
+    <aside class="kickoff-band" aria-label="Week 1 home opener">
+      <div class="wrap kickoff-inner">
+        <div>
+          <p class="kickoff-matchup"><span>Week 1</span> · Falcons at Pittsburgh</p>
+          <p class="kickoff-time"><time datetime="2026-09-13T13:00:00-04:00">Sunday, September 13 · 1 PM ET / 10 AM PT</time> · Home opener</p>
+        </div>
+        <a class="kickoff-link" href="#latest">Get your Crew ready <span aria-hidden="true">↓</span></a>
+      </div>
+    </aside>
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-grid">
         <div class="hero-copy">
@@ -893,6 +937,7 @@
           </a>
           </div>
           <p class="hero-note">Free on the App Store · Invite-only Crews · No wagering</p>
+          <a class="hero-release" href="#latest">New: Crew push notifications + quick replies <span aria-hidden="true">&nbsp;↓</span></a>
         </div>
 
         <figure class="hero-art" aria-label="Example Crew Room during a Steelers game, with live chat and a Flash Pick">
@@ -959,6 +1004,37 @@
           </div>
           </div>
         </figure>
+      </div>
+    </section>
+
+    <section class="feature-section light release-section" id="latest" aria-labelledby="release-title">
+      <div class="wrap">
+        <div class="release-heading">
+          <div>
+            <p class="feature-kicker">New in 1.0.2 · Available now</p>
+            <h2 class="display" id="release-title">Crew notifications are here.</h2>
+          </div>
+          <a class="button button-primary" href="https://apps.apple.com/us/app/steel-city-gameday/id6806732803" target="_blank" rel="noopener noreferrer">Update on the App Store <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="feature-lede">Get your Crew together for the home opener. Update to 1.0.2 for push notifications when your Crew sends a message. Notifications are optional, and you set them per Crew.</p>
+        <div class="feature-points">
+          <article class="feature-point">
+            <h3>Reply from the notification</h3>
+            <p>See who sent the message and reply right from the alert. Tap it to open the right Crew Room.</p>
+          </article>
+          <article class="feature-point">
+            <h3>Choose your alerts</h3>
+            <p>Set each Crew to All, Mentions and replies, or Muted. You can also mute a Crew for the current game.</p>
+          </article>
+          <article class="feature-point">
+            <h3>Pick up where you left off</h3>
+            <p>Your Room remembers where you were reading and keeps your message draft when you step away.</p>
+          </article>
+          <article class="feature-point">
+            <h3>Easier to read during the game</h3>
+            <p>@mentions stand out in chat. Picks, Room, and Receipts share a compact score header, with better support for larger text.</p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1070,6 +1146,10 @@
             <p>Yes. There's no public feed. Only people with your Crew invite link can join, and nobody sees your picks until they lock.</p>
           </article>
           <article class="faq-item">
+            <h3>Can I control Crew notifications?</h3>
+            <p>Yes. Notifications are optional. In Settings &gt; Notifications, choose All, Mentions and replies, or Muted for each Crew. You can also mute a Crew for the current game. Update to version 1.0.2 to use these features.</p>
+          </article>
+          <article class="faq-item">
             <h3>How much does Steel City Gameday cost?</h3>
             <p>The app is free to download, and Crew chat is always free. Scored picks, receipts, and season standings are free for your first five played games. After that they require the 2026 Season Pass, a one-time $9.99 in-app purchase for the 2026 season. It does not renew, and there are no other purchases in the app.</p>
           </article>
@@ -1088,8 +1168,9 @@
     <section class="closing" aria-labelledby="closing-title">
       <div class="wrap closing-grid">
         <div>
-          <p class="feature-kicker">Availability</p>
-          <h2 class="display" id="closing-title">Now on the <span class="gold">App Store.</span></h2>
+          <p class="feature-kicker">Bring your Crew</p>
+          <h2 class="display" id="closing-title">Let's go, <span class="gold">Pittsburgh.</span></h2>
+          <p class="closing-invite">Download or update the app, invite your friends, and get your picks in before kickoff.</p>
           <p class="closing-note">Free to download for iPhone. Requires iOS 17 or later.</p>
         </div>
         <div class="closing-actions">
