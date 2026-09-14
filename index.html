@@ -1283,27 +1283,39 @@
     if (!/[?&]videodebug=1/.test(location.search)) return;
     var debug = document.createElement("pre");
     debug.setAttribute("aria-hidden", "true");
-    debug.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:2000;max-height:45vh;margin:0;padding:8px 10px 90px;overflow:auto;background:rgba(0,0,0,.92);color:#0f0;font:11px/1.35 Menlo,monospace;white-space:pre-wrap;pointer-events:none;";
+    debug.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:2000;max-height:60vh;margin:0;padding:8px 10px 90px;overflow:hidden;background:rgba(0,0,0,.94);color:#0f0;font:11px/1.35 Menlo,monospace;white-space:pre-wrap;pointer-events:none;";
     document.body.appendChild(debug);
-    var t0 = Date.now();
-    var log = function (msg) { debug.textContent += (((Date.now() - t0) / 1000).toFixed(1)) + "s " + msg + "\n"; debug.scrollTop = debug.scrollHeight; };
-    log("UA " + navigator.userAgent);
-    log("viewport " + innerWidth + "x" + innerHeight + " dpr " + devicePixelRatio);
-    log("video readyState=" + video.readyState + " networkState=" + video.networkState + " preload=" + video.preload + " canPlay=" + video.canPlayType("video/mp4"));
-    ["touchstart", "touchend", "pointerdown", "click"].forEach(function (t) {
+    var t0 = Date.now(); var head = []; var lines = [];
+    var render = function () { debug.textContent = head.concat(lines.slice(-16)).join("\n"); };
+    var log = function (msg) { lines.push((((Date.now() - t0) / 1000).toFixed(1)) + "s " + msg); render(); };
+    var fixed = function (msg) { head.push(msg); render(); };
+    fixed("UA " + navigator.userAgent.replace(/^Mozilla\/5\.0 /, ""));
+    fixed("viewport " + innerWidth + "x" + innerHeight + " online=" + navigator.onLine + (navigator.connection ? " conn=" + navigator.connection.effectiveType : ""));
+    var source = video.querySelector("source");
+    fixed("source=" + (source ? source.getAttribute("src") : "none") + " currentSrc=" + (video.currentSrc || "(empty)"));
+    fixed("initial readyState=" + video.readyState + " networkState=" + video.networkState + " canPlayType=" + JSON.stringify(video.canPlayType("video/mp4")) + " error=" + (video.error ? video.error.code : "none"));
+    // Fetch the media and poster the same way the browser would and report
+    // what the server actually returned.
+    var probe = function (label, url, headers) {
+      fetch(url, { headers: headers || {}, cache: "no-store" }).then(function (r) {
+        fixed(label + " HTTP " + r.status + " type=" + (r.headers.get("content-type") || "?") + " len=" + (r.headers.get("content-length") || "?") + " range=" + (r.headers.get("content-range") || "-") + " cf=" + (r.headers.get("cf-cache-status") || "-") + " ray=" + (r.headers.get("cf-ray") || "-"));
+      }).catch(function (e) { fixed(label + " FETCH FAILED " + e.name + ": " + e.message); });
+    };
+    probe("mp4 range", "assets/gameday-video.mp4?v=3&probe=" + Date.now(), { Range: "bytes=0-1" });
+    probe("mp4 plain", "assets/gameday-video.mp4?v=3&probe2=" + Date.now());
+    probe("poster", "assets/gameday-video-poster.jpg?v=2&probe=" + Date.now());
+    if (source) { source.addEventListener("error", function () { log("SOURCE ERROR: browser rejected or failed to fetch " + source.getAttribute("src")); }); }
+    ["touchstart", "click"].forEach(function (t) {
       document.addEventListener(t, function (e) {
         var el = e.target; var name = el.id || el.className || el.tagName;
         var pt = e.touches && e.touches[0] ? e.touches[0] : e;
-        log(t + " on " + name + (pt.clientX != null ? " @" + Math.round(pt.clientX) + "," + Math.round(pt.clientY) : "") + (e.defaultPrevented ? " (prevented)" : ""));
+        log(t + " on " + name + (pt.clientX != null ? " @" + Math.round(pt.clientX) + "," + Math.round(pt.clientY) : ""));
       }, true);
     });
     ["loadstart", "loadedmetadata", "loadeddata", "canplay", "play", "playing", "pause", "waiting", "stalled", "suspend", "abort", "emptied", "error", "ended"].forEach(function (t) {
       video.addEventListener(t, function () { log("video:" + t + " rs=" + video.readyState + " ns=" + video.networkState + " t=" + video.currentTime.toFixed(1) + (video.error ? " ERROR code=" + video.error.code + " " + video.error.message : "")); });
     });
-    var r = video.getBoundingClientRect();
-    log("video rect=" + Math.round(r.left) + "," + Math.round(r.top) + " " + Math.round(r.width) + "x" + Math.round(r.height));
-    var hit = document.elementFromPoint(r.left + r.width / 2, Math.min(innerHeight - 1, Math.max(0, r.top + r.height / 2)));
-    log("elementFromPoint(video center)=" + (hit ? (hit.id || hit.className || hit.tagName) : "none"));
+    setTimeout(function () { log("after 3s readyState=" + video.readyState + " networkState=" + video.networkState + " currentSrc=" + (video.currentSrc || "(empty)")); }, 3000);
   })();
 </script>
 </body>
