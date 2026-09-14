@@ -668,6 +668,15 @@
       background: #000;
       box-shadow: 0 24px 60px rgba(0, 0, 0, .3);
     }
+    .video-stage { position: relative; }
+    .video-play {
+      position: absolute; inset: 0; margin: auto; width: 84px; height: 84px;
+      display: grid; place-items: center; border: 0; border-radius: 999px; cursor: pointer;
+      background: var(--gold); color: #111217; font-size: 30px; padding-left: 6px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .45);
+    }
+    .video-play:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    .video-stage.is-playing .video-play { display: none; }
     .video-player figcaption { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
     .video-player figcaption a { text-decoration: underline; text-underline-offset: 3px; }
     @media (max-width: 960px) {
@@ -1053,12 +1062,17 @@
           <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
         </div>
         <figure class="video-player">
-          <video controls playsinline preload="none" poster="assets/gameday-video-poster.jpg?v=2" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
-            <source src="assets/gameday-video.mp4?v=2" type="video/mp4">
-            <track kind="captions" src="assets/gameday-video.vtt?v=2" srclang="en" label="English">
-            <p><a href="assets/gameday-video.mp4?v=2">Watch the Steel City Gameday video.</a></p>
-          </video>
-          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=2">Open video</a></figcaption>
+          <div class="video-stage">
+            <video id="gameday-video" controls playsinline webkit-playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=2" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
+              <source src="assets/gameday-video.mp4?v=3" type="video/mp4">
+              <track kind="captions" src="assets/gameday-video.vtt?v=2" srclang="en" label="English">
+              <p><a href="assets/gameday-video.mp4?v=3">Watch the Steel City Gameday video.</a></p>
+            </video>
+            <button type="button" class="video-play" id="gameday-video-play" aria-label="Play the Steel City Gameday video">
+              <span aria-hidden="true">&#9654;</span>
+            </button>
+          </div>
+          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=3">Open video</a></figcaption>
         </figure>
       </div>
     </section>
@@ -1262,5 +1276,30 @@
       </div>
     </div>
   </footer>
+<script>
+  (function () {
+    var video = document.getElementById("gameday-video");
+    var stage = video && video.parentNode;
+    var overlay = document.getElementById("gameday-video-play");
+    if (!video || !overlay) return;
+    // iOS Safari needs play() inside the tap itself. Every entry point (the
+    // overlay, the hero "Watch the video" button) starts playback directly
+    // instead of leaving a poster that only sometimes responds to a tap.
+    function start() {
+      var attempt = video.play();
+      if (attempt && attempt.catch) { attempt.catch(function () { stage.classList.remove("is-playing"); }); }
+    }
+    overlay.addEventListener("click", start);
+    video.addEventListener("playing", function () { stage.classList.add("is-playing"); });
+    video.addEventListener("pause", function () { if (video.ended || video.currentTime === 0) stage.classList.remove("is-playing"); });
+    video.addEventListener("ended", function () { stage.classList.remove("is-playing"); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#video"]'), function (link) {
+      link.addEventListener("click", function () {
+        video.scrollIntoView({ behavior: "smooth", block: "center" });
+        start();
+      });
+    });
+  })();
+</script>
 </body>
 </html>
