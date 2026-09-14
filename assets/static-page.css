@@ -176,6 +176,30 @@ strong { color: var(--white); }
 }
 .invite-card h2 { color: var(--gold); }
 .invite-card p:last-child { margin-bottom: 0; }
+.invite-code-card h2 { color: var(--gold); }
+.invite-code { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0 0; }
+.invite-code code {
+  font: 800 28px/1 "Barlow Condensed", "Inter", system-ui, sans-serif;
+  letter-spacing: .12em;
+  color: var(--white);
+  padding: 12px 16px;
+  border: 1px dashed var(--gold-line);
+  border-radius: 12px;
+  user-select: all;
+  -webkit-user-select: all;
+}
+.copy-code {
+  min-height: 44px;
+  padding-inline: 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--white);
+  font: 800 12px/1 "Inter", system-ui, sans-serif;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
 .invite-actions {
   display: flex;
   flex-wrap: wrap;

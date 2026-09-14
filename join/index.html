@@ -35,6 +35,12 @@
       <p id="game"></p>
     </section>
 
+    <section class="invite-card invite-code-card" id="code-card" hidden>
+      <h2>Don't have the app yet?</h2>
+      <p>Install it from the App Store, then come back and tap your invite link again. Or, in app version 1.0.4 or later, enter this invite code on the Crews tab.</p>
+      <p class="invite-code"><code id="invite-code" aria-label="Invite code"></code><button type="button" class="copy-code" id="copy-code">Copy</button></p>
+    </section>
+
     <div class="invite-actions">
       <a class="cta" id="open-app" href="https://steelcitygameday.com/">Open in the app</a>
       <a class="secondary-action" href="https://apps.apple.com/us/app/steel-city-gameday/id6806732803">Download on the App Store</a>
@@ -110,6 +116,23 @@
                 });
             game.textContent = `Week ${data.next_game.week} ${homeAway} ${data.next_game.opponent} · ${when}`;
             gameCard.hidden = false;
+          }
+
+          // The share link dies with the App Store install (iOS has no
+          // deferred deep linking), so the code is how a new install joins.
+          if (typeof data.code === "string" && /^[A-Z2-9]{4}-[A-Z2-9]{4}$/.test(data.code)) {
+            const codeCard = document.querySelector("#code-card");
+            const codeText = document.querySelector("#invite-code");
+            const copy = document.querySelector("#copy-code");
+            codeText.textContent = data.code;
+            copy.addEventListener("click", () => {
+              if (!navigator.clipboard) return;
+              navigator.clipboard.writeText(data.code).then(() => {
+                copy.textContent = "Copied";
+                window.setTimeout(() => { copy.textContent = "Copy"; }, 1800);
+              }).catch(() => {});
+            });
+            codeCard.hidden = false;
           }
         })
         .catch(() => {
