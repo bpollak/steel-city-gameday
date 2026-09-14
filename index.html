@@ -1316,25 +1316,35 @@
       video.addEventListener(t, function () { log("video:" + t + " rs=" + video.readyState + " ns=" + video.networkState + " t=" + video.currentTime.toFixed(1) + (video.error ? " ERROR code=" + video.error.code + " " + video.error.message : "")); });
     });
     setTimeout(function () { log("after 3s readyState=" + video.readyState + " networkState=" + video.networkState + " currentSrc=" + (video.currentSrc || "(empty)")); }, 3000);
-    // Test matrix: which of these can this device load at all?
+    // Test matrix: same file every time. A is the bare element that already
+    // loads on every device seen so far; each other row changes exactly one
+    // thing between that bare element and the real player above, so the
+    // failing attribute shows up as the first row that stops loading.
+    var mainSrc = source ? source.getAttribute("src") : "assets/gameday-video.mp4?v=4";
     var tests = [
-      ["A same file, no query", "assets/gameday-video.mp4"],
-      ["B 5s stream copy (same encode)", "assets/gameday-video-test-copy.mp4"],
-      ["C 5s H.264 Main 3.1, no B-frames", "assets/gameday-video-test-main.mp4"],
-      ["D 5s H.264 Baseline 3.0 540p", "assets/gameday-video-test-baseline.mp4"],
-      ["E external MDN flower.mp4", "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"]
+      ["A bare muted preload=auto, no query", function (v, s) { s.src = "assets/gameday-video.mp4"; }],
+      ["F bare muted preload=auto, same URL as player", function (v, s) { s.src = mainSrc; }],
+      ["G bare + unmuted", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); }],
+      ["H bare + controls", function (v, s) { s.src = mainSrc; v.setAttribute("controls", ""); }],
+      ["I bare + preload=metadata", function (v, s) { s.src = mainSrc; v.preload = "metadata"; }],
+      ["J bare + captions track", function (v, s) { s.src = mainSrc; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=2"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
+      ["K bare + poster", function (v, s) { s.src = mainSrc; v.poster = "assets/gameday-video-poster.jpg?v=2"; }],
+      ["L exact clone of player (all of the above)", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); v.setAttribute("controls", ""); v.preload = "metadata"; v.poster = "assets/gameday-video-poster.jpg?v=2"; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=2"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
+      ["M clone in the player's own figure", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); v.setAttribute("controls", ""); v.preload = "metadata"; v.style.cssText = ""; v.dataset.mount = "figure"; }]
     ];
     var results = {}; var testHead = head.length; head.push("tests: loading...");
     var renderTests = function () { head[testHead] = "tests: " + tests.map(function (t) { return t[0].charAt(0) + "=" + (results[t[0]] || "..."); }).join(" "); render(); };
     tests.forEach(function (t) {
-      var v = document.createElement("video"); v.muted = true; v.setAttribute("playsinline", ""); v.preload = "auto";
+      var v = document.createElement("video"); v.muted = true; v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.preload = "auto";
       v.style.cssText = "position:fixed;width:2px;height:2px;opacity:0;pointer-events:none;";
-      v.addEventListener("loadedmetadata", function () { results[t[0]] = "meta" + v.videoWidth + "x" + v.videoHeight; renderTests(); });
+      v.addEventListener("loadedmetadata", function () { results[t[0]] = "meta"; renderTests(); });
       v.addEventListener("canplay", function () { results[t[0]] = "OK"; renderTests(); });
       v.addEventListener("error", function () { results[t[0]] = "ERR" + (v.error ? v.error.code : "?"); renderTests(); log(t[0] + " error code=" + (v.error ? v.error.code + " " + v.error.message : "?")); });
-      var src = document.createElement("source"); src.src = t[1]; src.type = "video/mp4";
-      src.addEventListener("error", function () { results[t[0]] = "SRCFAIL"; renderTests(); });
-      v.appendChild(src); document.body.appendChild(v); v.load();
+      var src = document.createElement("source"); src.type = "video/mp4";
+      src.addEventListener("error", function () { results[t[0]] = "SRCFAIL"; renderTests(); log(t[0] + " SOURCE ERROR"); });
+      v.appendChild(src); t[1](v, src);
+      if (v.dataset.mount === "figure") { video.parentNode.insertBefore(v, video.nextSibling); } else { document.body.appendChild(v); }
+      v.load();
       setTimeout(function () { if (!results[t[0]]) { results[t[0]] = "timeout ns=" + v.networkState; renderTests(); } }, 8000);
     });
     renderTests();
