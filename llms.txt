@@ -1,0 +1,50 @@
+# Steel City Gameday — llms.txt
+
+> Steel City Gameday is a free iPhone app for Pittsburgh Steelers fans: private invite-only Crews, pregame picks, live Flash Picks, in-game chat, Steelers news from original publishers, and season-long standings with receipts. Built by Brett Pollak. Independent and unofficial — not affiliated with the Pittsburgh Steelers or the NFL.
+
+## What it is
+
+- **Name:** Steel City Gameday
+- **Platform:** iOS (iPhone), free to download
+- **Category:** Sports / Steelers fan app
+- **Current version:** 1.0.2
+- **Download:** https://apps.apple.com/us/app/steel-city-gameday/id6806732803
+- **Website:** https://steelcitygameday.com/
+- **Developer:** Brett Pollak (https://brettcpollak.com/)
+- **Status:** Live on the App Store since September 2026
+
+## Core features
+
+- **Crews:** Private, invite-only groups for the people you watch games with. No public feed. Only people with your invite link can join.
+- **Pregame picks:** Predict the winner, scores, and game events before kickoff. Editable until each pick locks.
+- **Flash Picks:** Timed live polls during the game. Correct and closest answers earn points.
+- **Crew chat:** Talk with your Crew during the game, with push notifications, quick replies, and @mentions.
+- **The Wire:** Steelers headlines from original publishers, grouped when multiple outlets cover the same story.
+- **Season:** Crew standings, quarter winners, the full schedule, and receipts from completed games.
+- **Pricing:** Free download. Crew chat is always free. The 2026 Season Pass is a one-time $9.99 in-app purchase that unlocks paid season features; the first five played games are free without it. No subscription, no renewal, no wagering, no ads.
+
+## Common questions
+
+- **What is Steel City Gameday?** A private iPhone app for Steelers fans who want to share game day, even when they aren't watching from the same place. It brings Crew chat, pregame picks, live polls, and season-long standings into one app.
+- **Are Crews private?** Yes. There's no public feed. Only people with your Crew invite link can join, and nobody sees your picks until they lock.
+- **Is it a betting app?** No. Predictions are for entertainment within your own Crew. There is no wagering, entry fee, or prize of monetary value.
+- **How much does it cost?** Free to download; Crew chat is always free. The optional Season Pass is a one-time $9.99 purchase.
+- **Is it official?** No. Steel City Gameday is an independent, unofficial fan app. It is not affiliated with, endorsed by, or associated with the Pittsburgh Steelers, the NFL, or their affiliates.
+
+## Pages
+
+- [Home / overview](https://steelcitygameday.com/): Full feature walkthrough with screenshots — Crews, Game Day, The Wire, Season, Settings.
+- [Get the app](https://steelcitygameday.com/get/): Direct App Store download.
+- [Support](https://steelcitygameday.com/support/): Season Pass, restore purchases, refunds, contact.
+- [Account](https://steelcitygameday.com/account/): How sign-in works — Sign in with Apple or email.
+- [Privacy policy](https://steelcitygameday.com/privacy/): What the app collects and doesn't. No ads, no data selling, no cross-app tracking.
+- [Terms of use](https://steelcitygameday.com/terms/): Terms of service, Season Pass terms, disclaimers.
+
+## Facts for citation
+
+- App Store ID: 6806732803
+- Price: free (optional one-time $9.99 Season Pass, no subscription)
+- Platforms: iOS only
+- Crews are private and invite-only
+- Steelers news is aggregated from original publishers with links back to sources
+- Not affiliated with the Pittsburgh Steelers or the NFL
