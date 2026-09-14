@@ -1055,7 +1055,6 @@
         <figure class="video-player" id="gameday-video-player">
           <video id="gameday-video" controls playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=2" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
             <source src="assets/gameday-video.mp4?v=4" type="video/mp4">
-            <track kind="captions" src="assets/gameday-video.vtt?v=2" srclang="en" label="English">
             <p><a href="assets/gameday-video.mp4?v=4">Watch the Steel City Gameday video.</a></p>
           </video>
           <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=4">Open video</a></figcaption>
@@ -1266,6 +1265,31 @@
   (function () {
     var video = document.getElementById("gameday-video");
     if (!video) return;
+    // Captions are added from script instead of a <track> element. Safari 27
+    // on iOS hands a <track> to the media stack, which fetches the VTT by byte
+    // range; GitHub Pages serves .vtt pre-gzipped and answers range requests
+    // with the compressed length, so the whole video failed to load.
+    if (video.addTextTrack && window.fetch) {
+      fetch("assets/gameday-video.vtt?v=2").then(function (r) { return r.ok ? r.text() : Promise.reject(new Error(r.status)); }).then(function (text) {
+        var Cue = window.VTTCue || window.TextTrackCue;
+        if (!Cue) return;
+        var toSeconds = function (stamp) {
+          var parts = stamp.trim().split(":"); var secs = parseFloat(parts.pop()); var unit = 60;
+          while (parts.length) { secs += parseInt(parts.pop(), 10) * unit; unit *= 60; }
+          return secs;
+        };
+        var track = video.addTextTrack("captions", "English", "en");
+        text.replace(/\r/g, "").split(/\n\n+/).forEach(function (block) {
+          var lines = block.split("\n"); var timing = -1;
+          for (var i = 0; i < lines.length; i++) { if (lines[i].indexOf("-->") !== -1) { timing = i; break; } }
+          if (timing < 0) return;
+          var range = lines[timing].split("-->");
+          var body = lines.slice(timing + 1).join("\n").trim();
+          if (body) { track.addCue(new Cue(toSeconds(range[0]), toSeconds(range[1].split(/\s+/)[1] || range[1]), body)); }
+        });
+        track.mode = "disabled";
+      }).catch(function () {});
+    }
     // Playback is left entirely to the browser's native controls. The hero
     // button only scrolls the player into view; it must call preventDefault
     // so the browser's own hash jump cannot land the section top instead,
