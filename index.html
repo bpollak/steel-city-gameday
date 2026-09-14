@@ -1285,9 +1285,42 @@
     // iOS Safari needs play() inside the tap itself. Every entry point (the
     // overlay, the hero "Watch the video" button) starts playback directly
     // instead of leaving a poster that only sometimes responds to a tap.
+    // Diagnostic mode: open ?videodebug=1 to see tap and media events on
+    // screen. Used to chase device-specific playback reports; no effect
+    // otherwise.
+    var debug = null;
+    if (/[?&]videodebug=1/.test(location.search)) {
+      debug = document.createElement("pre");
+      debug.setAttribute("aria-hidden", "true");
+      debug.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:2000;max-height:45vh;margin:0;padding:8px 10px 90px;overflow:auto;background:rgba(0,0,0,.92);color:#0f0;font:11px/1.35 Menlo,monospace;white-space:pre-wrap;pointer-events:none;";
+      document.body.appendChild(debug);
+      var t0 = Date.now();
+      var log = function (msg) { debug.textContent += (((Date.now() - t0) / 1000).toFixed(1)) + "s " + msg + "\n"; debug.scrollTop = debug.scrollHeight; };
+      log("UA " + navigator.userAgent);
+      log("viewport " + innerWidth + "x" + innerHeight + " dpr " + devicePixelRatio);
+      log("video readyState=" + video.readyState + " networkState=" + video.networkState + " preload=" + video.preload + " canPlay=" + video.canPlayType("video/mp4"));
+      ["touchstart", "touchend", "pointerdown", "click"].forEach(function (t) {
+        document.addEventListener(t, function (e) {
+          var el = e.target; var name = el.id || el.className || el.tagName;
+          var pt = e.touches && e.touches[0] ? e.touches[0] : e;
+          log(t + " on " + name + (pt.clientX != null ? " @" + Math.round(pt.clientX) + "," + Math.round(pt.clientY) : "") + (e.defaultPrevented ? " (prevented)" : ""));
+        }, true);
+      });
+      ["loadstart", "loadedmetadata", "loadeddata", "canplay", "play", "playing", "pause", "waiting", "stalled", "suspend", "abort", "emptied", "error", "ended"].forEach(function (t) {
+        video.addEventListener(t, function () { log("video:" + t + " rs=" + video.readyState + " ns=" + video.networkState + " t=" + video.currentTime.toFixed(1) + (video.error ? " ERROR code=" + video.error.code + " " + video.error.message : "")); });
+      });
+      var r = overlay.getBoundingClientRect();
+      log("overlay display=" + getComputedStyle(overlay).display + " rect=" + Math.round(r.left) + "," + Math.round(r.top) + " " + Math.round(r.width) + "x" + Math.round(r.height));
+      var hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      log("elementFromPoint(overlay center)=" + (hit ? (hit.id || hit.className || hit.tagName) : "none"));
+    }
     function start() {
+      if (debug) { debug.textContent += "start() called, paused=" + video.paused + " rs=" + video.readyState + "\n"; }
       var attempt = video.play();
-      if (attempt && attempt.catch) { attempt.catch(function () { stage.classList.remove("is-playing"); }); }
+      if (attempt && attempt.then) {
+        attempt.then(function () { if (debug) { debug.textContent += "play() resolved\n"; } });
+      }
+      if (attempt && attempt.catch) { attempt.catch(function (err) { if (debug) { debug.textContent += "play() rejected: " + err.name + ": " + err.message + "\n"; } stage.classList.remove("is-playing"); }); }
     }
     overlay.addEventListener("click", start);
     video.addEventListener("playing", function () { stage.classList.add("is-playing"); });
