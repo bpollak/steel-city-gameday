@@ -1054,11 +1054,11 @@
         </div>
         <figure class="video-player" id="gameday-video-player">
           <video id="gameday-video" controls playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=2" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
-            <source src="assets/gameday-video.mp4?v=3" type="video/mp4">
+            <source src="assets/gameday-video.mp4?v=4" type="video/mp4">
             <track kind="captions" src="assets/gameday-video.vtt?v=2" srclang="en" label="English">
-            <p><a href="assets/gameday-video.mp4?v=3">Watch the Steel City Gameday video.</a></p>
+            <p><a href="assets/gameday-video.mp4?v=4">Watch the Steel City Gameday video.</a></p>
           </video>
-          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=3">Open video</a></figcaption>
+          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=4">Open video</a></figcaption>
         </figure>
       </div>
     </section>
@@ -1301,8 +1301,8 @@
         fixed(label + " HTTP " + r.status + " type=" + (r.headers.get("content-type") || "?") + " len=" + (r.headers.get("content-length") || "?") + " range=" + (r.headers.get("content-range") || "-") + " cf=" + (r.headers.get("cf-cache-status") || "-") + " ray=" + (r.headers.get("cf-ray") || "-"));
       }).catch(function (e) { fixed(label + " FETCH FAILED " + e.name + ": " + e.message); });
     };
-    probe("mp4 range", "assets/gameday-video.mp4?v=3&probe=" + Date.now(), { Range: "bytes=0-1" });
-    probe("mp4 plain", "assets/gameday-video.mp4?v=3&probe2=" + Date.now());
+    probe("mp4 range", "assets/gameday-video.mp4?v=4&probe=" + Date.now(), { Range: "bytes=0-1" });
+    probe("mp4 plain", "assets/gameday-video.mp4?v=4&probe2=" + Date.now());
     probe("poster", "assets/gameday-video-poster.jpg?v=2&probe=" + Date.now());
     if (source) { source.addEventListener("error", function () { log("SOURCE ERROR: browser rejected or failed to fetch " + source.getAttribute("src")); }); }
     ["touchstart", "click"].forEach(function (t) {
