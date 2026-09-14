@@ -1053,7 +1053,7 @@
           <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
         </div>
         <figure class="video-player" id="gameday-video-player">
-          <video id="gameday-video" controls playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=2" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
+          <video id="gameday-video" controls playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=3" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
             <source src="assets/gameday-video.mp4?v=4" type="video/mp4">
             <p><a href="assets/gameday-video.mp4?v=4">Watch the Steel City Gameday video.</a></p>
           </video>
@@ -1270,7 +1270,7 @@
     // range; GitHub Pages serves .vtt pre-gzipped and answers range requests
     // with the compressed length, so the whole video failed to load.
     if (video.addTextTrack && window.fetch) {
-      fetch("assets/gameday-video.vtt?v=2").then(function (r) { return r.ok ? r.text() : Promise.reject(new Error(r.status)); }).then(function (text) {
+      fetch("assets/gameday-video.vtt?v=3").then(function (r) { return r.ok ? r.text() : Promise.reject(new Error(r.status)); }).then(function (text) {
         var Cue = window.VTTCue || window.TextTrackCue;
         if (!Cue) return;
         var toSeconds = function (stamp) {
@@ -1327,7 +1327,7 @@
     };
     probe("mp4 range", "assets/gameday-video.mp4?v=4&probe=" + Date.now(), { Range: "bytes=0-1" });
     probe("mp4 plain", "assets/gameday-video.mp4?v=4&probe2=" + Date.now());
-    probe("poster", "assets/gameday-video-poster.jpg?v=2&probe=" + Date.now());
+    probe("poster", "assets/gameday-video-poster.jpg?v=3&probe=" + Date.now());
     if (source) { source.addEventListener("error", function () { log("SOURCE ERROR: browser rejected or failed to fetch " + source.getAttribute("src")); }); }
     ["touchstart", "click"].forEach(function (t) {
       document.addEventListener(t, function (e) {
@@ -1351,9 +1351,9 @@
       ["G bare + unmuted", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); }],
       ["H bare + controls", function (v, s) { s.src = mainSrc; v.setAttribute("controls", ""); }],
       ["I bare + preload=metadata", function (v, s) { s.src = mainSrc; v.preload = "metadata"; }],
-      ["J bare + captions track", function (v, s) { s.src = mainSrc; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=2"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
-      ["K bare + poster", function (v, s) { s.src = mainSrc; v.poster = "assets/gameday-video-poster.jpg?v=2"; }],
-      ["L exact clone of player (all of the above)", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); v.setAttribute("controls", ""); v.preload = "metadata"; v.poster = "assets/gameday-video-poster.jpg?v=2"; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=2"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
+      ["J bare + captions track", function (v, s) { s.src = mainSrc; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=3"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
+      ["K bare + poster", function (v, s) { s.src = mainSrc; v.poster = "assets/gameday-video-poster.jpg?v=3"; }],
+      ["L exact clone of player (all of the above)", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); v.setAttribute("controls", ""); v.preload = "metadata"; v.poster = "assets/gameday-video-poster.jpg?v=3"; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=3"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
       ["M clone in the player's own figure", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); v.setAttribute("controls", ""); v.preload = "metadata"; v.style.cssText = ""; v.dataset.mount = "figure"; }]
     ];
     var results = {}; var testHead = head.length; head.push("tests: loading...");
