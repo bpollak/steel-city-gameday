@@ -1054,11 +1054,11 @@
           <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
         </div>
         <figure class="video-player" id="gameday-video-player">
-          <video id="gameday-video" controls playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=4" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
-            <source src="assets/gameday-video.mp4?v=5" type="video/mp4">
-            <p><a href="assets/gameday-video.mp4?v=5">Watch the Steel City Gameday video.</a></p>
+          <video id="gameday-video" controls playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=5" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
+            <source src="assets/gameday-video.mp4?v=6" type="video/mp4">
+            <p><a href="assets/gameday-video.mp4?v=6">Watch the Steel City Gameday video.</a></p>
           </video>
-          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=5">Open video</a></figcaption>
+          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=6">Open video</a></figcaption>
         </figure>
       </div>
     </section>
@@ -1272,7 +1272,7 @@
     // range; GitHub Pages serves .vtt pre-gzipped and answers range requests
     // with the compressed length, so the whole video failed to load.
     if (video.addTextTrack && window.fetch) {
-      fetch("assets/gameday-video.vtt?v=4").then(function (r) { return r.ok ? r.text() : Promise.reject(new Error(r.status)); }).then(function (text) {
+      fetch("assets/gameday-video.vtt?v=5").then(function (r) { return r.ok ? r.text() : Promise.reject(new Error(r.status)); }).then(function (text) {
         var Cue = window.VTTCue || window.TextTrackCue;
         if (!Cue) return;
         var toSeconds = function (stamp) {
@@ -1327,9 +1327,9 @@
         fixed(label + " HTTP " + r.status + " type=" + (r.headers.get("content-type") || "?") + " len=" + (r.headers.get("content-length") || "?") + " range=" + (r.headers.get("content-range") || "-") + " cf=" + (r.headers.get("cf-cache-status") || "-") + " ray=" + (r.headers.get("cf-ray") || "-"));
       }).catch(function (e) { fixed(label + " FETCH FAILED " + e.name + ": " + e.message); });
     };
-    probe("mp4 range", "assets/gameday-video.mp4?v=5&probe=" + Date.now(), { Range: "bytes=0-1" });
-    probe("mp4 plain", "assets/gameday-video.mp4?v=5&probe2=" + Date.now());
-    probe("poster", "assets/gameday-video-poster.jpg?v=4&probe=" + Date.now());
+    probe("mp4 range", "assets/gameday-video.mp4?v=6&probe=" + Date.now(), { Range: "bytes=0-1" });
+    probe("mp4 plain", "assets/gameday-video.mp4?v=6&probe2=" + Date.now());
+    probe("poster", "assets/gameday-video-poster.jpg?v=5&probe=" + Date.now());
     if (source) { source.addEventListener("error", function () { log("SOURCE ERROR: browser rejected or failed to fetch " + source.getAttribute("src")); }); }
     ["touchstart", "click"].forEach(function (t) {
       document.addEventListener(t, function (e) {
@@ -1346,16 +1346,16 @@
     // loads on every device seen so far; each other row changes exactly one
     // thing between that bare element and the real player above, so the
     // failing attribute shows up as the first row that stops loading.
-    var mainSrc = source ? source.getAttribute("src") : "assets/gameday-video.mp4?v=5";
+    var mainSrc = source ? source.getAttribute("src") : "assets/gameday-video.mp4?v=6";
     var tests = [
       ["A bare muted preload=auto, no query", function (v, s) { s.src = "assets/gameday-video.mp4"; }],
       ["F bare muted preload=auto, same URL as player", function (v, s) { s.src = mainSrc; }],
       ["G bare + unmuted", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); }],
       ["H bare + controls", function (v, s) { s.src = mainSrc; v.setAttribute("controls", ""); }],
       ["I bare + preload=metadata", function (v, s) { s.src = mainSrc; v.preload = "metadata"; }],
-      ["J bare + captions track", function (v, s) { s.src = mainSrc; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=4"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
-      ["K bare + poster", function (v, s) { s.src = mainSrc; v.poster = "assets/gameday-video-poster.jpg?v=4"; }],
-      ["L exact clone of player (all of the above)", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); v.setAttribute("controls", ""); v.preload = "metadata"; v.poster = "assets/gameday-video-poster.jpg?v=4"; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=4"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
+      ["J bare + captions track", function (v, s) { s.src = mainSrc; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=5"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
+      ["K bare + poster", function (v, s) { s.src = mainSrc; v.poster = "assets/gameday-video-poster.jpg?v=5"; }],
+      ["L exact clone of player (all of the above)", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); v.setAttribute("controls", ""); v.preload = "metadata"; v.poster = "assets/gameday-video-poster.jpg?v=5"; var tr = document.createElement("track"); tr.kind = "captions"; tr.src = "assets/gameday-video.vtt?v=5"; tr.srclang = "en"; tr.label = "English"; v.appendChild(tr); }],
       ["M clone in the player's own figure", function (v, s) { s.src = mainSrc; v.muted = false; v.removeAttribute("muted"); v.setAttribute("controls", ""); v.preload = "metadata"; v.style.cssText = ""; v.dataset.mount = "figure"; }]
     ];
     var results = {}; var testHead = head.length; head.push("tests: loading...");
