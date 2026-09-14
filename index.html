@@ -657,7 +657,7 @@
     .video-copy .feature-lede { max-width: 500px; color: var(--muted); }
     .video-detail { margin-top: 22px; color: var(--muted); font-size: 13px; }
     .video-detail span { margin-inline: 8px; color: var(--gold); }
-    .video-player { grid-area: player; width: min(100%, 340px); justify-self: center; }
+    .video-player { grid-area: player; width: min(100%, 340px); justify-self: center; scroll-margin-block: 24px; }
     .video-player video {
       display: block;
       width: 100%;
@@ -976,7 +976,7 @@
           </h1>
           <p class="hero-lede">Private group chats for the people you watch Steelers games with, one Crew for family, another for college friends, with a fantasy football twist. Each Crew answers poll questions before and during the game, earns points for correct answers, and keeps a running tally all season.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#video">Watch the video <span aria-hidden="true">▶</span></a>
+            <a class="button button-primary" href="#gameday-video-player">Watch the video <span aria-hidden="true">▶</span></a>
           <a class="appstore-download" href="https://apps.apple.com/us/app/steel-city-gameday/id6806732803" aria-label="Download Steel City Gameday on the App Store">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.031 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"></path></svg>
             <span class="appstore-download-text"><small>Download on the</small><strong>App Store</strong></span>
@@ -1061,7 +1061,7 @@
           <p class="feature-lede">See how your Crew can make the most of Steel City Gameday. Follow Steelers news, make pregame picks, chat during the game, answer live Flash Picks, and compare results and season standings. This game-day walkthrough shows how the features work together, whether your Crew is on the same couch or watching from different places.</p>
           <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
         </div>
-        <figure class="video-player">
+        <figure class="video-player" id="gameday-video-player">
           <div class="video-stage">
             <video id="gameday-video" controls playsinline webkit-playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=2" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
               <source src="assets/gameday-video.mp4?v=3" type="video/mp4">
@@ -1293,10 +1293,15 @@
     video.addEventListener("playing", function () { stage.classList.add("is-playing"); });
     video.addEventListener("pause", function () { if (video.ended || video.currentTime === 0) stage.classList.remove("is-playing"); });
     video.addEventListener("ended", function () { stage.classList.remove("is-playing"); });
-    Array.prototype.forEach.call(document.querySelectorAll('a[href="#video"]'), function (link) {
-      link.addEventListener("click", function () {
-        video.scrollIntoView({ behavior: "smooth", block: "center" });
+    // The hero button must call preventDefault: otherwise the browser's own
+    // hash jump lands after this handler and scrolls to the section top, which
+    // on phones leaves the playing video below the fold.
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#gameday-video-player"]'), function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (history.replaceState) { history.replaceState(null, "", link.getAttribute("href")); }
         start();
+        video.scrollIntoView({ behavior: "smooth", block: "center" });
       });
     });
   })();
