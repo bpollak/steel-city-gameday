@@ -670,6 +670,10 @@
     }
     .video-player figcaption { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
     .video-player figcaption a { text-decoration: underline; text-underline-offset: 3px; }
+    .walkthrough-feature { background: var(--ink); }
+    @media (min-width: 961px) {
+      .walkthrough-feature .video-grid { grid-template-columns: minmax(500px, .98fr) minmax(0, 1fr); grid-template-areas: "copy player"; }
+    }
     @media (max-width: 960px) {
       .video-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "player"; gap: 32px; }
       .video-copy h2 { max-width: 540px; }
@@ -1178,6 +1182,24 @@
       </div>
     </section>
 
+    <section class="video-feature walkthrough-feature" id="walkthrough" aria-labelledby="walkthrough-title">
+      <div class="wrap video-grid">
+        <div class="video-copy">
+          <p class="feature-kicker">Full walkthrough</p>
+          <h2 class="display" id="walkthrough-title">See every feature, start to finish.</h2>
+          <p class="feature-lede">Mike walks through the app the way a Crew uses it on a Steelers Sunday: create a Crew and invite friends with a code, make picks before kickoff, talk in the private Room during the game, answer the Flash Pick, then see every pick scored and who called it after the final.</p>
+          <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
+        </div>
+        <figure class="video-player" id="gameday-walkthrough-player">
+          <video id="gameday-walkthrough" controls playsinline preload="metadata" poster="assets/gameday-walkthrough-poster.jpg?v=1" width="720" height="1280" aria-label="Steel City Gameday: full feature walkthrough" aria-describedby="walkthrough-caption">
+            <source src="assets/gameday-walkthrough.mp4?v=1" type="video/mp4">
+            <p><a href="assets/gameday-walkthrough.mp4?v=1">Watch the Steel City Gameday walkthrough.</a></p>
+          </video>
+          <figcaption id="walkthrough-caption">Play with sound. <a href="assets/gameday-walkthrough.mp4?v=1">Open video</a></figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="wire-strip" aria-labelledby="wire-title">
       <div class="wrap wire-grid">
         <p class="feature-kicker">Also in the app · The Wire</p>
@@ -1265,14 +1287,16 @@
   </footer>
 <script>
   (function () {
-    var video = document.getElementById("gameday-video");
-    if (!video) return;
     // Captions are added from script instead of a <track> element. Safari 27
     // on iOS hands a <track> to the media stack, which fetches the VTT by byte
     // range; GitHub Pages serves .vtt pre-gzipped and answers range requests
     // with the compressed length, so the whole video failed to load.
+    var players = [["gameday-video", "assets/gameday-video.vtt?v=5"], ["gameday-walkthrough", "assets/gameday-walkthrough.vtt?v=1"]];
+    players.forEach(function (pair) {
+    var video = document.getElementById(pair[0]);
+    if (!video) return;
     if (video.addTextTrack && window.fetch) {
-      fetch("assets/gameday-video.vtt?v=5").then(function (r) { return r.ok ? r.text() : Promise.reject(new Error(r.status)); }).then(function (text) {
+      fetch(pair[1]).then(function (r) { return r.ok ? r.text() : Promise.reject(new Error(r.status)); }).then(function (text) {
         var Cue = window.VTTCue || window.TextTrackCue;
         if (!Cue) return;
         var toSeconds = function (stamp) {
@@ -1292,6 +1316,9 @@
         track.mode = "disabled";
       }).catch(function () {});
     }
+    });
+    var video = document.getElementById("gameday-video");
+    if (!video) return;
     // Playback is left entirely to the browser's native controls. The hero
     // button only scrolls the player into view; it must call preventDefault
     // so the browser's own hash jump cannot land the section top instead,
