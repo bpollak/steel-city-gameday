@@ -670,9 +670,9 @@
     }
     .video-player figcaption { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
     .video-player figcaption a { text-decoration: underline; text-underline-offset: 3px; }
-    .walkthrough-feature { background: var(--ink); }
+    .video-feature-alt { background: var(--ink); }
     @media (min-width: 961px) {
-      .walkthrough-feature .video-grid { grid-template-columns: minmax(500px, .98fr) minmax(0, 1fr); grid-template-areas: "copy player"; }
+      .video-feature-alt .video-grid { grid-template-columns: minmax(500px, .98fr) minmax(0, 1fr); grid-template-areas: "copy player"; }
     }
     @media (max-width: 960px) {
       .video-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "player"; gap: 32px; }
@@ -972,7 +972,7 @@
           </h1>
           <p class="hero-lede">Private Crew chats for the people you watch Pittsburgh Steelers games with, one Crew for family, another for college friends. The group chat you already have, rebuilt for game day: pregame and game-winner picks, live questions while the game is on, points for correct answers, and a tally that runs all season.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#gameday-video-player">Watch the video <span aria-hidden="true">▶</span></a>
+            <a class="button button-primary" href="#gameday-walkthrough-player">Watch the video <span aria-hidden="true">▶</span></a>
           <a class="appstore-download" href="https://apps.apple.com/us/app/steel-city-gameday/id6806732803" aria-label="Download Steel City Gameday on the App Store">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.031 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"></path></svg>
             <span class="appstore-download-text"><small>Download on the</small><strong>App Store</strong></span>
@@ -1049,20 +1049,20 @@
       </div>
     </section>
 
-    <section class="video-feature" id="video" aria-labelledby="video-title">
+    <section class="video-feature" id="walkthrough" aria-labelledby="walkthrough-title">
       <div class="wrap video-grid">
         <div class="video-copy">
           <p class="feature-kicker">Watch Steel City Gameday</p>
-          <h2 class="display" id="video-title">Get your Crew together.</h2>
-          <p class="feature-lede">See how your Crew can make the most of Steel City Gameday. Follow Steelers news, make pregame picks, chat during the game, answer live Flash Picks, and compare results and season standings. This game-day walkthrough shows how the features work together, whether your Crew is on the same couch or watching from different places.</p>
+          <h2 class="display" id="walkthrough-title">See every feature, start to finish.</h2>
+          <p class="feature-lede">Mike walks through the app the way a Crew uses it on a Steelers Sunday: create a Crew and invite friends with a code, make picks before kickoff, talk in the private Room during the game, answer the Flash Pick, then see every pick scored and who called it after the final.</p>
           <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
         </div>
-        <figure class="video-player" id="gameday-video-player">
-          <video id="gameday-video" controls playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=5" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
-            <source src="assets/gameday-video.mp4?v=6" type="video/mp4">
-            <p><a href="assets/gameday-video.mp4?v=6">Watch the Steel City Gameday video.</a></p>
+        <figure class="video-player" id="gameday-walkthrough-player">
+          <video id="gameday-walkthrough" controls playsinline preload="metadata" poster="assets/gameday-walkthrough-poster.jpg?v=1" width="720" height="1280" aria-label="Steel City Gameday: full feature walkthrough" aria-describedby="walkthrough-caption">
+            <source src="assets/gameday-walkthrough.mp4?v=1" type="video/mp4">
+            <p><a href="assets/gameday-walkthrough.mp4?v=1">Watch the Steel City Gameday walkthrough.</a></p>
           </video>
-          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=6">Open video</a></figcaption>
+          <figcaption id="walkthrough-caption">Play with sound. <a href="assets/gameday-walkthrough.mp4?v=1">Open video</a></figcaption>
         </figure>
       </div>
     </section>
@@ -1182,20 +1182,20 @@
       </div>
     </section>
 
-    <section class="video-feature walkthrough-feature" id="walkthrough" aria-labelledby="walkthrough-title">
+    <section class="video-feature video-feature-alt" id="video" aria-labelledby="video-title">
       <div class="wrap video-grid">
         <div class="video-copy">
-          <p class="feature-kicker">Full walkthrough</p>
-          <h2 class="display" id="walkthrough-title">See every feature, start to finish.</h2>
-          <p class="feature-lede">Mike walks through the app the way a Crew uses it on a Steelers Sunday: create a Crew and invite friends with a code, make picks before kickoff, talk in the private Room during the game, answer the Flash Pick, then see every pick scored and who called it after the final.</p>
+          <p class="feature-kicker">Game day with a Crew</p>
+          <h2 class="display" id="video-title">Get your Crew together.</h2>
+          <p class="feature-lede">See how your Crew can make the most of Steel City Gameday. Follow Steelers news, make pregame picks, chat during the game, answer live Flash Picks, and compare results and season standings. This game-day walkthrough shows how the features work together, whether your Crew is on the same couch or watching from different places.</p>
           <p class="video-detail">About 90 seconds <span aria-hidden="true">·</span> Captioned</p>
         </div>
-        <figure class="video-player" id="gameday-walkthrough-player">
-          <video id="gameday-walkthrough" controls playsinline preload="metadata" poster="assets/gameday-walkthrough-poster.jpg?v=1" width="720" height="1280" aria-label="Steel City Gameday: full feature walkthrough" aria-describedby="walkthrough-caption">
-            <source src="assets/gameday-walkthrough.mp4?v=1" type="video/mp4">
-            <p><a href="assets/gameday-walkthrough.mp4?v=1">Watch the Steel City Gameday walkthrough.</a></p>
+        <figure class="video-player" id="gameday-video-player">
+          <video id="gameday-video" controls playsinline preload="metadata" poster="assets/gameday-video-poster.jpg?v=5" width="720" height="1280" aria-label="Steel City Gameday: Get your Crew together" aria-describedby="video-caption">
+            <source src="assets/gameday-video.mp4?v=6" type="video/mp4">
+            <p><a href="assets/gameday-video.mp4?v=6">Watch the Steel City Gameday video.</a></p>
           </video>
-          <figcaption id="walkthrough-caption">Play with sound. <a href="assets/gameday-walkthrough.mp4?v=1">Open video</a></figcaption>
+          <figcaption id="video-caption">Play with sound. <a href="assets/gameday-video.mp4?v=6">Open video</a></figcaption>
         </figure>
       </div>
     </section>
@@ -1323,7 +1323,7 @@
     // button only scrolls the player into view; it must call preventDefault
     // so the browser's own hash jump cannot land the section top instead,
     // which on phones leaves the player below the fold.
-    Array.prototype.forEach.call(document.querySelectorAll('a[href="#gameday-video-player"]'), function (link) {
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#gameday-walkthrough-player"]'), function (link) {
       link.addEventListener("click", function (event) {
         event.preventDefault();
         if (history.replaceState) { history.replaceState(null, "", link.getAttribute("href")); }
